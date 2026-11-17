@@ -1,0 +1,130 @@
+# Prompt mestre — PRUMO pronto para teste integrado
+
+Copie o conteúdo do bloco abaixo como objetivo/meta de implementação. Os arquivos de planejamento e backlog devem acompanhar o projeto. O escopo escolhido pelo usuário é o **MVP completo**, com as 44 histórias M; as evoluções I e opcionais O não fazem parte desta execução.
+
+```text
+OBJETIVO
+
+Implementar o MVP completo do PRUMO, aplicativo de gestão de estoque geral para bares, restaurantes, catering, equipes de eventos e operações temporárias. Entregar uma versão real, persistente, integrada e publicada em ambiente de homologação exclusivo, pronta para que eu teste todos os módulos juntos.
+
+Conduza o trabalho até o marco PRONTO PARA TESTE INTEGRADO. Não encerre a execução com planejamento, scaffold, telas isoladas, demonstração com dados em memória ou um módulo concluído enquanto outros módulos obrigatórios continuam faltando. Execute verificações técnicas durante o desenvolvimento; minha rodada de testes de aceitação começa depois que o MVP inteiro estiver integrado.
+
+FONTES E ESCOPO
+
+Leia integralmente os documentos PRUMO-planejamento-produto.md e PRUMO-backlog.csv. No repositório, eles devem estar em docs/. Se ainda não estiverem lá, localize os originais neste diretório:
+C:/Users/mvran/Documents/Codex/2026-11-17/bar-flow-stock-management/outputs/
+
+Use este prompt como complemento e atualização da autorização: a implementação do MVP e o deploy exclusivo de homologação agora estão autorizados. A restrição anterior de somente planejar estava vinculada à entrega anterior e não impede esta implementação.
+
+Implemente todo o comportamento técnico da fase M, histórias PR-001 a PR-044. Não inclua PR-045 a PR-058 nesta execução. Preserve a separação entre obrigatório, importante depois, opcional e fora do escopo. Não reduza funcionalidades obrigatórias para terminar mais cedo. Registre decisões técnicas de baixo risco e prossiga sem pedir aprovação a cada etapa.
+
+Há uma distinção de marcos: entrevistas reais e validações comerciais de PR-001/PR-002, verificação jurídica da marca e as quatro semanas de piloto humano de PR-044 não podem ser inventadas nem realizadas por código. Use as hipóteses do planejamento como premissas provisórias, registre essas validações humanas como pendentes e prepare integralmente o piloto. Elas não impedem entregar a versão para teste integrado, mas impedem afirmar que houve validação de mercado, piloto concluído ou prontidão comercial. Não espere quatro semanas para disponibilizar o ambiente de testes.
+
+ISOLAMENTO DO PROJETO
+
+Use exclusivamente o repositório que eu já criei e indiquei: https://github.com/MarVinRant/Prumo. Ele foi confirmado nesta preparação como repositório público, inicialmente vazio; preserve a visibilidade selecionada por mim. Confirme seu estado atual e continue nele, preservando o trabalho existente. Não crie outro repositório, não altere a visibilidade e não publique segredos ou credenciais.
+
+Nunca implemente no repositório MarVinRant/Flow nem altere seu banco, configurações, domínio, deploy ou dados. A referência funcional é https://github.com/MarVinRant/Flow e https://bar-flow-flow.vercel.app. Não copie sua navegação, CSS, componentes, cards, hero, cores ou identidade visual.
+
+Utilize projeto Supabase exclusivo do PRUMO. Verifique a organização, região e recursos disponíveis antes de provisionar. Não reutilize projeto de outro produto. Não contrate plano pago, registre domínio, altere DNS existente ou modifique permissões amplas sem autorização específica. Se conta, credencial ou aceitação contratual exigir ação humana, solicite apenas essa ação pelo fluxo seguro e continue o trabalho independente. Nunca peça que eu cole tokens ou senhas no chat.
+
+No ambiente publicado use dados sintéticos, contas isoladas e acesso autenticado. Não exponha dados ou credenciais de operações reais. Não declare repositório, projeto Supabase ou deploy criados sem confirmar o recurso e seu endereço.
+
+STACK E HOSPEDAGEM
+
+Frontend: React + Vite + TypeScript. Backend: Supabase PostgreSQL, Auth, Storage privado, RLS e funções transacionais. Use versões estáveis verificadas em documentação oficial no início, com lockfile. Leia as skills aplicáveis disponíveis no ambiente.
+
+Hospedagem: Cloudflare, em recurso exclusivo de homologação, com nome preferido prumo-stock-hml. Prefira Workers com Static Assets para a SPA React/Vite, conforme documentação vigente. Cloudflare Pages também é aceitável quando houver motivo técnico ou infraestrutura já preparada; registre a decisão. A escolha de hospedagem não altera o Supabase como fonte transacional.
+
+Configure build, assets, fallback das rotas da SPA, variáveis públicas por ambiente, callbacks de autenticação, HTTPS e cabeçalhos necessários. Nunca configure fallback que transforme um erro de API em index.html. Garanta refresh e acesso direto às rotas profundas. Adote deploy reproduzível e registre commit e identificador da versão publicada. A configuração Cloudflare deve corresponder ao runtime e à versão da CLI efetivamente utilizados.
+
+Não publique uma página de espera como se fosse o MVP. Se faltarem acessos, deixe build e configuração de deploy prontos, registre o bloqueio real e não marque o marco final como atingido. Somente homologação está autorizada; lançamento comercial fica para depois dos testes.
+
+DESIGN E EXPERIÊNCIA
+
+Implemente identidade própria PRUMO: fundo papel quente, texto grafite, ação argila, sinalização pinho, IBM Plex Sans e Mono conforme licenças e tokens do briefing. Experiência operacional baseada em filas, listas, tabelas, formulários e conferência. O nome é provisório e não implica marca validada.
+
+Mobile-first e responsivo, com navegação Hoje, Estoque, Movimentar, Eventos e Mais no celular; módulos de Operação, Estoque, Eventos, Compras, Análises e Administração em desktop. Acessibilidade com meta WCAG 2.2 AA, teclado, foco visível, labels, contraste, estados de erro e alvos de toque adequados. Valide visualmente no navegador, quando disponível, em desktop e celular.
+
+Todos os botões e ações dos fluxos obrigatórios devem funcionar. Não deixe ações essenciais como em breve, alert() decorativo ou toast de sucesso sem persistência. Trate carregamento, vazio, erro, permissão insuficiente, expiração de sessão, conflito e perda de rede. Preserve formulários em falhas recuperáveis.
+
+FUNCIONALIDADES OBRIGATÓRIAS INTEGRADAS
+
+1. Conta, login, confirmação de e-mail, recuperação, MFA dos perfis privilegiados, organizações, convites, revogação e vínculos temporários.
+2. Várias unidades, depósitos e locais; permissões por papel/capacidade e escopo; seis perfis operacionais; administrador de acesso separado de gerente.
+3. Cadastro de bebidas, alimentos, insumos, descartáveis, equipamentos, utensílios, materiais de evento e apoio. SKU, categoria, unidade base, embalagens, fornecedores e políticas de reposição.
+4. Quantidades e conversões de g, ml, un e m, com kg/L e fatores por embalagem; precisão decimal; versões e snapshots sem conversões universais inadequadas.
+5. Ledger imutável e saldo derivado/projetado; entradas, saldo inicial, consumo, perdas, avarias, bloqueios, transferências imediatas, devoluções, ajustes, contagem cega e compensações.
+6. Lotes, validade, FEFO, rastreabilidade e bloqueio servidor de vencidos; condições utilizável, quarentena e avariado sem contar avaria duas vezes como perda.
+7. Mínimo/máximo, ponto de reposição e alertas internos idempotentes para ruptura, validade, falta por evento, atraso de compra e pendência de retorno/acerto.
+8. Solicitação e aprovação de compra, pedido, fornecedor, recebimento total/parcial, aceitas/rejeitadas/bloqueadas, custos capturados e devolução ao fornecedor.
+9. Evento com local temporário, plano, reserva firme sem dupla alocação, separação por lote, manifesto, expedição, operação, reposições, retorno e acerto pós-evento.
+10. Retornáveis por quantidade e equipamentos individualizados por patrimônio, localização, condição, responsável, custódia e retorno. Proibir consumo de retornável.
+11. Fechamento de evento com diferenças classificadas e aprovadas, saldo/reserva/pendências resolvidos; snapshot versionado e reabertura auditada. Não presumir que diferença é consumo.
+12. Custo médio móvel item/local e custos gerenciais por evento; separação rigorosa de permissões monetárias; ajustes de valor próprios, sem inventar quantidade.
+13. Dashboard operacional, relatórios de saldo/extrato/perdas/validade/compras/eventos/ativos e exportação CSV com filtros, escopos e proteção contra fórmula maliciosa.
+14. Auditoria, logs correlacionados, observabilidade, backups, procedimento de recuperação e documentação operacional.
+
+Não implementar nesta execução cotações comparativas, kits, fichas de consumo versionadas, importação CSV, leitor de código de barras, manutenção/agendamento de ativos, transferência em trânsito, PWA/offline transacional, BI ou IA. A exportação CSV e a detecção de falha de rede pertencem ao MVP. Arquitetura pode prever evoluções sem apresentar capacidades futuras como entregues.
+
+INTEGRIDADE E SEGURANÇA INEGOCIÁVEIS
+
+Nenhuma quantidade física ou disponibilidade pode ficar negativa. Reserva não é saída física; expedição não é consumo. Transferência interna conserva quantidade e valor. Avaria mantém físico até descarte. Ativo individual não pode estar em dois locais ou custódias abertas. Evento não fecha com diferença não classificada.
+
+Efetive cada comando crítico em uma única transação no banco: autorização atual, escopos, estado, aprovação, idempotência, locks ordenados, lotes/validade, reserva, ledger, projeções, custo, ativos e auditoria. Revalidar no servidor; nunca confiar no saldo mostrado ou em tenant_id enviado pelo cliente. Falha intermediária deve reverter tudo. Repetição pós-timeout retorna o mesmo resultado; mesma chave com outro payload é conflito.
+
+Use FKs compostas entre tenants, constraints e grants explícitos. RLS em todas as tabelas expostas, inclusive filhas, views e acesso a arquivos. Não autorize por user_metadata. Vínculo revogado deve ser negado na próxima operação mesmo com JWT ainda válido. Mantenha finance em schema não exposto e forneça projeções autorizadas. RLS de linha não oculta coluna monetária.
+
+Não use service_role ou secret key no frontend, em VITE_*, no Git, logs, fixtures ou resposta final. Funções privilegiadas devem ser pequenas, com identidade/capacidade/escopo validados, search_path seguro, grants mínimos e proteção contra chamada indevida. Não conserte erro de RLS liberando acesso geral.
+
+Crie migrações reais e reproduzíveis a partir do modelo planejado; SQL ilustrativo do briefing não é uma migração pronta. Valide constraints, funções, transições, políticas e grants no banco de teste e de homologação. Não efetue limpeza destrutiva em recursos existentes.
+
+MODO DE EXECUÇÃO
+
+Comece inspecionando checkout, instruções locais, conectores e credenciais disponíveis, sem exibir segredos. Verifique o estado real de repositório e deploy antes de criar duplicatas. Resolva escolhas rotineiras com o planejamento e registre justificativa.
+
+Mantenha docs/IMPLEMENTATION-STATUS.md com os 44 IDs M, status honesto, evidência, dependências e pendências humanas; docs/DECISIONS.md com decisões; docs/TEST-REPORT.md com comandos e resultados reais. Esses arquivos permitem continuar após troca de contexto sem reiniciar trabalho concluído.
+
+Organize a execução em etapas internas e commits revisáveis. Pode informar progresso breve, sem pedir minha validação de cada tela e sem tratar etapas intermediárias como entrega final. Se estiver dentro de uma meta ativa e ainda houver trabalho autorizado, continue até atingir o marco ou registrar um impedimento externo real conforme as regras do ambiente. Não tente contornar permissões, limites do produto ou pedidos de autenticação.
+
+Se uma credencial ou decisão externa realmente bloquear o caminho crítico, explique o recurso exato e a ação humana mínima necessária, mantenha o status incompleto e conclua em paralelo o trabalho que não depende disso. Nunca mascare indisponibilidade do Supabase com demonstração em memória, nem declare publicação sem verificar URL e comportamento.
+
+TESTES ANTES DA MINHA HOMOLOGAÇÃO
+
+Implemente e execute testes significativos durante o trabalho. Faça typecheck, lint, build, integração do banco, RLS e E2E conforme a mudança. Cubra os cenários F01-F28 e F21b do briefing aplicáveis ao MVP. Execute testes técnicos antes de me entregar o ambiente, corrija problemas encontrados e registre evidências. Não deixe toda a descoberta de erros para minha rodada manual.
+
+Valide os dois ciclos completos:
+A. Cadastrar material/embalagem → solicitar/aprovar compra → receber parcial com lote → transferir → consumir/registrar perda → contar → ajustar com aprovação → consultar relatório e CSV.
+B. Planejar evento → reservar sem dupla alocação → separar/expedir → operar/repor → devolver sobras e ativos → classificar diferenças → aprovar acerto → fechar/reabrir com histórico.
+
+Inclua repetição idempotente, duas saídas disputando saldo, duas reservas disputando lote, timeout pós-commit, rollback de falha parcial, revogação com sessão aberta, virada de validade/fuso, tentativa cross-tenant e tentativa de obter custos sem permissão. Reconcile ledger, projeções, reservas, valores e ativos.
+
+Meça desempenho e contenção conforme envelope acordado no briefing, em ambiente isolado, registrando volume e recursos usados. Não dispare carga pesada contra produção ou serviço compartilhado sem limite e autorização. Se restrição do provedor impedir um teste requerido, documente isso como pendência e não declare esse teste aprovado.
+
+Teste rotas profundas, Auth/callbacks, navegação, persistência após refresh, arquivos, permissões e chamadas reais no deploy. Faça revisão visual desktop/mobile e de acessibilidade. Sempre diferencie teste executado, inspeção e teste ainda pendente.
+
+DADOS PARA TESTAR TUDO JUNTO
+
+Prepare ambiente de homologação com dados sintéticos reproduzíveis: dois tenants isolados, várias unidades/locais, oito famílias de materiais, embalagens fracionárias, fornecedores, lotes válidos/vencidos, recebimento parcial, eventos em vários estados, ativos retornados/avariados/pendentes e inventário discrepante. Datas devem ser apropriadas ao dia da homologação e fixtures de teste usar relógio controlado.
+
+Disponibilize um meio seguro de eu acessar o ambiente com os papéis necessários; nunca publique senha em README ou crie usuário público com privilégio administrativo. Configure entrega de convites/recuperação adequada à homologação e explique qualquer dependência real de SMTP. Tenha procedimento de reset somente para dados sintéticos e com confirmação do alvo.
+
+ENTREGÁVEIS E MARCO FINAL
+
+Só declare PRONTO PARA TESTE INTEGRADO quando:
+- todas as funcionalidades técnicas M estiverem completas e conectadas ao backend real;
+- os testes técnicos previstos e viáveis tiverem sido executados, falhas corrigidas e evidências registradas;
+- não houver bloqueador funcional, perda de integridade, isolamento ou vazamento de custos conhecido;
+- o repositório exclusivo estiver acessível, com código, lockfile, migrações, configuração de deploy, .env.example sem segredos e documentação de execução;
+- o deploy Cloudflare exclusivo de homologação estiver publicado e validado com o Supabase exclusivo;
+- dados de teste, acesso seguro e roteiro integrado estiverem prontos;
+- docs/HOMOLOGACAO.md explicar o que testar em sequência, resultados esperados e como registrar problemas;
+- docs/TEST-REPORT.md informar os testes reais, commit, deploy, limitações e validações humanas ainda pendentes;
+- PR-044 estiver preparado para início do piloto humano, sem afirmar que suas quatro semanas já ocorreram.
+
+Na entrega final, forneça apenas o essencial para iniciar minha rodada: URL real da homologação, URL real do repositório, commit/versão publicada, instrução de acesso seguro, roteiro de testes integrados e limitações conhecidas. Diga claramente que o estado é pronto para teste integrado, e não lançamento comercial validado.
+
+Não conclua com “posso continuar”, “falta integrar depois”, “backend a implementar” ou “deploy futuro” se ainda houver meios autorizados de terminar. Se um impedimento externo tornar o marco inalcançável nesta execução, descreva o bloqueio com precisão e deixe o restante pronto e recuperável, sem afirmar conclusão falsa.
+```
+
+Referência de hospedagem consultada em 17/11/2026: [React + Vite no Cloudflare Workers](https://developers.cloudflare.com/workers/framework-guides/web-apps/react/), [Static Assets](https://developers.cloudflare.com/workers/static-assets/) e [rotas de SPA](https://developers.cloudflare.com/workers/static-assets/routing/single-page-application/). O prompt especifica o resultado esperado; credenciais, permissões e limites reais do ambiente continuam necessários à execução.
