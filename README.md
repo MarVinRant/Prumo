@@ -39,3 +39,9 @@ npm run dev
 ```
 
 O arquivo `.env.local` nunca deve ser commitado. A chave publishable pode ser usada no navegador somente com as políticas RLS ativas.
+
+Smoke HTTP da homologação:
+
+```powershell
+npm run smoke -- https://prumo-stock-hml.marcosranti.workers.dev
+```
