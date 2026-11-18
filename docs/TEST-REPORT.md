@@ -13,6 +13,9 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Advisor de saúde — sem findings.
 - Consulta de privilégio — `anon` não possui SELECT em `public.stock_positions` nem USAGE no schema `finance`.
 - Advisor de segurança — política explícita de deny no schema financeiro; os dois security-definer expostos são comandos intencionais, com `search_path` fixo e grants mínimos.
+- Deploy Cloudflare — `https://prumo-stock-hml.marcosranti.workers.dev`, versão `dcbb2fa1-3429-4d86-ab65-a1ce79ef3b30`.
+- Smoke HTTP — `/` e `/stock` retornaram HTTP 200 e `text/html`; a rota profunda recebeu o fallback SPA.
+- Inspeção visual/DOM do deploy — tela de login PRUMO carregou com campos E-mail/Senha e ação de primeiro acesso.
 
 ## Ainda não executados
 

@@ -2,7 +2,7 @@
 
 ## Acesso
 
-1. Abra a URL do Worker Cloudflare após a publicação.
+1. Abra [https://prumo-stock-hml.marcosranti.workers.dev](https://prumo-stock-hml.marcosranti.workers.dev).
 2. Crie uma conta com e-mail de teste controlado e confirme o e-mail se o projeto exigir SMTP.
 3. O primeiro acesso cria a organização sintética `Operação Farol`, o Bar principal, o Depósito central, um item e um lote.
 
