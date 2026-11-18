@@ -87,6 +87,15 @@ export async function listEvents() {
   return data ?? []
 }
 
+export async function listEventReservations(eventId?: string) {
+  if (!supabase) return []
+  let query = supabase.from('reservations').select('id,event_id,item_id,location_id,quantity,status,created_at,items(name,sku),locations(name)').order('created_at', { ascending: false }).limit(100)
+  if (eventId) query = query.eq('event_id', eventId)
+  const { data, error } = await query
+  if (error) throw error
+  return data ?? []
+}
+
 export async function createEvent(input: { name: string; code: string; venue: string; starts_at: string; ends_at: string }) {
   if (!supabase) throw new Error('Configure o Supabase antes de criar eventos.')
   const { data, error } = await supabase.rpc('create_event', { p_name: input.name, p_code: input.code, p_venue: input.venue, p_starts_at: input.starts_at, p_ends_at: input.ends_at })

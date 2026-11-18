@@ -22,7 +22,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-016 | parcial | purchase_requests e RPC de solicitação | Aprovação, fornecedor e pedido |
 | PR-017 | parcial | receipts e linhas modelados | Recebimento parcial conectado |
 | PR-018 | parcial | ativos e custódias modelados | UI e transições completas |
-| PR-019 | parcial | events, planos, reservas e RPC de reserva FEFO com lock | UI de reserva e manifesto |
+| PR-019 | parcial | events, planos, reserva FEFO com lock e painel de reserva/liberação | Manifesto, expedição, operação e retorno |
 | PR-020 | parcial | estrutura de manifesto prevista | Expedição/operação/retorno |
 | PR-021 | parcial | estrutura de retornáveis | Conferência e proibição de consumo |
 | PR-022 | parcial | asset_custodies com índice de custódia aberta | Fluxo de devolução |
@@ -35,7 +35,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-029 | parcial | auditoria de bootstrap/movimentos | Correlação e observabilidade externa |
 | PR-030 | parcial | alertas e índices | Geração automática de alertas |
 | PR-031 | parcial | status e constraints de compras | Aprovação/pedido/recebimento integrado |
-| PR-032 | parcial | tabelas de evento | FEFO/reserva sem dupla alocação |
+| PR-032 | parcial | eventos, reservas FEFO e liberação conectados ao painel | Expedição, reposição, retorno e estados operacionais |
 | PR-033 | parcial | RLS em todas as tabelas expostas | Escopo por capacidade |
 | PR-034 | parcial | seed reproduzível com oito famílias, lotes válidos/vencidos, dois locais e eventos sintéticos em estados distintos | Segundo tenant, manifesto/retorno e fechamento auditado |
 | PR-035 | parcial | app mobile-first | Teste visual automatizado |

@@ -25,6 +25,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Smoke HTTP — `/` e `/stock` retornaram HTTP 200 e `text/html`; a rota profunda recebeu o fallback SPA.
 - Smoke HTTP ampliado — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram HTTP 200 e `text/html`.
 - Smoke HTTP após a correção — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram HTTP 200 no Worker `57b8d858-7c59-40da-9514-a8904d1b39c3`.
+- Build local com painel de reserva FEFO — aprovado; inclui listagem de reservas e liberação auditada, aguardando novo deploy.
 - Inspeção visual/DOM do deploy — tela de login PRUMO carregou com campos E-mail/Senha e ação de primeiro acesso.
 
 ## Ainda não executados
