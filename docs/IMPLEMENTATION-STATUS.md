@@ -8,9 +8,9 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-002 | pendente-humano | Decisões D03-D10 registradas como premissas | Validação comercial real |
 | PR-003 | implementado | React responsivo, tokens PRUMO, foco visível | Validação do nome da marca |
 | PR-004 | implementado | Vite/TS lockfile, `.env.example`, `wrangler.jsonc` | URL Cloudflare |
-| PR-005 | parcial | Supabase Auth, signup/login, sessão persistente | Recuperação e MFA privilegiado |
+| PR-005 | parcial | Supabase Auth, signup/login, recuperação por e-mail e sessão persistente | MFA obrigatório para perfis privilegiados |
 | PR-006 | parcial | `bootstrap_workspace` transacional/idempotente | Troca de contexto |
-| PR-007 | parcial | Modelo de memberships e revogação | Convites por e-mail e tokens de uso único |
+| PR-007 | parcial | Convites com token hash, expiração, revogação e auditoria | Entrega automática por SMTP e aceite do convite |
 | PR-008 | parcial | FKs compostas, RLS e isolamento por tenant | Capacidades/escopos finos por local |
 | PR-009 | parcial | units/locations, seed de dois locais | UI de cadastro/arquivamento |
 | PR-010 | parcial | Oito famílias e catálogo persistente | CRUD completo de catálogo |
@@ -22,7 +22,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-016 | parcial | purchase_requests e RPC de solicitação | Aprovação, fornecedor e pedido |
 | PR-017 | parcial | receipts e linhas modelados | Recebimento parcial conectado |
 | PR-018 | parcial | ativos e custódias modelados | UI e transições completas |
-| PR-019 | parcial | events, planos e reservas modelados | Reserva firme com lock |
+| PR-019 | parcial | events, planos, reservas e RPC de reserva FEFO com lock | UI de reserva e manifesto |
 | PR-020 | parcial | estrutura de manifesto prevista | Expedição/operação/retorno |
 | PR-021 | parcial | estrutura de retornáveis | Conferência e proibição de consumo |
 | PR-022 | parcial | asset_custodies com índice de custódia aberta | Fluxo de devolução |
