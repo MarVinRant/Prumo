@@ -6,6 +6,7 @@ const api = await read('src/lib/api.ts')
 const migrationFiles = await Promise.all([
   'supabase/migrations/20261117200000_prumo_mvp.sql',
   'supabase/migrations/20261117213000_private_storage_policies.sql',
+  'supabase/migrations/20261117214000_privileged_aal2.sql',
 ].map(read))
 const wrangler = await read('wrangler.jsonc')
 
@@ -16,6 +17,9 @@ const checks = [
   ['CSV neutralizes formulas', api.includes("/^[=+\\-@]/")],
   ['SPA fallback is configured', wrangler.includes('single-page-application')],
   ['private storage policies validate tenant path', migrationFiles[1].includes('private.is_member_path')],
+  ['privileged AAL2 guard checks the JWT assurance claim', migrationFiles[2].includes("auth.jwt()->>'aal'") && migrationFiles[2].includes("'aal2'")],
+  ['privileged AAL2 guard has an explicit MFA failure', migrationFiles[2].includes("raise exception 'mfa_required'")],
+  ['AAL2 wrappers hide original command bodies', migrationFiles[2].includes('create_invitation_unchecked_aal1') && migrationFiles[2].includes('finance_stock_summary_unchecked_aal1')],
 ]
 
 const failures = checks.filter(([, passed]) => !passed)

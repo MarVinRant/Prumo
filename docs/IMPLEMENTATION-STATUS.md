@@ -8,7 +8,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-002 | pendente-humano | Decisões D03-D10 registradas como premissas | Validação comercial real |
 | PR-003 | implementado | React responsivo, tokens PRUMO, foco visível | Validação do nome da marca |
 | PR-004 | implementado | Vite/TS lockfile, `.env.example`, `wrangler.jsonc` | URL Cloudflare |
-| PR-005 | parcial | Supabase Auth, signup/login, recuperação por e-mail, sessão persistente e painel TOTP aal2 | Enforcement MFA obrigatório em todas as funções privilegiadas |
+| PR-005 | parcial | Supabase Auth, signup/login, recuperação por e-mail, sessão persistente, painel TOTP e wrappers de comandos privilegiados exigindo JWT `aal2` | Teste autenticado com conta privilegiada, configuração de proteção contra senhas vazadas e fluxo de desafio no login |
 | PR-006 | parcial | `bootstrap_workspace` transacional/idempotente | Troca de contexto |
 | PR-007 | parcial | Convites com token hash, expiração, revogação, aceite autenticado e auditoria | Entrega automática por SMTP e teste multiusuário |
 | PR-008 | parcial | FKs compostas, RLS e isolamento por tenant | Capacidades/escopos finos por local |
@@ -42,7 +42,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-036 | parcial | estados de carregamento/erro no shell | Cobertura de conflito/rede |
 | PR-037 | parcial | comandos idempotentes no ledger, recebimento e consumo de reserva | Teste de timeout pós-commit autenticado |
 | PR-038 | parcial | constraints de não-negatividade, locks e conflito de contagem | Testes de concorrência autenticados |
-| PR-039 | parcial | grants mínimos e search_path | MFA e e-mail de convite |
+| PR-039 | parcial | grants mínimos, search_path fixo e enforcement server-side `aal2` para comandos de acesso, compras, custos, eventos, ativos e aprovação de contagem | Teste autenticado de rejeição em `aal1`, SMTP de convite e recuperação |
 | PR-040 | parcial | documentação inicial | Runbook de recuperação |
 | PR-041 | parcial | build verificado | E2E no deploy |
 | PR-042 | parcial | modelo de auditoria e bucket privado com políticas por tenant | Backups/restauração ensaiados |
