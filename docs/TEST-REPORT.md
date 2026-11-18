@@ -12,7 +12,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - `supabase_list_tables` — 30 tabelas públicas, todas com RLS habilitado.
 - Advisor de saúde — sem findings.
 - Consulta de privilégio — `anon` não possui SELECT em `public.stock_positions` nem USAGE no schema `finance`.
-- Advisor de segurança — política explícita de deny no schema financeiro; os dois security-definer expostos são comandos intencionais, com `search_path` fixo e grants mínimos.
+- Advisor de segurança — política explícita de deny no schema financeiro; há 13 avisos de funções `SECURITY DEFINER` intencionais, todos com `search_path` fixo, validação de tenant/capacidade quando aplicável e grants mínimos. O seed sintético foi adicionalmente restringido a owner/manager.
 - Deploy Cloudflare — `https://prumo-stock-hml.marcosranti.workers.dev`, versão `2b2edb33-42cc-4938-801e-bfdbad32863f`, build do commit `453930b`.
 - Migração `access_event_commands` — aplicada; tabela de convites, recuperação de acesso no Auth e RPCs de reserva/liberação/fechamento adicionados.
 - Build/deploy atualizado — commit `ca2e3a9`, Worker `c76b8cd1-c06d-4b7a-b31c-7a4d778b24b5`.
@@ -20,6 +20,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Deploy mais recente — commit `31d71f6`, Worker `7f98ddf9-8d74-4980-a2b9-327480e690ba`.
 - Migração `purchase_lifecycle` — aplicada; aprovação de solicitação, geração de pedido, recebimento parcial com lote e idempotência de recibo adicionados.
 - Migração `expired_lot_guard` — aplicada; consumo, transferência e devolução de lotes vencidos são rejeitados no servidor.
+- Migração `seed_owner_guard` — aplicada; a preparação de fixtures sintéticas não pode ser acionada por operador comum.
 - Build/deploy mais recente — commit `c4e70b6`, Worker `f7f67439-d61b-4e08-9451-f0a6b9ddca58`.
 - `npm run build` após a remoção da ação sem suporte de reclassificação — aprovado; novo deploy ainda precisa ser registrado após o commit desta correção.
 - Smoke HTTP — `/` e `/stock` retornaram HTTP 200 e `text/html`; a rota profunda recebeu o fallback SPA.
