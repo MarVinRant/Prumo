@@ -27,6 +27,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Migração `operational_alerts` — aplicada; RPC idempotente recalcula alertas de ruptura, validade, falta em evento e compra atrasada.
 - Migração `finance_projection_rpc` — aplicada; custos só são retornados por RPC para owner/finance, mantendo `finance` sem grants de tabela no Data API.
 - Build local após custos e alertas — aprovado; TypeScript sem erros e Vite gerou `dist/`.
+- `npm run smoke -- https://prumo-stock-hml.marcosranti.workers.dev` — aprovado; seis rotas profundas retornaram `200 text/html`.
 - `npm run build` após o painel de ciclo de evento e ativos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - Build/deploy mais recente — commit `90272a1`, Worker `01e145bf-c66f-4557-8090-621a96112377`.
 - `npm run build` após a remoção da ação sem suporte de reclassificação — aprovado; o build foi publicado no Worker `f7f67439-d61b-4e08-9451-f0a6b9ddca58`.
