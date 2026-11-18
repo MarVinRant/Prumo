@@ -20,10 +20,11 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Deploy mais recente — commit `31d71f6`, Worker `7f98ddf9-8d74-4980-a2b9-327480e690ba`.
 - Migração `purchase_lifecycle` — aplicada; aprovação de solicitação, geração de pedido, recebimento parcial com lote e idempotência de recibo adicionados.
 - Migração `expired_lot_guard` — aplicada; consumo, transferência e devolução de lotes vencidos são rejeitados no servidor.
-- Build/deploy mais recente — commit `727bf6c`, Worker `3398f312-e80a-4d3c-88c7-972fc0ad3ee1`.
+- Build/deploy mais recente — commit `e7e8b5f`, Worker `57b8d858-7c59-40da-9514-a8904d1b39c3`.
 - `npm run build` após a remoção da ação sem suporte de reclassificação — aprovado; novo deploy ainda precisa ser registrado após o commit desta correção.
 - Smoke HTTP — `/` e `/stock` retornaram HTTP 200 e `text/html`; a rota profunda recebeu o fallback SPA.
 - Smoke HTTP ampliado — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram HTTP 200 e `text/html`.
+- Smoke HTTP após a correção — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram HTTP 200 no Worker `57b8d858-7c59-40da-9514-a8904d1b39c3`.
 - Inspeção visual/DOM do deploy — tela de login PRUMO carregou com campos E-mail/Senha e ação de primeiro acesso.
 
 ## Ainda não executados
