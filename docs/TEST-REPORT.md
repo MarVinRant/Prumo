@@ -30,6 +30,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Migração `invitation_acceptance` — aplicada; token é validado por hash, e-mail autenticado, expiração, revogação e vínculo de papel antes de criar membership.
 - Build local após custos e alertas — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - `npm run smoke -- https://prumo-stock-hml.marcosranti.workers.dev` — aprovado; seis rotas profundas retornaram `200 text/html`.
+- Build local com comando de fechamento/reabertura no painel de eventos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - `npm run build` após o painel de ciclo de evento e ativos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - Build/deploy mais recente — commit `32e39be`, Worker `22c6a720-32ce-4ea4-8bdc-d9a64e5a2494`.
 - `npm run build` após a remoção da ação sem suporte de reclassificação — aprovado; o build foi publicado no Worker `f7f67439-d61b-4e08-9451-f0a6b9ddca58`.
