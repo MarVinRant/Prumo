@@ -18,6 +18,10 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Build/deploy atualizado — commit `ca2e3a9`, Worker `c76b8cd1-c06d-4b7a-b31c-7a4d778b24b5`.
 - Fixture sintética multi-família — migração `synthetic_fixture_seed` aplicada; bootstrap prepara oito famílias, lotes válidos/vencidos, fornecedor sintético e eventos planejado/em operação.
 - Deploy mais recente — commit `31d71f6`, Worker `7f98ddf9-8d74-4980-a2b9-327480e690ba`.
+- Migração `purchase_lifecycle` — aplicada; aprovação de solicitação, geração de pedido, recebimento parcial com lote e idempotência de recibo adicionados.
+- Migração `expired_lot_guard` — aplicada; consumo, transferência e devolução de lotes vencidos são rejeitados no servidor.
+- Build/deploy mais recente — commit `727bf6c`, Worker `3398f312-e80a-4d3c-88c7-972fc0ad3ee1`.
+- `npm run build` após a remoção da ação sem suporte de reclassificação — aprovado; novo deploy ainda precisa ser registrado após o commit desta correção.
 - Smoke HTTP — `/` e `/stock` retornaram HTTP 200 e `text/html`; a rota profunda recebeu o fallback SPA.
 - Smoke HTTP ampliado — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram HTTP 200 e `text/html`.
 - Inspeção visual/DOM do deploy — tela de login PRUMO carregou com campos E-mail/Senha e ação de primeiro acesso.
@@ -28,4 +32,4 @@ Os ciclos F01–F28, concorrência, RLS cross-tenant com dois usuários autentic
 
 ## Limitações atuais
 
-O frontend já persiste login, workspace, catálogo inicial, movimentações, eventos básicos, solicitações de compra e CSV. Os fluxos avançados de aprovação, reserva/expedição/retorno, fechamento auditado, convites, MFA e custos gerenciais continuam em implementação e impedem declarar `PRONTO PARA TESTE INTEGRADO`.
+O frontend já persiste login, workspace, catálogo sintético, movimentações, eventos básicos, solicitações/aprovação/recebimento de compras, convites administrativos e CSV. Reserva FEFO e comandos de fechamento existem no banco, mas os fluxos de evento avançados, MFA, custos gerenciais, arquivos privados e os testes integrados continuam pendentes e impedem declarar `PRONTO PARA TESTE INTEGRADO`.
