@@ -24,7 +24,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Migração `event_asset_lifecycle` — aplicada; transições de evento, consumo idempotente de reserva, reabertura auditada e custódia individual de ativos estão disponíveis por RPC.
 - Migração `event_reopened_transition` — aplicada; evento reaberto pode voltar à separação por transição auditada.
 - `npm run build` após o painel de ciclo de evento e ativos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
-- Build/deploy mais recente — commit `c4e70b6`, Worker `f7f67439-d61b-4e08-9451-f0a6b9ddca58`.
+- Build/deploy mais recente — commit `82fcdfb`, Worker `194c16ed-88f8-4c20-8419-fa8a8f927ab1`.
 - `npm run build` após a remoção da ação sem suporte de reclassificação — aprovado; o build foi publicado no Worker `f7f67439-d61b-4e08-9451-f0a6b9ddca58`.
 - Smoke HTTP — `/` e `/stock` retornaram HTTP 200 e `text/html`; a rota profunda recebeu o fallback SPA.
 - Smoke HTTP ampliado — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram HTTP 200 e `text/html`.
@@ -33,6 +33,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Smoke HTTP pós-fluxo de eventos — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram HTTP 200 com HTML da SPA no Worker `70015e59-2a85-429e-a205-034dc97104ef`.
 - Exportação CSV — botão de análises agora chama `downloadStockCsv` com neutralização de prefixos de fórmula.
 - Smoke HTTP após a exportação CSV — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram `200 text/html` no Worker `f7f67439-d61b-4e08-9451-f0a6b9ddca58`.
+- Smoke HTTP após o ciclo de eventos/ativos — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram `200 text/html` no Worker `194c16ed-88f8-4c20-8419-fa8a8f927ab1`.
 - Inspeção visual/DOM do deploy — tela de login PRUMO carregou com campos E-mail/Senha e ação de primeiro acesso.
 
 ## Ainda não executados
