@@ -35,6 +35,13 @@ export async function bootstrapWorkspace() {
   return data
 }
 
+export async function seedDemoData() {
+  if (!supabase) return null
+  const { data, error } = await supabase.rpc('seed_demo_data')
+  if (error) throw error
+  return data
+}
+
 export async function listActivity(): Promise<ActivityRow[]> {
   if (!supabase) return []
   const { data, error } = await supabase.from('activity_feed').select('*').order('created_at', { ascending: false }).limit(8)

@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { Activity, AlertTriangle, ArrowRightLeft, BarChart3, Boxes, CheckCircle2, ChevronRight, ClipboardList, FileDown, LogOut, Menu, PackageCheck, Plus, RefreshCw, Search, Settings2, ShieldCheck, ShoppingCart, Truck, Users, X } from 'lucide-react'
-import { bootstrapWorkspace, closeEvent, createEvent, createInvitation, createPurchaseRequest, downloadStockCsv, getStockSummary, listActivity, listEvents, listInvitations, listItems, listLocations, listPurchaseRequests, listStock, postMovement, releaseEventReservation, reserveEventMaterial, revokeInvitation } from './lib/api'
+import { bootstrapWorkspace, closeEvent, createEvent, createInvitation, createPurchaseRequest, downloadStockCsv, getStockSummary, listActivity, listEvents, listInvitations, listItems, listLocations, listPurchaseRequests, listStock, postMovement, releaseEventReservation, reserveEventMaterial, revokeInvitation, seedDemoData } from './lib/api'
 import { isConfigured, supabase } from './lib/supabase'
 import type { ActivityRow, MovementType, StockRow, StockSummary, Tab } from './lib/types'
 
@@ -36,7 +36,7 @@ export default function App() {
 
   useEffect(() => {
     if (session !== 'authenticated') return
-    void (async () => { try { await bootstrapWorkspace() } catch { /* existing workspaces continue */ } await refresh() })()
+    void (async () => { try { await bootstrapWorkspace(); await seedDemoData() } catch { /* existing workspaces continue */ } await refresh() })()
   }, [session, tab])
 
   async function refresh() {
