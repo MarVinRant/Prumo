@@ -10,11 +10,12 @@
 
 1. Em Movimentar, registre recebimento, consumo, perda e transferência; atualize Estoque após cada ação.
 2. Exporte CSV e confirme que fórmulas não são executadas ao abrir em planilha.
-3. Em Compras, crie uma solicitação; confirme que ela reaparece após refresh.
-4. Em Eventos, crie um evento com período válido e confirme persistência.
-5. Verifique que logout/login preserva os dados e que rotas profundas carregam no refresh.
+3. Em Compras, crie uma solicitação, aprove, emita o pedido e registre um recebimento parcial com lote; confirme que ela reaparece após refresh.
+4. Em Eventos, crie um evento com período válido, reserve material pela seção Reserva FEFO e libere a reserva; confirme que a quantidade disponível é restaurada sem baixar o físico.
+5. Em Análises, exporte o CSV e confirme que fórmulas não são executadas ao abrir em planilha.
+6. Verifique que logout/login preserva os dados e que rotas profundas carregam no refresh.
 
-Os ciclos completos de reserva, expedição, retorno, aprovação e fechamento só devem ser testados quando os itens correspondentes estiverem marcados como implementados em `IMPLEMENTATION-STATUS.md`.
+Expedição, reposição, retorno, acerto classificado, ativos individualizados, MFA e fechamento completo ainda estão marcados como parciais em `IMPLEMENTATION-STATUS.md`; não trate a reserva FEFO como entrega desses ciclos.
 
 ## Registro de problemas
 
