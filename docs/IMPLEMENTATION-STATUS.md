@@ -21,13 +21,13 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-015 | parcial | políticas min/max/reorder | Alertas idempotentes automáticos |
 | PR-016 | parcial | purchase_requests e RPC de solicitação | Aprovação, fornecedor e pedido |
 | PR-017 | parcial | receipts e linhas modelados | Recebimento parcial conectado |
-| PR-018 | parcial | ativos e custódias modelados | UI e transições completas |
-| PR-019 | parcial | events, planos, reserva FEFO com lock e painel de reserva/liberação | Manifesto, expedição, operação e retorno |
+| PR-018 | parcial | ativos/custódias, cadastro e painel de expedição/retorno | Permissões finas e conferência por ativo |
+| PR-019 | parcial | events, reserva FEFO com lock, transições e consumo/liberação no painel | Manifesto versionado e retorno de sobras |
 | PR-020 | parcial | estrutura de manifesto prevista | Expedição/operação/retorno |
 | PR-021 | parcial | estrutura de retornáveis | Conferência e proibição de consumo |
-| PR-022 | parcial | asset_custodies com índice de custódia aberta | Fluxo de devolução |
+| PR-022 | parcial | custódia individual com comandos transacionais de expedição e retorno | Conferência completa por evento |
 | PR-023 | parcial | tabelas de fechamento previstas | Classificação/aprovação de diferenças |
-| PR-024 | parcial | status `reopened` e auditoria | Snapshot versionado |
+| PR-024 | parcial | reabertura exige motivo e gera auditoria | Snapshot versionado e diff do fechamento |
 | PR-025 | parcial | schema finance privado | Custo médio móvel transacional |
 | PR-026 | parcial | separação de grants | Ajustes monetários por capacidade |
 | PR-027 | parcial | activity_feed com security_invoker | Relatórios completos |
@@ -35,9 +35,9 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-029 | parcial | auditoria de bootstrap/movimentos | Correlação e observabilidade externa |
 | PR-030 | parcial | alertas e índices | Geração automática de alertas |
 | PR-031 | parcial | status e constraints de compras | Aprovação/pedido/recebimento integrado |
-| PR-032 | parcial | eventos, reservas FEFO e liberação conectados ao painel | Expedição, reposição, retorno e estados operacionais |
+| PR-032 | parcial | eventos, reservas FEFO, estados, consumo e liberação conectados ao painel | Reposição, manifesto e acerto operacional |
 | PR-033 | parcial | RLS em todas as tabelas expostas | Escopo por capacidade |
-| PR-034 | parcial | seed reproduzível com oito famílias, lotes válidos/vencidos, dois locais e eventos sintéticos em estados distintos | Segundo tenant, manifesto/retorno e fechamento auditado |
+| PR-034 | parcial | seed reproduzível com oito famílias, lotes válidos/vencidos, eventos e ativos sintéticos | Segundo tenant, manifesto/retorno e fechamento auditado |
 | PR-035 | parcial | app mobile-first | Teste visual automatizado |
 | PR-036 | parcial | estados de carregamento/erro no shell | Cobertura de conflito/rede |
 | PR-037 | parcial | comando idempotente no ledger | Teste de timeout pós-commit |

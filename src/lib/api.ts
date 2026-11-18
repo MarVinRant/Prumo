@@ -39,6 +39,7 @@ export async function seedDemoData() {
   if (!supabase) return null
   const { data, error } = await supabase.rpc('seed_demo_data')
   if (error) throw error
+  await supabase.rpc('seed_demo_assets')
   return data
 }
 
@@ -176,6 +177,55 @@ export async function releaseEventReservation(id: string) {
 export async function closeEvent(id: string, reason: string) {
   if (!supabase) throw new Error('Configure o Supabase antes de fechar eventos.')
   const { data, error } = await supabase.rpc('close_event', { p_event_id: id, p_reason: reason })
+  if (error) throw error
+  return data
+}
+
+export async function setEventStatus(id: string, status: string) {
+  if (!supabase) throw new Error('Configure o Supabase antes de alterar o evento.')
+  const { data, error } = await supabase.rpc('set_event_status', { p_event_id: id, p_status: status })
+  if (error) throw error
+  return data
+}
+
+export async function reopenEvent(id: string, reason: string) {
+  if (!supabase) throw new Error('Configure o Supabase antes de reabrir eventos.')
+  const { data, error } = await supabase.rpc('reopen_event', { p_event_id: id, p_reason: reason })
+  if (error) throw error
+  return data
+}
+
+export async function consumeEventReservation(id: string) {
+  if (!supabase) throw new Error('Configure o Supabase antes de consumir reservas.')
+  const { data, error } = await supabase.rpc('consume_event_reservation', { p_reservation_id: id })
+  if (error) throw error
+  return data
+}
+
+export async function listAssets() {
+  if (!supabase) return []
+  const { data, error } = await supabase.from('assets').select('id,asset_tag,condition,status,item_id,items(name,sku)').order('asset_tag').limit(200)
+  if (error) throw error
+  return data ?? []
+}
+
+export async function registerAsset(input: { item_id: string; asset_tag: string; condition?: string }) {
+  if (!supabase) throw new Error('Configure o Supabase antes de cadastrar ativos.')
+  const { data, error } = await supabase.rpc('register_asset', { p_item_id: input.item_id, p_asset_tag: input.asset_tag, p_condition: input.condition ?? 'usable' })
+  if (error) throw error
+  return data
+}
+
+export async function dispatchAsset(input: { asset_id: string; location_id: string; event_id?: string; responsible_user?: string; condition_out?: string }) {
+  if (!supabase) throw new Error('Configure o Supabase antes de expedir ativos.')
+  const { data, error } = await supabase.rpc('dispatch_asset', { p_asset_id: input.asset_id, p_location_id: input.location_id, p_event_id: input.event_id ?? null, p_responsible_user: input.responsible_user ?? null, p_condition_out: input.condition_out ?? 'usable' })
+  if (error) throw error
+  return data
+}
+
+export async function returnAsset(input: { asset_id: string; condition_in: string; location_id?: string }) {
+  if (!supabase) throw new Error('Configure o Supabase antes de devolver ativos.')
+  const { data, error } = await supabase.rpc('return_asset', { p_asset_id: input.asset_id, p_condition_in: input.condition_in, p_location_id: input.location_id ?? null })
   if (error) throw error
   return data
 }

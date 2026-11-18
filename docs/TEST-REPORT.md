@@ -21,6 +21,9 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Migração `purchase_lifecycle` — aplicada; aprovação de solicitação, geração de pedido, recebimento parcial com lote e idempotência de recibo adicionados.
 - Migração `expired_lot_guard` — aplicada; consumo, transferência e devolução de lotes vencidos são rejeitados no servidor.
 - Migração `seed_owner_guard` — aplicada; a preparação de fixtures sintéticas não pode ser acionada por operador comum.
+- Migração `event_asset_lifecycle` — aplicada; transições de evento, consumo idempotente de reserva, reabertura auditada e custódia individual de ativos estão disponíveis por RPC.
+- Migração `event_reopened_transition` — aplicada; evento reaberto pode voltar à separação por transição auditada.
+- `npm run build` após o painel de ciclo de evento e ativos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - Build/deploy mais recente — commit `c4e70b6`, Worker `f7f67439-d61b-4e08-9451-f0a6b9ddca58`.
 - `npm run build` após a remoção da ação sem suporte de reclassificação — aprovado; o build foi publicado no Worker `f7f67439-d61b-4e08-9451-f0a6b9ddca58`.
 - Smoke HTTP — `/` e `/stock` retornaram HTTP 200 e `text/html`; a rota profunda recebeu o fallback SPA.
@@ -38,4 +41,4 @@ Os ciclos F01–F28, concorrência, RLS cross-tenant com dois usuários autentic
 
 ## Limitações atuais
 
-O frontend já persiste login, workspace, catálogo sintético, movimentações, eventos básicos, solicitações/aprovação/recebimento de compras, convites administrativos e CSV. Reserva FEFO e comandos de fechamento existem no banco, mas os fluxos de evento avançados, MFA, custos gerenciais, arquivos privados e os testes integrados continuam pendentes e impedem declarar `PRONTO PARA TESTE INTEGRADO`.
+O frontend já persiste login, workspace, catálogo sintético, movimentações, eventos, reserva/consumo/liberação, ciclo de estados, ativos individualizados, solicitações/aprovação/recebimento de compras, convites administrativos e CSV. Manifesto completo, acerto com diferenças, MFA, custos gerenciais, arquivos privados e os testes integrados continuam pendentes e impedem declarar `PRONTO PARA TESTE INTEGRADO`.
