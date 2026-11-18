@@ -20,13 +20,15 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Deploy mais recente — commit `31d71f6`, Worker `7f98ddf9-8d74-4980-a2b9-327480e690ba`.
 - Migração `purchase_lifecycle` — aplicada; aprovação de solicitação, geração de pedido, recebimento parcial com lote e idempotência de recibo adicionados.
 - Migração `expired_lot_guard` — aplicada; consumo, transferência e devolução de lotes vencidos são rejeitados no servidor.
-- Build/deploy mais recente — commit `9cc1b0f`, Worker `70015e59-2a85-429e-a205-034dc97104ef`.
+- Build/deploy mais recente — commit `c4e70b6`, Worker `f7f67439-d61b-4e08-9451-f0a6b9ddca58`.
 - `npm run build` após a remoção da ação sem suporte de reclassificação — aprovado; novo deploy ainda precisa ser registrado após o commit desta correção.
 - Smoke HTTP — `/` e `/stock` retornaram HTTP 200 e `text/html`; a rota profunda recebeu o fallback SPA.
 - Smoke HTTP ampliado — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram HTTP 200 e `text/html`.
 - Smoke HTTP após a correção — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram HTTP 200 no Worker `57b8d858-7c59-40da-9514-a8904d1b39c3`.
 - Build local com painel de reserva FEFO — aprovado; inclui listagem de reservas e liberação auditada.
 - Smoke HTTP pós-fluxo de eventos — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram HTTP 200 com HTML da SPA no Worker `70015e59-2a85-429e-a205-034dc97104ef`.
+- Exportação CSV — botão de análises agora chama `downloadStockCsv` com neutralização de prefixos de fórmula.
+- Smoke HTTP após a exportação CSV — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram `200 text/html` no Worker `f7f67439-d61b-4e08-9451-f0a6b9ddca58`.
 - Inspeção visual/DOM do deploy — tela de login PRUMO carregou com campos E-mail/Senha e ação de primeiro acesso.
 
 ## Ainda não executados
