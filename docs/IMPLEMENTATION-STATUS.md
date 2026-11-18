@@ -46,7 +46,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-040 | parcial | documentação inicial | Runbook de recuperação |
 | PR-041 | parcial | build verificado | E2E no deploy |
 | PR-042 | parcial | modelo de auditoria | Backups/restauração ensaiados |
-| PR-043 | parcial | ambiente Supabase criado | Deploy Cloudflare aguardando CLI autenticada |
+| PR-043 | parcial | Supabase e Worker Cloudflare exclusivos publicados | Testes E2E completos e observabilidade |
 | PR-044 | pendente-humano | Piloto preparado por documentação | Quatro semanas de piloto humano |
 
 Este arquivo é deliberadamente honesto: não afirma prontidão integrada enquanto os critérios parciais e a validação humana ainda não estiverem fechados.
