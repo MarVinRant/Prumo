@@ -15,6 +15,20 @@ export async function getStockSummary(): Promise<StockSummary> {
   return { totalItems: rows.length, availableValue, criticalItems, openEvents: openEvents ?? 0, pendingReceipts: pendingReceipts ?? 0, openAlerts: openAlerts ?? 0 }
 }
 
+export async function refreshAlerts() {
+  if (!supabase) return 0
+  const { data, error } = await supabase.rpc('refresh_operational_alerts')
+  if (error) throw error
+  return Number(data ?? 0)
+}
+
+export async function getFinanceSummary() {
+  if (!supabase) return []
+  const { data, error } = await supabase.rpc('finance_stock_summary')
+  if (error) throw error
+  return data ?? []
+}
+
 export async function listStock(search = ''): Promise<StockRow[]> {
   if (!supabase) return []
   const query = supabase.from('stock_positions').select('id,on_hand_q,reserved_q,condition,expires_on:lots(expires_on),items!inner(id,sku,name,family,nature,base_uom),locations!inner(name)').order('created_at', { ascending: false }).limit(300)

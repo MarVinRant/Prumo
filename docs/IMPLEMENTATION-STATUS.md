@@ -28,12 +28,12 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-022 | parcial | custódia individual com comandos transacionais de expedição e retorno | Conferência completa por evento |
 | PR-023 | parcial | tabelas de fechamento previstas | Classificação/aprovação de diferenças |
 | PR-024 | parcial | reabertura exige motivo e gera auditoria | Snapshot versionado e diff do fechamento |
-| PR-025 | parcial | schema finance privado | Custo médio móvel transacional |
-| PR-026 | parcial | separação de grants | Ajustes monetários por capacidade |
+| PR-025 | parcial | schema finance privado e projeção de custo médio no recebimento | Baixas/transferências financeiras completas |
+| PR-026 | parcial | finance fora do Data API e custo capturado no recebimento | Ajustes monetários por capacidade e UI financeira |
 | PR-027 | parcial | activity_feed com security_invoker | Relatórios completos |
 | PR-028 | implementado | Exportação CSV com neutralização de fórmulas | Filtros avançados |
 | PR-029 | parcial | auditoria de bootstrap/movimentos | Correlação e observabilidade externa |
-| PR-030 | parcial | alertas e índices | Geração automática de alertas |
+| PR-030 | parcial | RPC idempotente de alertas para ruptura, validade, evento e compra atrasada | Reconhecimento, retorno pendente e resolução por causa |
 | PR-031 | parcial | status e constraints de compras | Aprovação/pedido/recebimento integrado |
 | PR-032 | parcial | eventos, reservas FEFO, estados, consumo e liberação conectados ao painel | Reposição, manifesto e acerto operacional |
 | PR-033 | parcial | RLS em todas as tabelas expostas | Escopo por capacidade |

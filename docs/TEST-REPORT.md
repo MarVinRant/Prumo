@@ -23,6 +23,10 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Migração `seed_owner_guard` — aplicada; a preparação de fixtures sintéticas não pode ser acionada por operador comum.
 - Migração `event_asset_lifecycle` — aplicada; transições de evento, consumo idempotente de reserva, reabertura auditada e custódia individual de ativos estão disponíveis por RPC.
 - Migração `event_reopened_transition` — aplicada; evento reaberto pode voltar à separação por transição auditada.
+- Migração `purchase_cost_projection` — aplicada; recebimento com custo atualiza `finance.stock_values` com média móvel e auditoria, sem expor o schema ao Data API.
+- Migração `operational_alerts` — aplicada; RPC idempotente recalcula alertas de ruptura, validade, falta em evento e compra atrasada.
+- Migração `finance_projection_rpc` — aplicada; custos só são retornados por RPC para owner/finance, mantendo `finance` sem grants de tabela no Data API.
+- Build local após custos e alertas — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - `npm run build` após o painel de ciclo de evento e ativos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - Build/deploy mais recente — commit `82fcdfb`, Worker `194c16ed-88f8-4c20-8419-fa8a8f927ab1`.
 - `npm run build` após a remoção da ação sem suporte de reclassificação — aprovado; o build foi publicado no Worker `f7f67439-d61b-4e08-9451-f0a6b9ddca58`.
@@ -42,4 +46,4 @@ Os ciclos F01–F28, concorrência, RLS cross-tenant com dois usuários autentic
 
 ## Limitações atuais
 
-O frontend já persiste login, workspace, catálogo sintético, movimentações, eventos, reserva/consumo/liberação, ciclo de estados, ativos individualizados, solicitações/aprovação/recebimento de compras, convites administrativos e CSV. Manifesto completo, acerto com diferenças, MFA, custos gerenciais, arquivos privados e os testes integrados continuam pendentes e impedem declarar `PRONTO PARA TESTE INTEGRADO`.
+O frontend já persiste login, workspace, catálogo sintético, movimentações, eventos, reserva/consumo/liberação, ciclo de estados, ativos individualizados, solicitações/aprovação/recebimento de compras, convites administrativos, alertas e CSV. Manifesto completo, acerto com diferenças, MFA, leitura financeira autorizada, arquivos privados e os testes integrados continuam pendentes e impedem declarar `PRONTO PARA TESTE INTEGRADO`.
