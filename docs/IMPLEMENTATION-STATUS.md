@@ -45,7 +45,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-039 | parcial | grants mínimos e search_path | MFA e e-mail de convite |
 | PR-040 | parcial | documentação inicial | Runbook de recuperação |
 | PR-041 | parcial | build verificado | E2E no deploy |
-| PR-042 | parcial | modelo de auditoria | Backups/restauração ensaiados |
+| PR-042 | parcial | modelo de auditoria e bucket privado com políticas por tenant | Backups/restauração ensaiados |
 | PR-043 | parcial | Supabase e Worker Cloudflare exclusivos publicados; RLS, grants e advisors revisados | Testes E2E cross-tenant, custos e arquivos privados |
 | PR-044 | pendente-humano | Piloto preparado por documentação | Quatro semanas de piloto humano |
 

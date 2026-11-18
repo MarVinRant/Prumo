@@ -281,6 +281,22 @@ export async function returnAsset(input: { asset_id: string; condition_in: strin
   return data
 }
 
+export async function uploadPrivateFile(tenantId: string, path: string, file: File) {
+  if (!supabase) throw new Error('Configure o Supabase antes de enviar arquivos.')
+  const objectPath = `${tenantId}/${path.replace(/^\/+/, '')}`
+  const { data, error } = await supabase.storage.from('prumo-private').upload(objectPath, file, { upsert: false })
+  if (error) throw error
+  return data
+}
+
+export async function createPrivateDownloadUrl(tenantId: string, path: string, expiresIn = 300) {
+  if (!supabase) throw new Error('Configure o Supabase antes de baixar arquivos.')
+  const objectPath = `${tenantId}/${path.replace(/^\/+/, '')}`
+  const { data, error } = await supabase.storage.from('prumo-private').createSignedUrl(objectPath, expiresIn)
+  if (error) throw error
+  return data.signedUrl
+}
+
 export function downloadStockCsv(rows: { sku: string; name: string; location_name: string; on_hand_q: number; reserved_q: number; available_q: number; base_uom: string; condition: string }[]) {
   const escape = (value: string | number) => { const text = String(value); return /^[=+\-@]/.test(text) ? `'${text}` : `"${text.replaceAll('"', '""')}"` }
   const csv = ['SKU,Item,Local,Físico,Reservado,Disponível,Unidade,Condição', ...rows.map(row => [row.sku,row.name,row.location_name,row.on_hand_q,row.reserved_q,row.available_q,row.base_uom,row.condition].map(escape).join(','))].join('\r\n')

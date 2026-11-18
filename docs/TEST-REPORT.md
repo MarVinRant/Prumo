@@ -31,6 +31,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Migração `blind_count_approval` — aplicada; contagem captura snapshot, detecta conflito e gera ajuste aprovado em transação única sem ultrapassar o reservado.
 - Build local com painel de contagem cega — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - Build local com painel de enrollment/verificação TOTP — aprovado; fluxo usa `supabase.auth.mfa` e ainda requer conta autenticada com autenticador para teste de aceitação.
+- Storage privado — bucket `prumo-private` confirmado como não público, com políticas SELECT/INSERT/UPDATE/DELETE por tenant em `storage.objects`; o conector de migrações expirou ao aplicar esse schema, então a mesma DDL foi executada pelo executor SQL e mantida nos arquivos de migração para reprodução.
 - Build local após custos e alertas — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - `npm run smoke -- https://prumo-stock-hml.marcosranti.workers.dev` — aprovado; seis rotas profundas retornaram `200 text/html`.
 - Build local com comando de fechamento/reabertura no painel de eventos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
