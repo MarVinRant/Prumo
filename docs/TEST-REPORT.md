@@ -22,7 +22,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Migração `expired_lot_guard` — aplicada; consumo, transferência e devolução de lotes vencidos são rejeitados no servidor.
 - Migração `seed_owner_guard` — aplicada; a preparação de fixtures sintéticas não pode ser acionada por operador comum.
 - Build/deploy mais recente — commit `c4e70b6`, Worker `f7f67439-d61b-4e08-9451-f0a6b9ddca58`.
-- `npm run build` após a remoção da ação sem suporte de reclassificação — aprovado; novo deploy ainda precisa ser registrado após o commit desta correção.
+- `npm run build` após a remoção da ação sem suporte de reclassificação — aprovado; o build foi publicado no Worker `f7f67439-d61b-4e08-9451-f0a6b9ddca58`.
 - Smoke HTTP — `/` e `/stock` retornaram HTTP 200 e `text/html`; a rota profunda recebeu o fallback SPA.
 - Smoke HTTP ampliado — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram HTTP 200 e `text/html`.
 - Smoke HTTP após a correção — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram HTTP 200 no Worker `57b8d858-7c59-40da-9514-a8904d1b39c3`.
