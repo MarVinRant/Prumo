@@ -34,6 +34,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Storage privado — bucket `prumo-private` confirmado como não público, com políticas SELECT/INSERT/UPDATE/DELETE por tenant em `storage.objects`; o conector de migrações expirou ao aplicar esse schema, então a mesma DDL foi executada pelo executor SQL e mantida nos arquivos de migração para reprodução.
 - Build local após custos e alertas — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - `npm run smoke -- https://prumo-stock-hml.marcosranti.workers.dev` — aprovado; seis rotas profundas retornaram `200 text/html`.
+- `npm run test:static` — aprovado; invariantes de segredos, RLS, finance, CSV, fallback SPA e storage privado.
 - Build local com comando de fechamento/reabertura no painel de eventos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - `npm run build` após o painel de ciclo de evento e ativos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - Build/deploy mais recente — commit `88f130a`, Worker `a215d474-166b-48ee-b8c1-d74cac7e01d8`.
