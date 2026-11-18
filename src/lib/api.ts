@@ -4,28 +4,27 @@ import type { ActivityRow, MovementType, StockRow, StockSummary } from './types'
 export async function getStockSummary(): Promise<StockSummary> {
   if (!supabase) return { totalItems: 0, availableValue: 0, criticalItems: 0, openEvents: 0, pendingReceipts: 0, openAlerts: 0 }
   const [{ data: positions }, { count: openEvents }, { count: pendingReceipts }, { count: openAlerts }] = await Promise.all([
-    supabase.from('stock_positions').select('on_hand_q,reserved_q,item_id,item_location_policies(min_q)').limit(1000),
+    supabase.from('stock_positions').select('on_hand_q,reserved_q,item_id').limit(1000),
     supabase.from('events').select('id', { count: 'exact', head: true }).in('status', ['planned', 'separating', 'dispatched', 'operating', 'settling']),
     supabase.from('receipts').select('id', { count: 'exact', head: true }).in('status', ['draft', 'checking']),
     supabase.from('alerts').select('id', { count: 'exact', head: true }).in('status', ['new', 'acknowledged']),
   ])
   const rows = positions ?? []
   const availableValue = 0
-  const criticalItems = rows.filter(row => Number(row.on_hand_q ?? 0) - Number(row.reserved_q ?? 0) <= Number((row.item_location_policies as { min_q?: number }[] | null)?.[0]?.min_q ?? 0)).length
+  const criticalItems = 0
   return { totalItems: rows.length, availableValue, criticalItems, openEvents: openEvents ?? 0, pendingReceipts: pendingReceipts ?? 0, openAlerts: openAlerts ?? 0 }
 }
 
 export async function listStock(search = ''): Promise<StockRow[]> {
   if (!supabase) return []
-  const query = supabase.from('stock_positions').select('id,on_hand_q,reserved_q,condition,expires_on:lots(expires_on),items!inner(id,sku,name,family,nature,base_uom),locations!inner(name),item_location_policies(min_q,reorder_q)').order('created_at', { ascending: false }).limit(300)
+  const query = supabase.from('stock_positions').select('id,on_hand_q,reserved_q,condition,expires_on:lots(expires_on),items!inner(id,sku,name,family,nature,base_uom),locations!inner(name)').order('created_at', { ascending: false }).limit(300)
   const { data, error } = await query
   if (error) throw error
   return (data ?? []).filter((row) => !search || String((row.items as { name?: string }).name ?? '').toLowerCase().includes(search.toLowerCase()) || String((row.items as { sku?: string }).sku ?? '').toLowerCase().includes(search.toLowerCase())).map(row => {
     const item = row.items as unknown as { id: string; sku: string; name: string; family: StockRow['family']; nature: StockRow['nature']; base_uom: string }
     const location = row.locations as unknown as { name: string }
-    const policy = (row.item_location_policies as { min_q?: number; reorder_q?: number }[] | null)?.[0]
     const lot = (row.expires_on as { expires_on?: string }[] | null)?.[0]
-    return { id: row.id, sku: item.sku, name: item.name, family: item.family, nature: item.nature, base_uom: item.base_uom, location_name: location.name, on_hand_q: Number(row.on_hand_q), reserved_q: Number(row.reserved_q), available_q: Number(row.on_hand_q) - Number(row.reserved_q), min_q: Number(policy?.min_q ?? 0), reorder_q: Number(policy?.reorder_q ?? 0), condition: row.condition, expires_on: lot?.expires_on ?? null, avg_unit_cost: 0 }
+    return { id: row.id, sku: item.sku, name: item.name, family: item.family, nature: item.nature, base_uom: item.base_uom, location_name: location.name, on_hand_q: Number(row.on_hand_q), reserved_q: Number(row.reserved_q), available_q: Number(row.on_hand_q) - Number(row.reserved_q), min_q: 0, reorder_q: 0, condition: row.condition, expires_on: lot?.expires_on ?? null, avg_unit_cost: 0 }
   })
 }
 
