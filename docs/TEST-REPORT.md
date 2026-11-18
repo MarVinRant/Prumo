@@ -36,7 +36,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - `npm run smoke -- https://prumo-stock-hml.marcosranti.workers.dev` — aprovado; seis rotas profundas retornaram `200 text/html`.
 - Build local com comando de fechamento/reabertura no painel de eventos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - `npm run build` após o painel de ciclo de evento e ativos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
-- Build/deploy mais recente — commit `c38318c`, Worker `cdfecc20-a2a9-4303-8adc-c4a13ba29dde`.
+- Build/deploy mais recente — commit `88f130a`, Worker `a215d474-166b-48ee-b8c1-d74cac7e01d8`.
 - `npm run build` após a remoção da ação sem suporte de reclassificação — aprovado; o build foi publicado no Worker `f7f67439-d61b-4e08-9451-f0a6b9ddca58`.
 - Smoke HTTP — `/` e `/stock` retornaram HTTP 200 e `text/html`; a rota profunda recebeu o fallback SPA.
 - Smoke HTTP ampliado — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram HTTP 200 e `text/html`.
@@ -53,6 +53,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Smoke após fechamento auditado — seis rotas retornaram `200 text/html` no Worker `256b7b3b-251a-4833-97ea-c4f8bc3cf8d9`.
 - Smoke após contagem cega — seis rotas retornaram `200 text/html` no Worker `0322e9c4-c053-4481-ac8f-bf535ddf0677`.
 - Smoke após MFA TOTP — seis rotas retornaram `200 text/html` no Worker `cdfecc20-a2a9-4303-8adc-c4a13ba29dde`.
+- Smoke após storage privado — seis rotas retornaram `200 text/html` no Worker `a215d474-166b-48ee-b8c1-d74cac7e01d8`.
 - Inspeção visual/DOM do deploy — tela de login PRUMO carregou com campos E-mail/Senha e ação de primeiro acesso.
 
 ## Ainda não executados
