@@ -37,7 +37,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-031 | parcial | status e constraints de compras | Aprovação/pedido/recebimento integrado |
 | PR-032 | parcial | tabelas de evento | FEFO/reserva sem dupla alocação |
 | PR-033 | parcial | RLS em todas as tabelas expostas | Escopo por capacidade |
-| PR-034 | parcial | dados sintéticos no bootstrap | Fixtures multi-tenant completas |
+| PR-034 | parcial | dados sintéticos no bootstrap, oito famílias, lotes válidos/vencidos e eventos em estados distintos | Fixture multi-tenant completa e fechamento auditado |
 | PR-035 | parcial | app mobile-first | Teste visual automatizado |
 | PR-036 | parcial | estados de carregamento/erro no shell | Cobertura de conflito/rede |
 | PR-037 | parcial | comando idempotente no ledger | Teste de timeout pós-commit |
@@ -46,7 +46,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-040 | parcial | documentação inicial | Runbook de recuperação |
 | PR-041 | parcial | build verificado | E2E no deploy |
 | PR-042 | parcial | modelo de auditoria | Backups/restauração ensaiados |
-| PR-043 | parcial | Supabase e Worker Cloudflare exclusivos publicados | Testes E2E completos e observabilidade |
+| PR-043 | parcial | Supabase e Worker Cloudflare exclusivos publicados, RLS/advisors revisados | Testes E2E cross-tenant completos |
 | PR-044 | pendente-humano | Piloto preparado por documentação | Quatro semanas de piloto humano |
 
 Este arquivo é deliberadamente honesto: não afirma prontidão integrada enquanto os critérios parciais e a validação humana ainda não estiverem fechados.

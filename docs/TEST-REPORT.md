@@ -16,6 +16,8 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Deploy Cloudflare — `https://prumo-stock-hml.marcosranti.workers.dev`, versão `2b2edb33-42cc-4938-801e-bfdbad32863f`, build do commit `453930b`.
 - Migração `access_event_commands` — aplicada; tabela de convites, recuperação de acesso no Auth e RPCs de reserva/liberação/fechamento adicionados.
 - Build/deploy atualizado — commit `ca2e3a9`, Worker `c76b8cd1-c06d-4b7a-b31c-7a4d778b24b5`.
+- Fixture sintética multi-família — migração `synthetic_fixture_seed` aplicada; bootstrap prepara oito famílias, lotes válidos/vencidos, fornecedor sintético e eventos planejado/em operação.
+- Deploy mais recente — commit `31d71f6`, Worker `7f98ddf9-8d74-4980-a2b9-327480e690ba`.
 - Smoke HTTP — `/` e `/stock` retornaram HTTP 200 e `text/html`; a rota profunda recebeu o fallback SPA.
 - Smoke HTTP ampliado — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram HTTP 200 e `text/html`.
 - Inspeção visual/DOM do deploy — tela de login PRUMO carregou com campos E-mail/Senha e ação de primeiro acesso.
