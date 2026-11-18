@@ -16,7 +16,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-010 | parcial | Oito famílias e catálogo persistente | CRUD completo de catálogo |
 | PR-011 | parcial | item_packages e fator por SKU | UI e validações kg/L completas |
 | PR-012 | parcial | stock_positions com precisão decimal | Conversões adicionais e snapshots |
-| PR-013 | implementado | ledger + RPC `post_stock_movement` | Fluxos de contagem cegos |
+| PR-013 | parcial | ledger + RPC de movimentação e contagem cega com aprovação | Reconciliação completa de todos os tipos de ajuste |
 | PR-014 | parcial | lotes, validade e condição | FEFO e bloqueio vencido dedicado |
 | PR-015 | parcial | políticas min/max/reorder | Alertas idempotentes automáticos |
 | PR-016 | parcial | purchase_requests e RPC de solicitação | Aprovação, fornecedor e pedido |
@@ -26,7 +26,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-020 | parcial | estrutura de manifesto prevista | Expedição/operação/retorno |
 | PR-021 | parcial | estrutura de retornáveis | Conferência e proibição de consumo |
 | PR-022 | parcial | custódia individual com comandos transacionais de expedição e retorno | Conferência completa por evento |
-| PR-023 | parcial | tabelas de fechamento previstas | Classificação/aprovação de diferenças |
+| PR-023 | parcial | contagem cega com snapshot, conflito e aprovação transacional | Classificação/aprovação de diferenças do evento |
 | PR-024 | parcial | reabertura exige motivo e gera auditoria | Snapshot versionado e diff do fechamento |
 | PR-025 | parcial | schema finance privado e projeção de custo médio no recebimento | Baixas/transferências financeiras completas |
 | PR-026 | parcial | finance fora do Data API e custo capturado no recebimento | Ajustes monetários por capacidade e UI financeira |
@@ -40,8 +40,8 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-034 | parcial | seed reproduzível com oito famílias, lotes válidos/vencidos, eventos e ativos sintéticos | Segundo tenant, manifesto/retorno e fechamento auditado |
 | PR-035 | parcial | app mobile-first | Teste visual automatizado |
 | PR-036 | parcial | estados de carregamento/erro no shell | Cobertura de conflito/rede |
-| PR-037 | parcial | comando idempotente no ledger | Teste de timeout pós-commit |
-| PR-038 | parcial | constraints de não-negatividade | Testes de concorrência |
+| PR-037 | parcial | comandos idempotentes no ledger, recebimento e consumo de reserva | Teste de timeout pós-commit autenticado |
+| PR-038 | parcial | constraints de não-negatividade, locks e conflito de contagem | Testes de concorrência autenticados |
 | PR-039 | parcial | grants mínimos e search_path | MFA e e-mail de convite |
 | PR-040 | parcial | documentação inicial | Runbook de recuperação |
 | PR-041 | parcial | build verificado | E2E no deploy |

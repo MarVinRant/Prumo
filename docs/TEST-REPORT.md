@@ -28,6 +28,8 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Migração `finance_projection_rpc` — aplicada; custos só são retornados por RPC para owner/finance, mantendo `finance` sem grants de tabela no Data API.
 - Migração `return_pending_alerts` — aplicada; custódias abertas após o fim do evento geram alerta idempotente de retorno pendente.
 - Migração `invitation_acceptance` — aplicada; token é validado por hash, e-mail autenticado, expiração, revogação e vínculo de papel antes de criar membership.
+- Migração `blind_count_approval` — aplicada; contagem captura snapshot, detecta conflito e gera ajuste aprovado em transação única sem ultrapassar o reservado.
+- Build local com painel de contagem cega — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - Build local após custos e alertas — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - `npm run smoke -- https://prumo-stock-hml.marcosranti.workers.dev` — aprovado; seis rotas profundas retornaram `200 text/html`.
 - Build local com comando de fechamento/reabertura no painel de eventos — aprovado; TypeScript sem erros e Vite gerou `dist/`.

@@ -44,6 +44,34 @@ export async function listStock(search = ''): Promise<StockRow[]> {
   })
 }
 
+export async function listCountTargets() {
+  if (!supabase) return []
+  const { data, error } = await supabase.from('stock_positions').select('id,item_id,location_id,lot_id,on_hand_q,items(name,sku,base_uom),locations(name),lots(lot_code,expires_on)').eq('condition', 'usable').order('created_at', { ascending: false }).limit(300)
+  if (error) throw error
+  return data ?? []
+}
+
+export async function listStockCounts() {
+  if (!supabase) return []
+  const { data, error } = await supabase.from('stock_counts').select('id,item_id,location_id,lot_id,counted_q,status,reason,created_at,items(name,sku),locations(name),lots(lot_code)').order('created_at', { ascending: false }).limit(100)
+  if (error) throw error
+  return data ?? []
+}
+
+export async function recordStockCount(input: { item_id: string; location_id: string; lot_id: string; counted_q: number; reason?: string }) {
+  if (!supabase) throw new Error('Configure o Supabase antes de registrar contagens.')
+  const { data, error } = await supabase.rpc('record_stock_count', { p_item_id: input.item_id, p_location_id: input.location_id, p_lot_id: input.lot_id, p_counted_q: input.counted_q, p_reason: input.reason ?? null })
+  if (error) throw error
+  return data
+}
+
+export async function approveStockCount(id: string) {
+  if (!supabase) throw new Error('Configure o Supabase antes de aprovar contagens.')
+  const { data, error } = await supabase.rpc('approve_stock_count', { p_count_id: id })
+  if (error) throw error
+  return data
+}
+
 export async function bootstrapWorkspace() {
   if (!supabase) return null
   const { data, error } = await supabase.rpc('bootstrap_workspace', { p_name: 'Operação Farol' })
