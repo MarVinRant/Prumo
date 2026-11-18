@@ -10,7 +10,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-004 | implementado | Vite/TS lockfile, `.env.example`, `wrangler.jsonc` | URL Cloudflare |
 | PR-005 | parcial | Supabase Auth, signup/login, recuperação por e-mail e sessão persistente | MFA obrigatório para perfis privilegiados |
 | PR-006 | parcial | `bootstrap_workspace` transacional/idempotente | Troca de contexto |
-| PR-007 | parcial | Convites com token hash, expiração, revogação e auditoria | Entrega automática por SMTP e aceite do convite |
+| PR-007 | parcial | Convites com token hash, expiração, revogação, aceite autenticado e auditoria | Entrega automática por SMTP e teste multiusuário |
 | PR-008 | parcial | FKs compostas, RLS e isolamento por tenant | Capacidades/escopos finos por local |
 | PR-009 | parcial | units/locations, seed de dois locais | UI de cadastro/arquivamento |
 | PR-010 | parcial | Oito famílias e catálogo persistente | CRUD completo de catálogo |

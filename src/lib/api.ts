@@ -176,6 +176,13 @@ export async function revokeInvitation(id: string) {
   return data
 }
 
+export async function acceptInvitation(token: string, displayName = '') {
+  if (!supabase) throw new Error('Configure o Supabase antes de aceitar convites.')
+  const { data, error } = await supabase.rpc('accept_invitation', { p_token: token, p_display_name: displayName })
+  if (error) throw error
+  return data
+}
+
 export async function reserveEventMaterial(input: { event_id: string; item_id: string; location_id: string; quantity: number; lot_id?: string }) {
   if (!supabase) throw new Error('Configure o Supabase antes de reservar materiais.')
   const { data, error } = await supabase.rpc('reserve_event_material', { p_event_id: input.event_id, p_item_id: input.item_id, p_location_id: input.location_id, p_quantity: input.quantity, p_lot_id: input.lot_id ?? null })
