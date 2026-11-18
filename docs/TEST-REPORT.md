@@ -63,4 +63,4 @@ Os ciclos F01–F28, concorrência, RLS cross-tenant com dois usuários autentic
 
 ## Limitações atuais
 
-O frontend já persiste login, workspace, catálogo sintético, movimentações, eventos, reserva/consumo/liberação, ciclo de estados, ativos individualizados, solicitações/aprovação/recebimento de compras, convites administrativos, alertas e CSV. Manifesto completo, acerto com diferenças, MFA, leitura financeira autorizada, arquivos privados e os testes integrados continuam pendentes e impedem declarar `PRONTO PARA TESTE INTEGRADO`.
+O frontend já persiste login, workspace, catálogo sintético, movimentações, eventos, reserva/consumo/liberação, ciclo de estados, ativos individualizados, solicitações/aprovação/recebimento de compras, convites administrativos, alertas, contagem cega, MFA TOTP e CSV. Manifesto completo, acerto com diferenças, enforcement AAL2, testes autenticados de custos/storage e os testes integrados continuam pendentes e impedem declarar `PRONTO PARA TESTE INTEGRADO`.
