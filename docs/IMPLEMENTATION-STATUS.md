@@ -8,7 +8,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-002 | pendente-humano | Decisões D03-D10 registradas como premissas | Validação comercial real |
 | PR-003 | implementado | React responsivo, tokens PRUMO, foco visível | Validação do nome da marca |
 | PR-004 | implementado | Vite/TS lockfile, `.env.example`, `wrangler.jsonc` | URL Cloudflare |
-| PR-005 | parcial | Supabase Auth, signup/login, recuperação por e-mail e sessão persistente | MFA obrigatório para perfis privilegiados |
+| PR-005 | parcial | Supabase Auth, signup/login, recuperação por e-mail, sessão persistente e painel TOTP aal2 | Enforcement MFA obrigatório em todas as funções privilegiadas |
 | PR-006 | parcial | `bootstrap_workspace` transacional/idempotente | Troca de contexto |
 | PR-007 | parcial | Convites com token hash, expiração, revogação, aceite autenticado e auditoria | Entrega automática por SMTP e teste multiusuário |
 | PR-008 | parcial | FKs compostas, RLS e isolamento por tenant | Capacidades/escopos finos por local |
