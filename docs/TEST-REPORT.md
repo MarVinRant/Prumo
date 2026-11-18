@@ -26,6 +26,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Migração `purchase_cost_projection` — aplicada; recebimento com custo atualiza `finance.stock_values` com média móvel e auditoria, sem expor o schema ao Data API.
 - Migração `operational_alerts` — aplicada; RPC idempotente recalcula alertas de ruptura, validade, falta em evento e compra atrasada.
 - Migração `finance_projection_rpc` — aplicada; custos só são retornados por RPC para owner/finance, mantendo `finance` sem grants de tabela no Data API.
+- Migração `return_pending_alerts` — aplicada; custódias abertas após o fim do evento geram alerta idempotente de retorno pendente.
 - Build local após custos e alertas — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - `npm run smoke -- https://prumo-stock-hml.marcosranti.workers.dev` — aprovado; seis rotas profundas retornaram `200 text/html`.
 - `npm run build` após o painel de ciclo de evento e ativos — aprovado; TypeScript sem erros e Vite gerou `dist/`.

@@ -19,7 +19,9 @@ export async function refreshAlerts() {
   if (!supabase) return 0
   const { data, error } = await supabase.rpc('refresh_operational_alerts')
   if (error) throw error
-  return Number(data ?? 0)
+  const { data: returnData, error: returnError } = await supabase.rpc('refresh_return_pending_alerts')
+  if (returnError) throw returnError
+  return Number(data ?? 0) + Number(returnData ?? 0)
 }
 
 export async function getFinanceSummary() {
