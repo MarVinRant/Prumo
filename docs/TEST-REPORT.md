@@ -12,7 +12,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - `supabase_list_tables` — 30 tabelas públicas, todas com RLS habilitado.
 - Advisor de saúde — sem findings.
 - Consulta de privilégio — `anon` não possui SELECT em `public.stock_positions` nem USAGE no schema `finance`.
-- Advisor de segurança — política explícita de deny no schema financeiro; há 13 avisos de funções `SECURITY DEFINER` intencionais, todos com `search_path` fixo, validação de tenant/capacidade quando aplicável e grants mínimos. O seed sintético foi adicionalmente restringido a owner/manager.
+- Advisor de segurança — política explícita de deny no schema financeiro; há 22 avisos de funções `SECURITY DEFINER` intencionais, todos com `search_path` fixo, validação de tenant/capacidade quando aplicável e grants mínimos. O seed sintético foi adicionalmente restringido a owner/manager. Os avisos não são tratados como aprovação automática: testes de autorização por papel ainda estão pendentes.
 - Deploy Cloudflare — `https://prumo-stock-hml.marcosranti.workers.dev`, versão `2b2edb33-42cc-4938-801e-bfdbad32863f`, build do commit `453930b`.
 - Migração `access_event_commands` — aplicada; tabela de convites, recuperação de acesso no Auth e RPCs de reserva/liberação/fechamento adicionados.
 - Build/deploy atualizado — commit `ca2e3a9`, Worker `c76b8cd1-c06d-4b7a-b31c-7a4d778b24b5`.
