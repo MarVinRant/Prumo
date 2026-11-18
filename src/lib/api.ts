@@ -96,7 +96,7 @@ export async function createEvent(input: { name: string; code: string; venue: st
 
 export async function listPurchaseRequests() {
   if (!supabase) return []
-  const { data, error } = await supabase.from('purchase_requests').select('id,status,needed_by,reason,created_at,purchase_request_lines(quantity,items(name,sku),locations(name))').order('created_at', { ascending: false }).limit(100)
+  const { data, error } = await supabase.from('purchase_requests').select('id,status,needed_by,reason,created_at,purchase_request_lines(quantity,items(name,sku),locations(name)),purchase_orders(id,order_no,status,purchase_order_lines(ordered_q,received_q,items(name,sku)))').order('created_at', { ascending: false }).limit(100)
   if (error) throw error
   return data ?? []
 }
@@ -104,6 +104,27 @@ export async function listPurchaseRequests() {
 export async function createPurchaseRequest(input: { item_id: string; location_id: string; quantity: number; needed_by: string; reason: string }) {
   if (!supabase) throw new Error('Configure o Supabase antes de criar solicitações.')
   const { data, error } = await supabase.rpc('create_purchase_request', { p_item_id: input.item_id, p_location_id: input.location_id, p_quantity: input.quantity, p_needed_by: input.needed_by, p_reason: input.reason })
+  if (error) throw error
+  return data
+}
+
+export async function approvePurchaseRequest(id: string) {
+  if (!supabase) throw new Error('Configure o Supabase antes de aprovar compras.')
+  const { data, error } = await supabase.rpc('approve_purchase_request', { p_request_id: id })
+  if (error) throw error
+  return data
+}
+
+export async function createPurchaseOrderFromRequest(id: string) {
+  if (!supabase) throw new Error('Configure o Supabase antes de emitir pedidos.')
+  const { data, error } = await supabase.rpc('create_purchase_order_from_request', { p_request_id: id })
+  if (error) throw error
+  return data
+}
+
+export async function receivePurchaseOrder(input: { order_id: string; location_id: string; quantity: number; lot_code: string; expires_on: string; unit_cost?: number; idempotency_key?: string }) {
+  if (!supabase) throw new Error('Configure o Supabase antes de receber pedidos.')
+  const { data, error } = await supabase.rpc('receive_purchase_order', { p_order_id: input.order_id, p_location_id: input.location_id, p_quantity: input.quantity, p_lot_code: input.lot_code, p_expires_on: input.expires_on, p_unit_cost: input.unit_cost ?? null, p_idempotency_key: input.idempotency_key ?? crypto.randomUUID() })
   if (error) throw error
   return data
 }
