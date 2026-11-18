@@ -101,6 +101,48 @@ export async function createPurchaseRequest(input: { item_id: string; location_i
   return data
 }
 
+export async function createInvitation(input: { email: string; role: string; expires_at?: string }) {
+  if (!supabase) throw new Error('Configure o Supabase antes de convidar equipe.')
+  const { data, error } = await supabase.rpc('create_invitation', { p_email: input.email, p_role: input.role, p_expires_at: input.expires_at ?? new Date(Date.now() + 7 * 86400000).toISOString() })
+  if (error) throw error
+  return data as { id: string; token: string; expires_at: string }
+}
+
+export async function listInvitations() {
+  if (!supabase) return []
+  const { data, error } = await supabase.from('invitations').select('id,email,role,expires_at,accepted_at,revoked_at,created_at').order('created_at', { ascending: false }).limit(100)
+  if (error) throw error
+  return data ?? []
+}
+
+export async function revokeInvitation(id: string) {
+  if (!supabase) throw new Error('Configure o Supabase antes de revogar convites.')
+  const { data, error } = await supabase.rpc('revoke_invitation', { p_invitation_id: id })
+  if (error) throw error
+  return data
+}
+
+export async function reserveEventMaterial(input: { event_id: string; item_id: string; location_id: string; quantity: number; lot_id?: string }) {
+  if (!supabase) throw new Error('Configure o Supabase antes de reservar materiais.')
+  const { data, error } = await supabase.rpc('reserve_event_material', { p_event_id: input.event_id, p_item_id: input.item_id, p_location_id: input.location_id, p_quantity: input.quantity, p_lot_id: input.lot_id ?? null })
+  if (error) throw error
+  return data
+}
+
+export async function releaseEventReservation(id: string) {
+  if (!supabase) throw new Error('Configure o Supabase antes de liberar reservas.')
+  const { data, error } = await supabase.rpc('release_event_reservation', { p_reservation_id: id })
+  if (error) throw error
+  return data
+}
+
+export async function closeEvent(id: string, reason: string) {
+  if (!supabase) throw new Error('Configure o Supabase antes de fechar eventos.')
+  const { data, error } = await supabase.rpc('close_event', { p_event_id: id, p_reason: reason })
+  if (error) throw error
+  return data
+}
+
 export function downloadStockCsv(rows: { sku: string; name: string; location_name: string; on_hand_q: number; reserved_q: number; available_q: number; base_uom: string; condition: string }[]) {
   const escape = (value: string | number) => { const text = String(value); return /^[=+\-@]/.test(text) ? `'${text}` : `"${text.replaceAll('"', '""')}"` }
   const csv = ['SKU,Item,Local,Físico,Reservado,Disponível,Unidade,Condição', ...rows.map(row => [row.sku,row.name,row.location_name,row.on_hand_q,row.reserved_q,row.available_q,row.base_uom,row.condition].map(escape).join(','))].join('\r\n')
