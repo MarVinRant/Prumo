@@ -32,7 +32,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-026 | parcial | finance fora do Data API, custo capturado no recebimento, devolução vinculada ao recebimento/lote e ajuste monetário sem quantidade com aprovação independente | Teste autenticado por papel e reconciliação completa |
 | PR-027 | parcial | activity_feed com security_invoker | Relatórios completos |
 | PR-028 | implementado | Exportação CSV com neutralização de fórmulas | Filtros avançados |
-| PR-029 | parcial | auditoria de bootstrap/movimentos | Correlação e observabilidade externa |
+| PR-029 | parcial | auditoria de bootstrap/movimentos e reconciliação operacional exposta na Administração | Correlação e observabilidade externa |
 | PR-030 | parcial | RPC idempotente de alertas para ruptura, validade, evento, compra atrasada e retorno pendente; acknowledge/resolve com auditoria e MFA gerencial | Job agendado, ciclos por causa e teste autenticado |
 | PR-031 | parcial | status/constraints de compras e fluxo de aprovação/rejeição/pedido/recebimento; `delivered_q` bloqueia sobre-entrega e `blocked_q` preserva quarentena | Conferência por linha e teste integrado autenticado |
 | PR-032 | parcial | eventos, reservas FEFO, estados, consumo/liberação, reposição, manifesto e acerto com classificação/aprovação conectados ao painel | Teste operacional completo |
