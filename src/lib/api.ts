@@ -236,9 +236,16 @@ export async function createEvent(input: { name: string; code: string; venue: st
 
 export async function listPurchaseRequests() {
   if (!supabase) return []
-  const { data, error } = await supabase.from('purchase_requests').select('id,status,needed_by,reason,created_at,purchase_request_lines(quantity,items(name,sku),locations(name)),purchase_orders(id,order_no,status,purchase_order_lines(ordered_q,received_q,items(name,sku)))').order('created_at', { ascending: false }).limit(100)
+  const { data, error } = await supabase.from('purchase_requests').select('id,status,needed_by,reason,created_at,purchase_request_lines(quantity,items(name,sku),locations(name)),purchase_orders(id,order_no,status,purchase_order_lines(ordered_q,received_q,items(name,sku)),receipts(id,location_id,status,receipt_lines(id,accepted_q,returned_q,lot_id)))').order('created_at', { ascending: false }).limit(100)
   if (error) throw error
   return data ?? []
+}
+
+export async function returnSupplierMaterial(input: { receipt_id: string; quantity: number; reason: string; idempotency_key?: string }) {
+  if (!supabase) throw new Error('Configure o Supabase antes de devolver ao fornecedor.')
+  const { data, error } = await supabase.rpc('return_supplier_material', { p_receipt_id: input.receipt_id, p_quantity: input.quantity, p_reason: input.reason, p_idempotency_key: input.idempotency_key ?? crypto.randomUUID() })
+  if (error) throw error
+  return data
 }
 
 export async function createPurchaseRequest(input: { item_id: string; location_id: string; quantity: number; needed_by: string; reason: string }) {

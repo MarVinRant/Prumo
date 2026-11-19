@@ -29,7 +29,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-023 | parcial | contagem cega com snapshot, conflito e aprovação transacional; diferenças de evento classificáveis e aprováveis | Teste autenticado do acerto com múltiplos lotes |
 | PR-024 | parcial | reabertura exige motivo, gera auditoria e nova versão de manifesto no ciclo seguinte | Teste de reabertura com divergência persistida |
 | PR-025 | parcial | schema finance privado e projeção de custo médio no recebimento | Baixas/transferências financeiras completas |
-| PR-026 | parcial | finance fora do Data API e custo capturado no recebimento | Ajustes monetários por capacidade e UI financeira |
+| PR-026 | parcial | finance fora do Data API, custo capturado no recebimento e devolução ao fornecedor vinculada ao recebimento/lote | Ajustes monetários por capacidade e UI financeira |
 | PR-027 | parcial | activity_feed com security_invoker | Relatórios completos |
 | PR-028 | implementado | Exportação CSV com neutralização de fórmulas | Filtros avançados |
 | PR-029 | parcial | auditoria de bootstrap/movimentos | Correlação e observabilidade externa |

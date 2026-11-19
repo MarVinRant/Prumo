@@ -37,6 +37,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Migração `event_difference_guard` — aplicada no projeto `azuomlmqdnyvdgnhypao`; classificação só ocorre no estado `settling`, impede reduzir consumo já registrado e move avaria para posição física `damaged` sem contar como perda.
 - Migração `event_replenishment` — aplicada no projeto `azuomlmqdnyvdgnhypao`; reposição durante `operating`/`settling` reserva FEFO, registra origem `replenishment`, adiciona a linha ao manifesto vigente e prepara a diferença quando o acerto já começou.
 - Migração `catalog_structure_commands` — aplicada no projeto `azuomlmqdnyvdgnhypao`; comandos autorizados para unidade/local, item/família/natureza, embalagem/fator, política min/reorder/max, fornecedor e vínculo comercial. O painel de Administração usa apenas essas RPCs para escrita.
+- Migração `supplier_returns` — aplicada no projeto `azuomlmqdnyvdgnhypao`; devolução exige `aal2`, motivo e quantidade até o aceito líquido, baixa o lote por documento idempotente de retorno e atualiza `receipt_lines.returned_q`.
 - Build local após custos e alertas — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - `npm run smoke -- https://prumo-stock-hml.marcosranti.workers.dev` — aprovado; seis rotas profundas retornaram `200 text/html`.
 - `npm run test:static` — aprovado; invariantes de segredos, RLS, finance, CSV, fallback SPA e storage privado.
@@ -44,6 +45,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - `npm run build` após o painel de acerto de eventos — aprovado; TypeScript sem erros e bundle gerado.
 - `npm run test` após a reposição durante operação — aprovado; build e invariantes de manifesto, acerto e reposição passaram.
 - `npm run test` após o painel de catálogo — aprovado; build TypeScript/Vite e invariantes de segurança/catalogação passaram.
+- `npm run test` após o fluxo de devolução ao fornecedor — aprovado; build e invariantes de devolução passaram.
 - Deploy Cloudflare após manifesto/acerto — Worker `prumo-stock-hml`, versão `3a31a44f-fd17-43a1-9f3d-0c2074b494f2`, commit `8b4d765`.
 - `npm run smoke -- https://prumo-stock-hml.marcosranti.workers.dev` após o deploy — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram `200 text/html`.
 - Deploy Cloudflare após reposição de evento — Worker `prumo-stock-hml`, versão `e7aca5af-0a1e-4b62-9c0a-e0eeecb89a30`, commit `1b36170`.
