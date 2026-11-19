@@ -125,6 +125,69 @@ export async function listLocations() {
   return data ?? []
 }
 
+export async function listUnits() {
+  if (!supabase) return []
+  const { data, error } = await supabase.from('units').select('id,name,code,status').eq('status', 'active').order('name')
+  if (error) throw error
+  return data ?? []
+}
+
+export async function listSuppliers() {
+  if (!supabase) return []
+  const { data, error } = await supabase.from('suppliers').select('id,name,status').eq('status', 'active').order('name')
+  if (error) throw error
+  return data ?? []
+}
+
+export async function createUnit(input: { name: string; code: string }) {
+  if (!supabase) throw new Error('Configure o Supabase antes de cadastrar unidades.')
+  const { data, error } = await supabase.rpc('create_unit', { p_name: input.name, p_code: input.code })
+  if (error) throw error
+  return data
+}
+
+export async function createLocation(input: { unit_id: string; name: string; type: string; is_stockable: boolean }) {
+  if (!supabase) throw new Error('Configure o Supabase antes de cadastrar locais.')
+  const { data, error } = await supabase.rpc('create_location', { p_unit_id: input.unit_id, p_name: input.name, p_type: input.type, p_is_stockable: input.is_stockable })
+  if (error) throw error
+  return data
+}
+
+export async function createItem(input: { sku: string; name: string; family: string; nature: string; base_uom: string; category_name?: string }) {
+  if (!supabase) throw new Error('Configure o Supabase antes de cadastrar materiais.')
+  const { data, error } = await supabase.rpc('create_item', { p_sku: input.sku, p_name: input.name, p_family: input.family, p_nature: input.nature, p_base_uom: input.base_uom, p_category_name: input.category_name ?? null })
+  if (error) throw error
+  return data
+}
+
+export async function createItemPackage(input: { item_id: string; name: string; factor: number; barcode?: string }) {
+  if (!supabase) throw new Error('Configure o Supabase antes de cadastrar embalagens.')
+  const { data, error } = await supabase.rpc('create_item_package', { p_item_id: input.item_id, p_name: input.name, p_factor: input.factor, p_barcode: input.barcode ?? null })
+  if (error) throw error
+  return data
+}
+
+export async function upsertItemLocationPolicy(input: { item_id: string; location_id: string; min_q: number; reorder_q: number; max_q: number }) {
+  if (!supabase) throw new Error('Configure o Supabase antes de configurar reposição.')
+  const { data, error } = await supabase.rpc('upsert_item_location_policy', { p_item_id: input.item_id, p_location_id: input.location_id, p_min_q: input.min_q, p_reorder_q: input.reorder_q, p_max_q: input.max_q })
+  if (error) throw error
+  return data
+}
+
+export async function createSupplier(input: { name: string; email?: string; phone?: string }) {
+  if (!supabase) throw new Error('Configure o Supabase antes de cadastrar fornecedores.')
+  const { data, error } = await supabase.rpc('create_supplier', { p_name: input.name, p_tax_id: null, p_email: input.email ?? null, p_phone: input.phone ?? null })
+  if (error) throw error
+  return data
+}
+
+export async function linkSupplierItem(input: { supplier_id: string; item_id: string; lead_time_days: number; supplier_sku?: string; last_unit_cost?: number }) {
+  if (!supabase) throw new Error('Configure o Supabase antes de vincular fornecedor.')
+  const { data, error } = await supabase.rpc('link_supplier_item', { p_supplier_id: input.supplier_id, p_item_id: input.item_id, p_lead_time_days: input.lead_time_days, p_supplier_sku: input.supplier_sku ?? null, p_last_unit_cost: input.last_unit_cost ?? null })
+  if (error) throw error
+  return data
+}
+
 export async function listEvents() {
   if (!supabase) return []
   const { data, error } = await supabase.from('events').select('id,name,code,venue,starts_at,ends_at,status').order('starts_at', { ascending: true }).limit(100)

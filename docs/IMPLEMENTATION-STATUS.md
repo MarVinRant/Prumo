@@ -12,13 +12,13 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-006 | parcial | `bootstrap_workspace` transacional/idempotente | Troca de contexto |
 | PR-007 | parcial | Convites com token hash, expiração, revogação, aceite autenticado e auditoria | Entrega automática por SMTP e teste multiusuário |
 | PR-008 | parcial | FKs compostas, RLS e isolamento por tenant | Capacidades/escopos finos por local |
-| PR-009 | parcial | units/locations, seed de dois locais | UI de cadastro/arquivamento |
-| PR-010 | parcial | Oito famílias e catálogo persistente | CRUD completo de catálogo |
-| PR-011 | parcial | item_packages e fator por SKU | UI e validações kg/L completas |
-| PR-012 | parcial | stock_positions com precisão decimal | Conversões adicionais e snapshots |
-| PR-013 | parcial | ledger + RPC de movimentação e contagem cega com aprovação | Reconciliação completa de todos os tipos de ajuste |
+| PR-009 | parcial | units/locations, seed de dois locais e painel de cadastro com local estocável/não estocável | UI de arquivamento e escopo fino por local |
+| PR-010 | parcial | Oito famílias, catálogo persistente e painel de criação por SKU/natureza | Edição/inativação completa e teste multiusuário |
+| PR-011 | parcial | item_packages, fator por SKU e painel de embalagem | Validações contextuais kg/L e snapshot em todos os documentos |
+| PR-012 | parcial | stock_positions com precisão decimal e unidades base g/ml/un/m | Conversões adicionais e snapshots |
+| PR-013 | parcial | ledger + RPC de movimentação, contagem cega e políticas min/reorder/max por item/local | Reconciliação completa de todos os tipos de ajuste |
 | PR-014 | parcial | lotes, validade e condição | FEFO e bloqueio vencido dedicado |
-| PR-015 | parcial | políticas min/max/reorder | Alertas idempotentes automáticos |
+| PR-015 | parcial | políticas min/max/reorder configuráveis no painel e alertas idempotentes automáticos | Reconhecimento/resolução por causa |
 | PR-016 | parcial | purchase_requests e RPC de solicitação | Aprovação, fornecedor e pedido |
 | PR-017 | parcial | receipts e linhas modelados | Recebimento parcial conectado |
 | PR-018 | parcial | ativos/custódias, cadastro e painel de expedição/retorno | Permissões finas e conferência por ativo |

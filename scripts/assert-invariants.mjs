@@ -9,6 +9,7 @@ const migrationFiles = await Promise.all([
   'supabase/migrations/20261117214000_privileged_aal2.sql',
   'supabase/migrations/20261117214100_event_manifest_settlement.sql',
   'supabase/migrations/20261117214300_event_replenishment.sql',
+  'supabase/migrations/20261117214400_catalog_structure_commands.sql',
 ].map(read))
 const wrangler = await read('wrangler.jsonc')
 
@@ -25,6 +26,7 @@ const checks = [
   ['event manifest and settlement tables are versioned', migrationFiles[3].includes('event_manifest_versions') && migrationFiles[3].includes('event_differences')],
   ['event close blocks unapproved differences', migrationFiles[3].includes('unclassified_differences') && migrationFiles[3].includes('approve_event_difference')],
   ['event replenishment uses the active manifest', migrationFiles[4].includes('replenish_event_material') && migrationFiles[4].includes('event_manifest_lines')],
+  ['catalog and structure writes are server-side commands', migrationFiles[5].includes('create_item') && migrationFiles[5].includes('create_location') && migrationFiles[5].includes('upsert_item_location_policy')],
 ]
 
 const failures = checks.filter(([, passed]) => !passed)
