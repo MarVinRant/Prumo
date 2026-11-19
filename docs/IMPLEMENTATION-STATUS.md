@@ -12,8 +12,8 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-006 | parcial | `bootstrap_workspace` transacional/idempotente | Troca de contexto |
 | PR-007 | parcial | Convites com token hash, expiração, revogação, aceite autenticado e auditoria | Entrega automática por SMTP e teste multiusuário |
 | PR-008 | parcial | FKs compostas, RLS e isolamento por tenant | Capacidades/escopos finos por local |
-| PR-009 | parcial | units/locations, seed de dois locais e painel de cadastro com local estocável/não estocável | UI de arquivamento e escopo fino por local |
-| PR-010 | parcial | Oito famílias, catálogo persistente e painel de criação por SKU/natureza | Edição/inativação completa e teste multiusuário |
+| PR-009 | parcial | units/locations, seed de dois locais, painel de cadastro e arquivamento protegido por saldo/custódia | Escopo fino por local e teste multiusuário |
+| PR-010 | parcial | Oito famílias, catálogo persistente, painel de criação por SKU/natureza e inativação protegida por saldo/reserva | Edição completa e teste multiusuário |
 | PR-011 | parcial | item_packages, fator por SKU, painel de embalagem e conversões contextuais kg/L validadas no comando de estoque | Snapshot em todos os documentos e teste autenticado |
 | PR-012 | parcial | stock_positions com precisão decimal, unidades base g/ml/un/m e conversão kg/L condicionada à base | Conversões adicionais por embalagem e snapshots |
 | PR-013 | parcial | ledger + RPC de movimentação, contagem cega e políticas min/reorder/max por item/local | Reconciliação completa de todos os tipos de ajuste |
@@ -46,7 +46,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-040 | parcial | documentação inicial | Runbook de recuperação |
 | PR-041 | parcial | build verificado | E2E no deploy |
 | PR-042 | parcial | modelo de auditoria e bucket privado com políticas por tenant | Backups/restauração ensaiados |
-| PR-043 | parcial | Supabase e Worker Cloudflare exclusivos publicados; RLS, grants, custos autorizados e storage privado revisados | Testes E2E cross-tenant, enforcement AAL2 e autorização por papel |
+| PR-043 | parcial | Supabase e Worker Cloudflare exclusivos publicados; RLS, grants, custos autorizados, storage privado e comandos de ciclo de catálogo revisados | Testes E2E cross-tenant, enforcement AAL2 e autorização por papel |
 | PR-044 | pendente-humano | Piloto preparado por documentação | Quatro semanas de piloto humano |
 
 Este arquivo é deliberadamente honesto: não afirma prontidão integrada enquanto os critérios parciais e a validação humana ainda não estiverem fechados.

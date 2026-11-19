@@ -160,30 +160,38 @@ export async function postMovement(input: { type: MovementType; item_id: string;
   return data
 }
 
-export async function listItems() {
+export async function listItems(includeInactive = false) {
   if (!supabase) return []
-  const { data, error } = await supabase.from('items').select('id,sku,name,base_uom,family,nature').eq('status', 'active').order('name').limit(300)
+  let query = supabase.from('items').select('id,sku,name,base_uom,family,nature,status').order('name').limit(300)
+  if (!includeInactive) query = query.eq('status', 'active')
+  const { data, error } = await query
   if (error) throw error
   return data ?? []
 }
 
-export async function listLocations() {
+export async function listLocations(includeInactive = false) {
   if (!supabase) return []
-  const { data, error } = await supabase.from('locations').select('id,name,type').eq('status', 'active').eq('is_stockable', true).order('name')
+  let query = supabase.from('locations').select('id,name,type,status,is_stockable').eq('is_stockable', true).order('name')
+  if (!includeInactive) query = query.eq('status', 'active')
+  const { data, error } = await query
   if (error) throw error
   return data ?? []
 }
 
-export async function listUnits() {
+export async function listUnits(includeInactive = false) {
   if (!supabase) return []
-  const { data, error } = await supabase.from('units').select('id,name,code,status').eq('status', 'active').order('name')
+  let query = supabase.from('units').select('id,name,code,status').order('name')
+  if (!includeInactive) query = query.eq('status', 'active')
+  const { data, error } = await query
   if (error) throw error
   return data ?? []
 }
 
-export async function listSuppliers() {
+export async function listSuppliers(includeInactive = false) {
   if (!supabase) return []
-  const { data, error } = await supabase.from('suppliers').select('id,name,status').eq('status', 'active').order('name')
+  let query = supabase.from('suppliers').select('id,name,status').order('name')
+  if (!includeInactive) query = query.eq('status', 'active')
+  const { data, error } = await query
   if (error) throw error
   return data ?? []
 }
@@ -233,6 +241,34 @@ export async function createSupplier(input: { name: string; email?: string; phon
 export async function linkSupplierItem(input: { supplier_id: string; item_id: string; lead_time_days: number; supplier_sku?: string; last_unit_cost?: number }) {
   if (!supabase) throw new Error('Configure o Supabase antes de vincular fornecedor.')
   const { data, error } = await supabase.rpc('link_supplier_item', { p_supplier_id: input.supplier_id, p_item_id: input.item_id, p_lead_time_days: input.lead_time_days, p_supplier_sku: input.supplier_sku ?? null, p_last_unit_cost: input.last_unit_cost ?? null })
+  if (error) throw error
+  return data
+}
+
+export async function setUnitStatus(id: string, status: 'active' | 'inactive') {
+  if (!supabase) throw new Error('Configure o Supabase antes de arquivar unidades.')
+  const { data, error } = await supabase.rpc('set_unit_status', { p_unit_id: id, p_status: status })
+  if (error) throw error
+  return data
+}
+
+export async function setLocationStatus(id: string, status: 'active' | 'inactive') {
+  if (!supabase) throw new Error('Configure o Supabase antes de arquivar locais.')
+  const { data, error } = await supabase.rpc('set_location_status', { p_location_id: id, p_status: status })
+  if (error) throw error
+  return data
+}
+
+export async function setItemStatus(id: string, status: 'active' | 'inactive') {
+  if (!supabase) throw new Error('Configure o Supabase antes de inativar materiais.')
+  const { data, error } = await supabase.rpc('set_item_status', { p_item_id: id, p_status: status })
+  if (error) throw error
+  return data
+}
+
+export async function setSupplierStatus(id: string, status: 'active' | 'inactive') {
+  if (!supabase) throw new Error('Configure o Supabase antes de inativar fornecedores.')
+  const { data, error } = await supabase.rpc('set_supplier_status', { p_supplier_id: id, p_status: status })
   if (error) throw error
   return data
 }

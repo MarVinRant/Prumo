@@ -15,6 +15,7 @@
 - O ciclo de evento usa manifesto imutável por versão no despacho. Ao entrar em acerto, cada linha gera uma diferença com quantidade esperada/consumida; classificações de retorno não criam saída física porque a reserva nunca foi saída, enquanto consumo/perda usam comandos do ledger. O fechamento exige todas as diferenças aprovadas.
 - A conversão de embalagem é por SKU (`item_packages.factor`), nunca universal; o documento guarda unidade e quantidade normalizada.
 - Conversões métricas não são globais: `kg → g` e `L → ml` só são aceitas quando a unidade base do SKU permite a relação; qualquer outra conversão exige embalagem configurada para o próprio SKU.
+- Arquivamento é reversível e servidor-side: unidade só inativa sem locais ativos; local só sem saldo, reserva ou custódia aberta; item só sem físico/reserva; fornecedor só sem pedido aberto. Histórico nunca é apagado.
 - A exportação CSV prefixa células iniciadas por `=`, `+`, `-` ou `@` para reduzir risco de fórmula maliciosa.
 - PR-001/PR-002 e o piloto humano de PR-044 permanecem pendentes por serem validações fora do alcance do código.
 - Alertas operacionais ganharam ciclo explícito: reconhecer grava a pessoa e não encerra a causa; resolver exige motivo, papel de owner/manager e sessão `aal2`. O refresh usa `ON CONFLICT DO NOTHING` para não reabrir silenciosamente uma ocorrência já reconhecida ou resolvida.

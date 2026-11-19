@@ -17,6 +17,7 @@ const migrationFiles = await Promise.all([
   'supabase/migrations/20261117214900_conversion_context.sql',
   'supabase/migrations/20261117215000_finance_value_adjustments.sql',
   'supabase/migrations/20261117215100_finance_adjustment_hardening.sql',
+  'supabase/migrations/20261117215200_structure_lifecycle.sql',
 ].map(read))
 const wrangler = await read('wrangler.jsonc')
 
@@ -42,6 +43,7 @@ const checks = [
   ['financial adjustments stay private and cannot change quantity', migrationFiles[10].includes('finance.value_adjustments') && migrationFiles[10].includes('independent_approval_required') && migrationFiles[10].includes('quantity_required_for_value') && migrationFiles[10].includes('revoke all on table finance.value_adjustments')],
   ['financial audit payload omits monetary values', migrationFiles[10].includes("'finance.cost_projection'") && !migrationFiles[10].includes("'unit_cost',v_cost")],
   ['financial adjustment table has explicit deny policy', migrationFiles[11].includes('finance_deny_all_value_adjustments') && migrationFiles[11].includes('using(false)')],
+  ['catalog lifecycle commands block unsafe archival', migrationFiles[12].includes('set_item_status') && migrationFiles[12].includes('item_has_stock') && migrationFiles[12].includes('location_has_open_custody') && migrationFiles[12].includes('supplier_has_open_orders')],
 ]
 
 const failures = checks.filter(([, passed]) => !passed)
