@@ -4,7 +4,7 @@ import type { ActivityRow, AlertRow, FinanceAdjustment, MovementType, Reconcilia
 export async function getStockSummary(): Promise<StockSummary> {
   if (!supabase) return { totalItems: 0, availableValue: 0, criticalItems: 0, openEvents: 0, pendingReceipts: 0, openAlerts: 0 }
   const [{ data: positions }, { data: policies }, { count: openEvents }, { count: pendingReceipts }, { count: openAlerts }] = await Promise.all([
-    supabase.from('stock_positions').select('on_hand_q,reserved_q,condition,item_id,location_id').limit(1000),
+    supabase.from('stock_positions').select('on_hand_q,reserved_q,condition,item_id,location_id,expires_on:lots(expires_on)').limit(1000),
     supabase.from('item_location_policies').select('item_id,location_id,min_q').limit(1000),
     supabase.from('events').select('id', { count: 'exact', head: true }).in('status', ['planned', 'separating', 'dispatched', 'operating', 'settling']),
     supabase.from('receipts').select('id', { count: 'exact', head: true }).in('status', ['draft', 'checking']),
@@ -13,7 +13,8 @@ export async function getStockSummary(): Promise<StockSummary> {
   const rows = positions ?? []
   const availableValue = 0
   const minByPosition = new Map((policies ?? []).map(policy => [`${policy.item_id}:${policy.location_id}`, Number(policy.min_q)]))
-  const criticalItems = new Set(rows.filter(row => String(row.condition ?? '') === 'usable' && Number(row.on_hand_q) - Number(row.reserved_q) <= (minByPosition.get(`${row.item_id}:${row.location_id}`) ?? 0)).map(row => row.item_id)).size
+  const today = new Date().toISOString().slice(0, 10)
+  const criticalItems = new Set(rows.filter(row => { const lot = (row.expires_on as { expires_on?: string }[] | null)?.[0]; return String(row.condition ?? '') === 'usable' && (!lot?.expires_on || lot.expires_on >= today) && Number(row.on_hand_q) - Number(row.reserved_q) <= (minByPosition.get(`${row.item_id}:${row.location_id}`) ?? 0) }).map(row => row.item_id)).size
   return { totalItems: rows.length, availableValue, criticalItems, openEvents: openEvents ?? 0, pendingReceipts: pendingReceipts ?? 0, openAlerts: openAlerts ?? 0 }
 }
 
