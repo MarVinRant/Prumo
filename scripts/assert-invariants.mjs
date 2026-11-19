@@ -16,6 +16,7 @@ const migrationFiles = await Promise.all([
   'supabase/migrations/20261117214800_purchase_rejection.sql',
   'supabase/migrations/20261117214900_conversion_context.sql',
   'supabase/migrations/20261117215000_finance_value_adjustments.sql',
+  'supabase/migrations/20261117215100_finance_adjustment_hardening.sql',
 ].map(read))
 const wrangler = await read('wrangler.jsonc')
 
@@ -40,6 +41,7 @@ const checks = [
   ['contextual kg and liter conversions are server-side', migrationFiles[9].includes("lower(p_input_uom)='kg'") && migrationFiles[9].includes("lower(p_input_uom)='l'") && migrationFiles[9].includes('conversion_not_configured')],
   ['financial adjustments stay private and cannot change quantity', migrationFiles[10].includes('finance.value_adjustments') && migrationFiles[10].includes('independent_approval_required') && migrationFiles[10].includes('quantity_required_for_value') && migrationFiles[10].includes('revoke all on table finance.value_adjustments')],
   ['financial audit payload omits monetary values', migrationFiles[10].includes("'finance.cost_projection'") && !migrationFiles[10].includes("'unit_cost',v_cost")],
+  ['financial adjustment table has explicit deny policy', migrationFiles[11].includes('finance_deny_all_value_adjustments') && migrationFiles[11].includes('using(false)')],
 ]
 
 const failures = checks.filter(([, passed]) => !passed)

@@ -43,6 +43,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Migração `purchase_rejection` — aplicada no projeto `azuomlmqdnyvdgnhypao`; solicitações podem ser rejeitadas por comando transacional com motivo, AAL2 e auditoria.
 - Migração `conversion_context` — aplicada no projeto `azuomlmqdnyvdgnhypao`; conversões `kg→g` e `L→ml` são condicionais à unidade base e as demais exigem fator do SKU.
 - Migração `finance_value_adjustments` — aplicada no projeto `azuomlmqdnyvdgnhypao`; ajustes de valor ficam em schema privado, exigem aprovação independente/AAL2, não alteram quantidade e removem valores dos payloads públicos de auditoria.
+- Migração `finance_adjustment_hardening` — aplicada no projeto `azuomlmqdnyvdgnhypao`; tabela financeira recebeu política explícita de deny e índices de FK.
 - Build local após custos e alertas — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - `npm run smoke -- https://prumo-stock-hml.marcosranti.workers.dev` — aprovado; seis rotas profundas retornaram `200 text/html`.
 - `npm run test:static` — aprovado; invariantes de segredos, RLS, finance, CSV, fallback SPA e storage privado.
