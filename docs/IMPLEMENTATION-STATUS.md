@@ -14,8 +14,8 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-008 | parcial | FKs compostas, RLS e isolamento por tenant | Capacidades/escopos finos por local |
 | PR-009 | parcial | units/locations, seed de dois locais e painel de cadastro com local estocável/não estocável | UI de arquivamento e escopo fino por local |
 | PR-010 | parcial | Oito famílias, catálogo persistente e painel de criação por SKU/natureza | Edição/inativação completa e teste multiusuário |
-| PR-011 | parcial | item_packages, fator por SKU e painel de embalagem | Validações contextuais kg/L e snapshot em todos os documentos |
-| PR-012 | parcial | stock_positions com precisão decimal e unidades base g/ml/un/m | Conversões adicionais e snapshots |
+| PR-011 | parcial | item_packages, fator por SKU, painel de embalagem e conversões contextuais kg/L validadas no comando de estoque | Snapshot em todos os documentos e teste autenticado |
+| PR-012 | parcial | stock_positions com precisão decimal, unidades base g/ml/un/m e conversão kg/L condicionada à base | Conversões adicionais por embalagem e snapshots |
 | PR-013 | parcial | ledger + RPC de movimentação, contagem cega e políticas min/reorder/max por item/local | Reconciliação completa de todos os tipos de ajuste |
 | PR-014 | parcial | lotes, validade e condição | FEFO e bloqueio vencido dedicado |
 | PR-015 | parcial | políticas min/max/reorder configuráveis no painel, alertas idempotentes automáticos e fila operacional com reconhecimento/resolução auditados | Ciclos por mudança de causa e teste autenticado |

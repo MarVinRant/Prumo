@@ -14,6 +14,7 @@ const migrationFiles = await Promise.all([
   'supabase/migrations/20261117214500_supplier_returns.sql',
   'supabase/migrations/20261117214600_alert_lifecycle.sql',
   'supabase/migrations/20261117214800_purchase_rejection.sql',
+  'supabase/migrations/20261117214900_conversion_context.sql',
 ].map(read))
 const wrangler = await read('wrangler.jsonc')
 
@@ -35,6 +36,7 @@ const checks = [
   ['alerts have auditable acknowledge and resolve commands', migrationFiles[7].includes('alert_acknowledgements') && migrationFiles[7].includes('acknowledge_alert') && migrationFiles[7].includes('resolve_alert') && migrationFiles[7].includes('require_aal2')],
   ['purchase rejection is reasoned and audited', migrationFiles[8].includes('reject_purchase_request') && migrationFiles[8].includes('reason_required') && migrationFiles[8].includes('purchase.reject')],
   ['frontend challenges enrolled MFA before privileged UI', app.includes('getAuthenticatorAssuranceLevel') && app.includes('mfa.challenge') && app.includes('MfaChallenge')],
+  ['contextual kg and liter conversions are server-side', migrationFiles[9].includes("lower(p_input_uom)='kg'") && migrationFiles[9].includes("lower(p_input_uom)='l'") && migrationFiles[9].includes('conversion_not_configured')],
 ]
 
 const failures = checks.filter(([, passed]) => !passed)

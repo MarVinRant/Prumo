@@ -17,6 +17,7 @@
 7. Verifique que logout/login preserva os dados e que rotas profundas carregam no refresh. Antes de aprovar compras, fechar/reabrir eventos, cadastrar ativos, aprovar contagens ou consultar custos, eleve a sessão para `aal2` no painel MFA.
 8. Na fila de alertas da tela Hoje, reconheça uma ocorrência com qualquer papel autorizado e confirme que ela permanece aberta; com uma sessão gerencial `aal2`, informe a causa corrigida e resolva-a. Atualizar a página não deve reabrir a mesma ocorrência enquanto a causa não gerar um novo ciclo.
 9. Em Compras, use uma solicitação sintética para testar os dois caminhos: rejeite-a com motivo e confirme a auditoria/status; depois crie outra e execute aprovação, pedido, recebimento parcial e devolução vinculada ao recebimento.
+10. Em Movimentar, selecione um SKU com base `g` ou `ml` e confirme que `kg`/`L` normaliza para a unidade base; tente uma combinação incompatível e confirme a rejeição do servidor.
 
 Reposição operacional, testes autenticados e fechamento completo com múltiplos lotes ainda estão marcados como parciais em `IMPLEMENTATION-STATUS.md`; não trate a reserva FEFO isolada como entrega desses ciclos.
 
