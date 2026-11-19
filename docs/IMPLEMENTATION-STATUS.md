@@ -22,7 +22,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-016 | parcial | purchase_requests e RPC de solicitação | Aprovação, fornecedor e pedido |
 | PR-017 | parcial | receipts e linhas modelados | Recebimento parcial conectado |
 | PR-018 | parcial | ativos/custódias, cadastro e painel de expedição/retorno | Permissões finas e conferência por ativo |
-| PR-019 | parcial | events, reserva FEFO com lock, transições, consumo/liberação e manifesto versionado no despacho | Reposição operacional e teste integrado do retorno |
+| PR-019 | parcial | events, reserva FEFO com lock, transições, consumo/liberação, reposição durante operação e manifesto versionado no despacho | Teste integrado do retorno |
 | PR-020 | parcial | manifesto por versão com linhas de lote e snapshot automático na expedição | Conferência visual completa de expedição/operação/retorno |
 | PR-021 | parcial | estrutura de retornáveis | Conferência e proibição de consumo |
 | PR-022 | parcial | custódia individual com comandos transacionais de expedição e retorno | Conferência completa por evento |
@@ -35,7 +35,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-029 | parcial | auditoria de bootstrap/movimentos | Correlação e observabilidade externa |
 | PR-030 | parcial | RPC idempotente de alertas para ruptura, validade, evento e compra atrasada | Reconhecimento, retorno pendente e resolução por causa |
 | PR-031 | parcial | status e constraints de compras | Aprovação/pedido/recebimento integrado |
-| PR-032 | parcial | eventos, reservas FEFO, estados, consumo/liberação, manifesto e acerto com classificação/aprovação conectados ao painel | Reposição e teste operacional completo |
+| PR-032 | parcial | eventos, reservas FEFO, estados, consumo/liberação, reposição, manifesto e acerto com classificação/aprovação conectados ao painel | Teste operacional completo |
 | PR-033 | parcial | RLS em todas as tabelas expostas | Escopo por capacidade |
 | PR-034 | parcial | seed reproduzível com oito famílias, lotes válidos/vencidos, eventos, ativos e estrutura de manifesto/acerto | Segundo tenant, retorno e fechamento auditado com fixtures |
 | PR-035 | parcial | app mobile-first | Teste visual automatizado |

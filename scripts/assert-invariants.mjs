@@ -8,6 +8,7 @@ const migrationFiles = await Promise.all([
   'supabase/migrations/20261117213000_private_storage_policies.sql',
   'supabase/migrations/20261117214000_privileged_aal2.sql',
   'supabase/migrations/20261117214100_event_manifest_settlement.sql',
+  'supabase/migrations/20261117214300_event_replenishment.sql',
 ].map(read))
 const wrangler = await read('wrangler.jsonc')
 
@@ -23,6 +24,7 @@ const checks = [
   ['AAL2 wrappers hide original command bodies', migrationFiles[2].includes('create_invitation_unchecked_aal1') && migrationFiles[2].includes('finance_stock_summary_unchecked_aal1')],
   ['event manifest and settlement tables are versioned', migrationFiles[3].includes('event_manifest_versions') && migrationFiles[3].includes('event_differences')],
   ['event close blocks unapproved differences', migrationFiles[3].includes('unclassified_differences') && migrationFiles[3].includes('approve_event_difference')],
+  ['event replenishment uses the active manifest', migrationFiles[4].includes('replenish_event_material') && migrationFiles[4].includes('event_manifest_lines')],
 ]
 
 const failures = checks.filter(([, passed]) => !passed)

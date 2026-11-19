@@ -35,11 +35,13 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Migração `privileged_aal2` — aplicada no projeto `azuomlmqdnyvdgnhypao`; wrappers server-side exigem `auth.jwt()->>'aal' = 'aal2'` antes de convites, aprovação/recebimento de compras, leitura de custos, transições/fechamento/reabertura de eventos, cadastro de ativos e aprovação de contagens. Os corpos originais foram renomeados e tiveram `EXECUTE` revogado para `authenticated`.
 - Migração `event_manifest_settlement` — aplicada no projeto `azuomlmqdnyvdgnhypao`; despacho cria manifesto versionado por lote, a transição para acerto cria diferenças por linha e o fechamento bloqueia enquanto houver diferença sem classificação/aprovação. Classificação de consumo/perda usa ledger idempotente; retorno libera reserva sem contar retorno como nova saída.
 - Migração `event_difference_guard` — aplicada no projeto `azuomlmqdnyvdgnhypao`; classificação só ocorre no estado `settling`, impede reduzir consumo já registrado e move avaria para posição física `damaged` sem contar como perda.
+- Migração `event_replenishment` — aplicada no projeto `azuomlmqdnyvdgnhypao`; reposição durante `operating`/`settling` reserva FEFO, registra origem `replenishment`, adiciona a linha ao manifesto vigente e prepara a diferença quando o acerto já começou.
 - Build local após custos e alertas — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - `npm run smoke -- https://prumo-stock-hml.marcosranti.workers.dev` — aprovado; seis rotas profundas retornaram `200 text/html`.
 - `npm run test:static` — aprovado; invariantes de segredos, RLS, finance, CSV, fallback SPA e storage privado.
 - `npm run test:static` após o enforcement AAL2 — aprovado; verifica claim `aal2`, erro `mfa_required` e wrappers não executáveis diretamente por `authenticated`.
 - `npm run build` após o painel de acerto de eventos — aprovado; TypeScript sem erros e bundle gerado.
+- `npm run test` após a reposição durante operação — aprovado; build e invariantes de manifesto, acerto e reposição passaram.
 - Deploy Cloudflare após manifesto/acerto — Worker `prumo-stock-hml`, versão `3a31a44f-fd17-43a1-9f3d-0c2074b494f2`, commit `8b4d765`.
 - `npm run smoke -- https://prumo-stock-hml.marcosranti.workers.dev` após o deploy — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram `200 text/html`.
 - Build local com comando de fechamento/reabertura no painel de eventos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
@@ -70,4 +72,4 @@ Os ciclos F01–F28, concorrência, RLS cross-tenant com dois usuários autentic
 
 ## Limitações atuais
 
-O frontend já persiste login, workspace, catálogo sintético, movimentações, eventos, reserva/consumo/liberação, ciclo de estados, manifesto versionado, acerto com classificação/aprovação, ativos individualizados, solicitações/aprovação/recebimento de compras, convites administrativos, alertas, contagem cega, MFA TOTP e CSV. O enforcement AAL2 agora existe no banco para comandos privilegiados, mas o teste autenticado de rejeição em `aal1` e desafio no login ainda não foram executados. Reposição operacional, múltiplos lotes no acerto, testes autenticados de custos/storage e os testes integrados continuam pendentes e impedem declarar `PRONTO PARA TESTE INTEGRADO`.
+O frontend já persiste login, workspace, catálogo sintético, movimentações, eventos, reserva/consumo/liberação, ciclo de estados, reposição, manifesto versionado, acerto com classificação/aprovação, ativos individualizados, solicitações/aprovação/recebimento de compras, convites administrativos, alertas, contagem cega, MFA TOTP e CSV. O enforcement AAL2 agora existe no banco para comandos privilegiados, mas o teste autenticado de rejeição em `aal1` e desafio no login ainda não foram executados. Múltiplos lotes no acerto, testes autenticados de custos/storage e os testes integrados continuam pendentes e impedem declarar `PRONTO PARA TESTE INTEGRADO`.
