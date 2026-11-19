@@ -1,5 +1,5 @@
 import { supabase } from './supabase'
-import type { ActivityRow, AlertRow, MovementType, StockRow, StockSummary } from './types'
+import type { ActivityRow, AlertRow, FinanceAdjustment, MovementType, StockRow, StockSummary } from './types'
 
 export async function getStockSummary(): Promise<StockSummary> {
   if (!supabase) return { totalItems: 0, availableValue: 0, criticalItems: 0, openEvents: 0, pendingReceipts: 0, openAlerts: 0 }
@@ -52,6 +52,27 @@ export async function getFinanceSummary() {
   const { data, error } = await supabase.rpc('finance_stock_summary')
   if (error) throw error
   return data ?? []
+}
+
+export async function listFinanceAdjustments(): Promise<FinanceAdjustment[]> {
+  if (!supabase) return []
+  const { data, error } = await supabase.rpc('finance_value_adjustments')
+  if (error) throw error
+  return (data ?? []) as FinanceAdjustment[]
+}
+
+export async function requestValueAdjustment(input: { item_id: string; location_id: string; amount: number; reason: string; idempotency_key?: string }) {
+  if (!supabase) throw new Error('Configure o Supabase antes de solicitar ajuste financeiro.')
+  const { data, error } = await supabase.rpc('request_value_adjustment', { p_item_id: input.item_id, p_location_id: input.location_id, p_amount: input.amount, p_reason: input.reason, p_idempotency_key: input.idempotency_key ?? crypto.randomUUID() })
+  if (error) throw error
+  return data
+}
+
+export async function approveValueAdjustment(id: string) {
+  if (!supabase) throw new Error('Configure o Supabase antes de aprovar ajuste financeiro.')
+  const { data, error } = await supabase.rpc('approve_value_adjustment', { p_adjustment_id: id })
+  if (error) throw error
+  return data
 }
 
 export async function listStock(search = ''): Promise<StockRow[]> {

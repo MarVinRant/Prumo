@@ -42,6 +42,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Migração `alert_indexes` — aplicada no projeto `azuomlmqdnyvdgnhypao`; índices de FK da tabela de reconhecimentos adicionados.
 - Migração `purchase_rejection` — aplicada no projeto `azuomlmqdnyvdgnhypao`; solicitações podem ser rejeitadas por comando transacional com motivo, AAL2 e auditoria.
 - Migração `conversion_context` — aplicada no projeto `azuomlmqdnyvdgnhypao`; conversões `kg→g` e `L→ml` são condicionais à unidade base e as demais exigem fator do SKU.
+- Migração `finance_value_adjustments` — aplicada no projeto `azuomlmqdnyvdgnhypao`; ajustes de valor ficam em schema privado, exigem aprovação independente/AAL2, não alteram quantidade e removem valores dos payloads públicos de auditoria.
 - Build local após custos e alertas — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - `npm run smoke -- https://prumo-stock-hml.marcosranti.workers.dev` — aprovado; seis rotas profundas retornaram `200 text/html`.
 - `npm run test:static` — aprovado; invariantes de segredos, RLS, finance, CSV, fallback SPA e storage privado.
@@ -51,6 +52,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - `npm run test` após rejeição de compras — aprovado; build e invariantes de compras passaram.
 - `npm run test:static` após o desafio MFA no login — aprovado; invariantes verificam `getAuthenticatorAssuranceLevel`, `mfa.challenge` e `MfaChallenge` antes da UI autenticada.
 - `npm run test:static` após conversões contextuais — aprovado; invariantes verificam kg/L condicionais e rejeição de conversão não configurada.
+- `npm run test:static` após ajustes financeiros — aprovado; invariantes verificam schema privado, segregação de aprovação, ausência de quantidade inventada e auditoria sem valores monetários.
 - `npm run build` após o painel de acerto de eventos — aprovado; TypeScript sem erros e bundle gerado.
 - `npm run test` após a reposição durante operação — aprovado; build e invariantes de manifesto, acerto e reposição passaram.
 - `npm run test` após o painel de catálogo — aprovado; build TypeScript/Vite e invariantes de segurança/catalogação passaram.

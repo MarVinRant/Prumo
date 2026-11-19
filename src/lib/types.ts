@@ -54,3 +54,16 @@ export type AlertRow = {
   items?: { name: string; sku: string } | { name: string; sku: string }[] | null
   events?: { name: string; code: string } | { name: string; code: string }[] | null
 }
+
+export type FinanceAdjustment = {
+  id: string
+  item_id: string
+  location_id: string
+  amount: number
+  reason: string
+  status: 'requested' | 'approved' | 'rejected'
+  requested_by: string
+  approved_by: string | null
+  requested_at: string
+  approved_at: string | null
+}
