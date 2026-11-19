@@ -85,7 +85,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Deploy Cloudflare após correção de validade no resumo — Worker `prumo-stock-hml`, versão `ef71f017-1423-4e99-b35e-da58ce1d0b5c`, commit `1629ad9`.
 - Smoke HTTP após correção de validade — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram `200 text/html`.
 - Migração `receipt_conformance` aplicada no Supabase — `purchase_order_lines.delivered_q`, `receipt_lines.blocked_q` e RPC transacional `receive_purchase_order_split`.
-- `npm test` após conferência de recebimento — aprovado; TypeScript/Vite e 25 invariantes estáticas, incluindo separação utilizável/quarentena/rejeitada e bloqueio de sobre-entrega.
+- `npm test` após conferência de recebimento — aprovado; TypeScript/Vite e 26 invariantes estáticas, incluindo separação utilizável/quarentena/rejeitada e bloqueio de sobre-entrega.
 - Verificação SQL de homologação — colunas `purchase_order_lines.delivered_q` e `receipt_lines.blocked_q` e função `receive_purchase_order_split(...)` presentes no projeto `azuomlmqdnyvdgnhypao`.
 - Migração `quarantine_release` aplicada — RPC `release_quarantined_stock(...)` exige `aal2`, mantém o físico e audita a reclassificação.
 - `npm test` após projeção de disponibilidade — aprovado; build e invariantes incluem bloqueio de quarentena/vencido e liberação gerencial.
