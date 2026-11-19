@@ -14,7 +14,7 @@ Data da preparação: 19/11/2026.
 | Recurso | Alvo | Estado nesta preparação |
 |---|---|---|
 | Git local | Pasta deste pacote `prumo-stock` | Inicializado em branch main; pacote de documentação |
-| GitHub | Repositório público `MarVinRant/Prumo` indicado pelo usuário | Código e documentação publicados em main; último commit `af1e36a` |
+| GitHub | Repositório público `MarVinRant/Prumo` indicado pelo usuário | Código e documentação publicados em main; último commit `5c05cf0` |
 | Cloudflare | Homologação `prumo-stock-hml` | Worker publicado e validado por smoke HTTP |
 | Supabase | Projeto próprio do PRUMO | Ativo, saudável, região `sa-east-1`; migrações aplicadas |
 
