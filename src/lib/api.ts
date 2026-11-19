@@ -1,6 +1,9 @@
 import { supabase } from './supabase'
 import type { ActivityRow, AlertRow, FinanceAdjustment, MovementType, ReconciliationRow, StockRow, StockSummary } from './types'
 
+const pendingEventCreationKeys = new Map<string, string>()
+const pendingPurchaseRequestKeys = new Map<string, string>()
+
 export async function getStockSummary(): Promise<StockSummary> {
   if (!supabase) return { totalItems: 0, availableValue: 0, criticalItems: 0, openEvents: 0, pendingReceipts: 0, openAlerts: 0 }
   const [positionsResult, policiesResult, eventsResult, receiptsResult, alertsResult] = await Promise.all([
@@ -335,10 +338,14 @@ export async function approveEventDifference(id: string) {
   return data
 }
 
-export async function createEvent(input: { name: string; code: string; venue: string; starts_at: string; ends_at: string }) {
+export async function createEvent(input: { name: string; code: string; venue: string; starts_at: string; ends_at: string; idempotency_key?: string }) {
   if (!supabase) throw new Error('Configure o Supabase antes de criar eventos.')
-  const { data, error } = await supabase.rpc('create_event', { p_name: input.name, p_code: input.code, p_venue: input.venue, p_starts_at: input.starts_at, p_ends_at: input.ends_at })
+  const operation = JSON.stringify([input.name, input.code, input.venue, input.starts_at, input.ends_at])
+  const key = input.idempotency_key ?? pendingEventCreationKeys.get(operation) ?? crypto.randomUUID()
+  pendingEventCreationKeys.set(operation, key)
+  const { data, error } = await supabase.rpc('create_event', { p_name: input.name, p_code: input.code, p_venue: input.venue, p_starts_at: input.starts_at, p_ends_at: input.ends_at, p_idempotency_key: key })
   if (error) throw error
+  pendingEventCreationKeys.delete(operation)
   return data
 }
 
@@ -356,10 +363,14 @@ export async function returnSupplierMaterial(input: { receipt_id: string; quanti
   return data
 }
 
-export async function createPurchaseRequest(input: { item_id: string; location_id: string; quantity: number; needed_by: string; reason: string }) {
+export async function createPurchaseRequest(input: { item_id: string; location_id: string; quantity: number; needed_by: string; reason: string; idempotency_key?: string }) {
   if (!supabase) throw new Error('Configure o Supabase antes de criar solicitações.')
-  const { data, error } = await supabase.rpc('create_purchase_request', { p_item_id: input.item_id, p_location_id: input.location_id, p_quantity: input.quantity, p_needed_by: input.needed_by, p_reason: input.reason })
+  const operation = JSON.stringify([input.item_id, input.location_id, input.quantity, input.needed_by, input.reason])
+  const key = input.idempotency_key ?? pendingPurchaseRequestKeys.get(operation) ?? crypto.randomUUID()
+  pendingPurchaseRequestKeys.set(operation, key)
+  const { data, error } = await supabase.rpc('create_purchase_request', { p_item_id: input.item_id, p_location_id: input.location_id, p_quantity: input.quantity, p_needed_by: input.needed_by, p_reason: input.reason, p_idempotency_key: key })
   if (error) throw error
+  pendingPurchaseRequestKeys.delete(operation)
   return data
 }
 
