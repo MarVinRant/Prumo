@@ -3,6 +3,7 @@ import type { ActivityRow, AlertRow, FinanceAdjustment, MovementType, Reconcilia
 
 const pendingEventCreationKeys = new Map<string, string>()
 const pendingPurchaseRequestKeys = new Map<string, string>()
+const pendingStockCountKeys = new Map<string, string>()
 
 export async function getStockSummary(): Promise<StockSummary> {
   if (!supabase) return { totalItems: 0, availableValue: 0, criticalItems: 0, openEvents: 0, pendingReceipts: 0, openAlerts: 0 }
@@ -133,10 +134,14 @@ export async function listStockCounts() {
   return data ?? []
 }
 
-export async function recordStockCount(input: { item_id: string; location_id: string; lot_id: string; counted_q: number; reason?: string }) {
+export async function recordStockCount(input: { item_id: string; location_id: string; lot_id: string; counted_q: number; reason?: string; idempotency_key?: string }) {
   if (!supabase) throw new Error('Configure o Supabase antes de registrar contagens.')
-  const { data, error } = await supabase.rpc('record_stock_count', { p_item_id: input.item_id, p_location_id: input.location_id, p_lot_id: input.lot_id, p_counted_q: input.counted_q, p_reason: input.reason ?? null })
+  const operation = JSON.stringify([input.item_id, input.location_id, input.lot_id, input.counted_q, input.reason ?? null])
+  const key = input.idempotency_key ?? pendingStockCountKeys.get(operation) ?? crypto.randomUUID()
+  pendingStockCountKeys.set(operation, key)
+  const { data, error } = await supabase.rpc('record_stock_count', { p_item_id: input.item_id, p_location_id: input.location_id, p_lot_id: input.lot_id, p_counted_q: input.counted_q, p_reason: input.reason ?? null, p_idempotency_key: key })
   if (error) throw error
+  pendingStockCountKeys.delete(operation)
   return data
 }
 

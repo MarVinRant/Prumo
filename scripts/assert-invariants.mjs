@@ -32,6 +32,7 @@ const migrationFiles = await Promise.all([
   'supabase/migrations/20261117216400_finance_adjustment_idempotency_wrapper.sql',
   'supabase/migrations/20261117216500_creation_idempotency_wrappers.sql',
   'supabase/migrations/20261117216600_movement_lock_wrapper.sql',
+  'supabase/migrations/20261117216700_stock_count_idempotency_wrapper.sql',
 ].map(read))
 const wrangler = await read('wrangler.jsonc')
 
@@ -71,6 +72,7 @@ const checks = [
   ['finance adjustment idempotency serializes and rejects conflicts', migrationFiles[23].includes('finance_adjustment_idempotency') && migrationFiles[23].includes('pg_advisory_xact_lock') && migrationFiles[23].includes('request_value_adjustment_unchecked') && migrationFiles[23].includes('idempotency_payload_conflict') && api.includes('requestValueAdjustment') && (await read('src/FinancePanel.tsx')).includes('adjustmentKey')],
   ['event and purchase creation idempotency serializes and rejects conflicts', migrationFiles[24].includes('event_creation_idempotency') && migrationFiles[24].includes('purchase_request_idempotency') && migrationFiles[24].includes('create_event_unchecked') && migrationFiles[24].includes('create_purchase_request_unchecked') && migrationFiles[24].includes('idempotency_payload_conflict') && api.includes('pendingEventCreationKeys') && api.includes('pendingPurchaseRequestKeys')],
   ['movement idempotency serializes retries before ledger', migrationFiles[25].includes('post_stock_movement_unchecked') && migrationFiles[25].includes('pg_advisory_xact_lock') && migrationFiles[25].includes('post_stock_movement')],
+  ['blind count idempotency serializes and rejects conflicts', migrationFiles[26].includes('stock_count_idempotency') && migrationFiles[26].includes('pg_advisory_xact_lock') && migrationFiles[26].includes('record_stock_count_unchecked') && migrationFiles[26].includes('idempotency_payload_conflict') && api.includes('pendingStockCountKeys')],
 ]
 
 const failures = checks.filter(([, passed]) => !passed)
