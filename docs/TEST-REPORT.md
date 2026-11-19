@@ -61,6 +61,8 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Smoke HTTP após catálogo/estrutura — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram `200 text/html`.
 - Deploy Cloudflare após devolução ao fornecedor — Worker `prumo-stock-hml`, versão `928cfde0-5ca2-4e18-bba6-f775fa0dc4f8`, commit `ece0aff`.
 - Smoke HTTP após a devolução ao fornecedor — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram `200 text/html`.
+- Deploy Cloudflare após alertas, rejeição de compras e desafio MFA — Worker `prumo-stock-hml`, versão `d0e9403b-b699-4285-bc96-3c2cb4b72534`, commit `75e8f94`.
+- Smoke HTTP após esse deploy — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram `200 text/html`.
 - Build local com comando de fechamento/reabertura no painel de eventos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - `npm run build` após o painel de ciclo de evento e ativos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - Build/deploy mais recente — commit `88f130a`, Worker `a215d474-166b-48ee-b8c1-d74cac7e01d8`.
