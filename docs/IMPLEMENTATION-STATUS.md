@@ -43,7 +43,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-037 | parcial | comandos idempotentes no ledger, recebimento e consumo de reserva | Teste de timeout pós-commit autenticado |
 | PR-038 | parcial | constraints de não-negatividade, locks e conflito de contagem | Testes de concorrência autenticados |
 | PR-039 | parcial | grants mínimos, search_path fixo e enforcement server-side `aal2` para comandos de acesso, compras, custos, eventos, ativos e aprovação de contagem | Teste autenticado de rejeição em `aal1`, SMTP de convite e recuperação |
-| PR-040 | parcial | documentação inicial | Runbook de recuperação |
+| PR-040 | parcial | documentação inicial, runbook de recuperação e RPC `reconcile_inventory()` para invariantes | Ensaio de restauração e carga controlada |
 | PR-041 | parcial | build verificado | E2E no deploy |
 | PR-042 | parcial | modelo de auditoria e bucket privado com políticas por tenant | Backups/restauração ensaiados |
 | PR-043 | parcial | Supabase e Worker Cloudflare exclusivos publicados; RLS, grants, custos autorizados, storage privado e comandos de ciclo de catálogo revisados | Testes E2E cross-tenant, enforcement AAL2 e autorização por papel |

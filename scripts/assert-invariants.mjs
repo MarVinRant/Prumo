@@ -20,6 +20,7 @@ const migrationFiles = await Promise.all([
   'supabase/migrations/20261117215200_structure_lifecycle.sql',
   'supabase/migrations/20261117215300_receipt_conformance.sql',
   'supabase/migrations/20261117215400_quarantine_release.sql',
+  'supabase/migrations/20261117215500_inventory_reconciliation.sql',
 ].map(read))
 const wrangler = await read('wrangler.jsonc')
 
@@ -48,6 +49,7 @@ const checks = [
   ['catalog lifecycle commands block unsafe archival', migrationFiles[12].includes('set_item_status') && migrationFiles[12].includes('item_has_stock') && migrationFiles[12].includes('location_has_open_custody') && migrationFiles[12].includes('supplier_has_open_orders')],
   ['receipt conference separates usable quarantine and rejected quantities', migrationFiles[13].includes('receive_purchase_order_split') && migrationFiles[13].includes('blocked_q') && migrationFiles[13].includes('delivered_q') && migrationFiles[13].includes("'quarantine'") && migrationFiles[13].includes('delivered_quantity_exceeds_order')],
   ['quarantine release preserves physical quantity and requires AAL2', migrationFiles[14].includes('release_quarantined_stock') && migrationFiles[14].includes('require_aal2') && migrationFiles[14].includes('position_not_quarantine') && migrationFiles[14].includes("'quarantine'") && migrationFiles[14].includes("'usable'")],
+  ['inventory reconciliation is scoped and read-only', migrationFiles[15].includes('reconcile_inventory') && migrationFiles[15].includes('require_aal2') && migrationFiles[15].includes('stock_position_invariant') && migrationFiles[15].includes('asset_open_custody_duplicate')],
 ]
 
 const failures = checks.filter(([, passed]) => !passed)
