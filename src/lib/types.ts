@@ -67,3 +67,5 @@ export type FinanceAdjustment = {
   requested_at: string
   approved_at: string | null
 }
+
+export type ReconciliationRow = { check_name: string; failure_count: number; sample: Record<string, unknown>[] }

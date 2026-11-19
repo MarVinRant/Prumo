@@ -1,5 +1,5 @@
 import { supabase } from './supabase'
-import type { ActivityRow, AlertRow, FinanceAdjustment, MovementType, StockRow, StockSummary } from './types'
+import type { ActivityRow, AlertRow, FinanceAdjustment, MovementType, ReconciliationRow, StockRow, StockSummary } from './types'
 
 export async function getStockSummary(): Promise<StockSummary> {
   if (!supabase) return { totalItems: 0, availableValue: 0, criticalItems: 0, openEvents: 0, pendingReceipts: 0, openAlerts: 0 }
@@ -73,6 +73,13 @@ export async function approveValueAdjustment(id: string) {
   const { data, error } = await supabase.rpc('approve_value_adjustment', { p_adjustment_id: id })
   if (error) throw error
   return data
+}
+
+export async function reconcileInventory(): Promise<ReconciliationRow[]> {
+  if (!supabase) throw new Error('Configure o Supabase antes de reconciliar o estoque.')
+  const { data, error } = await supabase.rpc('reconcile_inventory')
+  if (error) throw error
+  return (data ?? []) as ReconciliationRow[]
 }
 
 export async function listStock(search = ''): Promise<StockRow[]> {
