@@ -4,7 +4,7 @@
 
 - Supabase: `https://azuomlmqdnyvdgnhypao.supabase.co` (`Prumo Homologacao`, `sa-east-1`).
 - Cloudflare Worker: `https://prumo-stock-hml.marcosranti.workers.dev` (`prumo-stock-hml`).
-- Versão publicada: `d5f63ed6-50d1-4a6d-971d-41eacd993896` (commit `757a793`).
+- Versão publicada: `c4ee893b-1685-4723-89ca-ad505f3df55a` (commit `662d989`).
 - Repositório: `https://github.com/MarVinRant/Prumo`.
 
 Data da preparação: 19/11/2026.
