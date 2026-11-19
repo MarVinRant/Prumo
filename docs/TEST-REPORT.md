@@ -170,6 +170,7 @@ O frontend já persiste login, workspace, catálogo e estrutura configuráveis, 
 - Frontend: painel de ativos preserva a chave durante falha recuperável e o painel de Análises consulta o extrato do ledger com filtro de tipo/período e CSV neutralizado.
 - Verificação read-only: `to_regclass('public.stock_ledger_report') = stock_ledger_report`; privilégio `authenticated` de leitura confirmado.
 - `npm test`: 37 invariantes estáticas aprovadas (incluindo ativos e relatório), typecheck e build Vite aprovados.
+- `npm run lint`: `tsc --noEmit` aprovado após os últimos incrementos.
 
 Ainda não foram executados, por dependerem de sessão/contas e carga controlada: os testes autenticados F01–F28/F21b, retries pós-timeout reais, concorrência multiusuário, cross-tenant, MFA/SMTP/storage, E2E no Worker, restore e carga.
 
