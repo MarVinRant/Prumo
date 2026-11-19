@@ -15,6 +15,8 @@
 5. Para o ciclo completo, avance o evento por separação, expedição, operação e acerto. O despacho cria um manifesto por lote; no acerto, classifique cada diferença como retornada, consumida, perda, avariada ou não localizada e obtenha aprovação gerencial antes de fechar. Avaria deve permanecer física em posição `damaged`, enquanto perda baixa o físico.
 6. Em Análises, exporte o CSV e confirme que fórmulas não são executadas ao abrir em planilha.
 7. Verifique que logout/login preserva os dados e que rotas profundas carregam no refresh. Antes de aprovar compras, fechar/reabrir eventos, cadastrar ativos, aprovar contagens ou consultar custos, eleve a sessão para `aal2` no painel MFA.
+8. Na fila de alertas da tela Hoje, reconheça uma ocorrência com qualquer papel autorizado e confirme que ela permanece aberta; com uma sessão gerencial `aal2`, informe a causa corrigida e resolva-a. Atualizar a página não deve reabrir a mesma ocorrência enquanto a causa não gerar um novo ciclo.
+9. Em Compras, use uma solicitação sintética para testar os dois caminhos: rejeite-a com motivo e confirme a auditoria/status; depois crie outra e execute aprovação, pedido, recebimento parcial e devolução vinculada ao recebimento.
 
 Reposição operacional, testes autenticados e fechamento completo com múltiplos lotes ainda estão marcados como parciais em `IMPLEMENTATION-STATUS.md`; não trate a reserva FEFO isolada como entrega desses ciclos.
 

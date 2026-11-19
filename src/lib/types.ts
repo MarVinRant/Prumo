@@ -41,3 +41,16 @@ export type ActivityRow = {
   created_at: string
   status: string
 }
+
+export type AlertRow = {
+  id: string
+  kind: string
+  status: 'new' | 'acknowledged' | 'resolved'
+  message: string
+  created_at: string
+  resolved_at: string | null
+  item_id: string | null
+  event_id: string | null
+  items?: { name: string; sku: string } | { name: string; sku: string }[] | null
+  events?: { name: string; code: string } | { name: string; code: string }[] | null
+}

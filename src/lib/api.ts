@@ -1,17 +1,19 @@
 import { supabase } from './supabase'
-import type { ActivityRow, MovementType, StockRow, StockSummary } from './types'
+import type { ActivityRow, AlertRow, MovementType, StockRow, StockSummary } from './types'
 
 export async function getStockSummary(): Promise<StockSummary> {
   if (!supabase) return { totalItems: 0, availableValue: 0, criticalItems: 0, openEvents: 0, pendingReceipts: 0, openAlerts: 0 }
-  const [{ data: positions }, { count: openEvents }, { count: pendingReceipts }, { count: openAlerts }] = await Promise.all([
-    supabase.from('stock_positions').select('on_hand_q,reserved_q,item_id').limit(1000),
+  const [{ data: positions }, { data: policies }, { count: openEvents }, { count: pendingReceipts }, { count: openAlerts }] = await Promise.all([
+    supabase.from('stock_positions').select('on_hand_q,reserved_q,item_id,location_id').limit(1000),
+    supabase.from('item_location_policies').select('item_id,location_id,min_q').limit(1000),
     supabase.from('events').select('id', { count: 'exact', head: true }).in('status', ['planned', 'separating', 'dispatched', 'operating', 'settling']),
     supabase.from('receipts').select('id', { count: 'exact', head: true }).in('status', ['draft', 'checking']),
     supabase.from('alerts').select('id', { count: 'exact', head: true }).in('status', ['new', 'acknowledged']),
   ])
   const rows = positions ?? []
   const availableValue = 0
-  const criticalItems = 0
+  const minByPosition = new Map((policies ?? []).map(policy => [`${policy.item_id}:${policy.location_id}`, Number(policy.min_q)]))
+  const criticalItems = new Set(rows.filter(row => Number(row.on_hand_q) - Number(row.reserved_q) <= (minByPosition.get(`${row.item_id}:${row.location_id}`) ?? 0)).map(row => row.item_id)).size
   return { totalItems: rows.length, availableValue, criticalItems, openEvents: openEvents ?? 0, pendingReceipts: pendingReceipts ?? 0, openAlerts: openAlerts ?? 0 }
 }
 
@@ -24,6 +26,27 @@ export async function refreshAlerts() {
   return Number(data ?? 0) + Number(returnData ?? 0)
 }
 
+export async function listAlerts(): Promise<AlertRow[]> {
+  if (!supabase) return []
+  const { data, error } = await supabase.from('alerts').select('id,kind,status,message,created_at,resolved_at,item_id,event_id,items(name,sku),events(name,code)').order('created_at', { ascending: false }).limit(100)
+  if (error) throw error
+  return (data ?? []) as AlertRow[]
+}
+
+export async function acknowledgeAlert(id: string) {
+  if (!supabase) throw new Error('Configure o Supabase antes de reconhecer alertas.')
+  const { data, error } = await supabase.rpc('acknowledge_alert', { p_alert_id: id })
+  if (error) throw error
+  return data
+}
+
+export async function resolveAlert(id: string, reason: string) {
+  if (!supabase) throw new Error('Configure o Supabase antes de resolver alertas.')
+  const { data, error } = await supabase.rpc('resolve_alert', { p_alert_id: id, p_reason: reason })
+  if (error) throw error
+  return data
+}
+
 export async function getFinanceSummary() {
   if (!supabase) return []
   const { data, error } = await supabase.rpc('finance_stock_summary')
@@ -33,14 +56,19 @@ export async function getFinanceSummary() {
 
 export async function listStock(search = ''): Promise<StockRow[]> {
   if (!supabase) return []
-  const query = supabase.from('stock_positions').select('id,on_hand_q,reserved_q,condition,expires_on:lots(expires_on),items!inner(id,sku,name,family,nature,base_uom),locations!inner(name)').order('created_at', { ascending: false }).limit(300)
-  const { data, error } = await query
+  const [{ data, error }, { data: policies, error: policyError }] = await Promise.all([
+    supabase.from('stock_positions').select('id,item_id,location_id,on_hand_q,reserved_q,condition,expires_on:lots(expires_on),items!inner(id,sku,name,family,nature,base_uom),locations!inner(name)').order('created_at', { ascending: false }).limit(300),
+    supabase.from('item_location_policies').select('item_id,location_id,min_q,reorder_q').limit(1000),
+  ])
   if (error) throw error
+  if (policyError) throw policyError
+  const policyByPosition = new Map((policies ?? []).map(policy => [`${policy.item_id}:${policy.location_id}`, { min_q: Number(policy.min_q), reorder_q: Number(policy.reorder_q) }]))
   return (data ?? []).filter((row) => !search || String((row.items as { name?: string }).name ?? '').toLowerCase().includes(search.toLowerCase()) || String((row.items as { sku?: string }).sku ?? '').toLowerCase().includes(search.toLowerCase())).map(row => {
     const item = row.items as unknown as { id: string; sku: string; name: string; family: StockRow['family']; nature: StockRow['nature']; base_uom: string }
     const location = row.locations as unknown as { name: string }
     const lot = (row.expires_on as { expires_on?: string }[] | null)?.[0]
-    return { id: row.id, sku: item.sku, name: item.name, family: item.family, nature: item.nature, base_uom: item.base_uom, location_name: location.name, on_hand_q: Number(row.on_hand_q), reserved_q: Number(row.reserved_q), available_q: Number(row.on_hand_q) - Number(row.reserved_q), min_q: 0, reorder_q: 0, condition: row.condition, expires_on: lot?.expires_on ?? null, avg_unit_cost: 0 }
+    const policy = policyByPosition.get(`${row.item_id}:${row.location_id}`) ?? { min_q: 0, reorder_q: 0 }
+    return { id: row.id, sku: item.sku, name: item.name, family: item.family, nature: item.nature, base_uom: item.base_uom, location_name: location.name, on_hand_q: Number(row.on_hand_q), reserved_q: Number(row.reserved_q), available_q: Number(row.on_hand_q) - Number(row.reserved_q), min_q: policy.min_q, reorder_q: policy.reorder_q, condition: row.condition, expires_on: lot?.expires_on ?? null, avg_unit_cost: 0 }
   })
 }
 
@@ -258,6 +286,13 @@ export async function createPurchaseRequest(input: { item_id: string; location_i
 export async function approvePurchaseRequest(id: string) {
   if (!supabase) throw new Error('Configure o Supabase antes de aprovar compras.')
   const { data, error } = await supabase.rpc('approve_purchase_request', { p_request_id: id })
+  if (error) throw error
+  return data
+}
+
+export async function rejectPurchaseRequest(id: string, reason: string) {
+  if (!supabase) throw new Error('Configure o Supabase antes de rejeitar compras.')
+  const { data, error } = await supabase.rpc('reject_purchase_request', { p_request_id: id, p_reason: reason })
   if (error) throw error
   return data
 }

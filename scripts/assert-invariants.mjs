@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises'
 const read = path => readFile(new URL(`../${path}`, import.meta.url), 'utf8')
 const envExample = await read('.env.example')
 const api = await read('src/lib/api.ts')
+const app = await read('src/App.tsx')
 const migrationFiles = await Promise.all([
   'supabase/migrations/20261117200000_prumo_mvp.sql',
   'supabase/migrations/20261117213000_private_storage_policies.sql',
@@ -11,6 +12,8 @@ const migrationFiles = await Promise.all([
   'supabase/migrations/20261117214300_event_replenishment.sql',
   'supabase/migrations/20261117214400_catalog_structure_commands.sql',
   'supabase/migrations/20261117214500_supplier_returns.sql',
+  'supabase/migrations/20261117214600_alert_lifecycle.sql',
+  'supabase/migrations/20261117214800_purchase_rejection.sql',
 ].map(read))
 const wrangler = await read('wrangler.jsonc')
 
@@ -29,6 +32,9 @@ const checks = [
   ['event replenishment uses the active manifest', migrationFiles[4].includes('replenish_event_material') && migrationFiles[4].includes('event_manifest_lines')],
   ['catalog and structure writes are server-side commands', migrationFiles[5].includes('create_item') && migrationFiles[5].includes('create_location') && migrationFiles[5].includes('upsert_item_location_policy')],
   ['supplier return is tied to receipt and ledger', migrationFiles[6].includes('return_supplier_material') && migrationFiles[6].includes('receipt_lines') && migrationFiles[6].includes("'return'") && migrationFiles[6].includes('stock_entries')],
+  ['alerts have auditable acknowledge and resolve commands', migrationFiles[7].includes('alert_acknowledgements') && migrationFiles[7].includes('acknowledge_alert') && migrationFiles[7].includes('resolve_alert') && migrationFiles[7].includes('require_aal2')],
+  ['purchase rejection is reasoned and audited', migrationFiles[8].includes('reject_purchase_request') && migrationFiles[8].includes('reason_required') && migrationFiles[8].includes('purchase.reject')],
+  ['frontend challenges enrolled MFA before privileged UI', app.includes('getAuthenticatorAssuranceLevel') && app.includes('mfa.challenge') && app.includes('MfaChallenge')],
 ]
 
 const failures = checks.filter(([, passed]) => !passed)

@@ -12,7 +12,7 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - `supabase_list_tables` — 30 tabelas públicas, todas com RLS habilitado.
 - Advisor de saúde — sem findings.
 - Consulta de privilégio — `anon` não possui SELECT em `public.stock_positions` nem USAGE no schema `finance`.
-- Advisor de segurança — política explícita de deny no schema financeiro; há 28 avisos de funções `SECURITY DEFINER` intencionais, todos com `search_path` fixo, validação de tenant/capacidade quando aplicável e grants mínimos. Os dois novos comandos de acerto exigem `aal2` e o seed sintético foi adicionalmente restringido a owner/manager. O advisor também aponta proteção contra senhas vazadas desabilitada no Auth; isso permanece pendente de configuração no projeto. Os avisos não são tratados como aprovação automática: testes de autorização por papel ainda estão pendentes.
+- Advisor de segurança — política explícita de deny no schema financeiro; há 32 avisos de funções `SECURITY DEFINER` intencionais, todos com `search_path` fixo, validação de tenant/capacidade quando aplicável e grants mínimos. Os comandos de acerto, alertas e seed sintético exigem as capacidades/AAL2 correspondentes. O advisor também aponta proteção contra senhas vazadas desabilitada no Auth; isso permanece pendente de configuração no projeto. Os avisos não são tratados como aprovação automática: testes de autorização por papel ainda estão pendentes.
 - Deploy Cloudflare — `https://prumo-stock-hml.marcosranti.workers.dev`, versão `2b2edb33-42cc-4938-801e-bfdbad32863f`, build do commit `453930b`.
 - Migração `access_event_commands` — aplicada; tabela de convites, recuperação de acesso no Auth e RPCs de reserva/liberação/fechamento adicionados.
 - Build/deploy atualizado — commit `ca2e3a9`, Worker `c76b8cd1-c06d-4b7a-b31c-7a4d778b24b5`.
@@ -38,10 +38,17 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Migração `event_replenishment` — aplicada no projeto `azuomlmqdnyvdgnhypao`; reposição durante `operating`/`settling` reserva FEFO, registra origem `replenishment`, adiciona a linha ao manifesto vigente e prepara a diferença quando o acerto já começou.
 - Migração `catalog_structure_commands` — aplicada no projeto `azuomlmqdnyvdgnhypao`; comandos autorizados para unidade/local, item/família/natureza, embalagem/fator, política min/reorder/max, fornecedor e vínculo comercial. O painel de Administração usa apenas essas RPCs para escrita.
 - Migração `supplier_returns` — aplicada no projeto `azuomlmqdnyvdgnhypao`; devolução exige `aal2`, motivo e quantidade até o aceito líquido, baixa o lote por documento idempotente de retorno e atualiza `receipt_lines.returned_q`.
+- Migração `alert_lifecycle` — aplicada no projeto `azuomlmqdnyvdgnhypao`; acknowledge/resolve de alertas é auditado, resolução exige `aal2` e o refresh não reabre ocorrências por conflito.
+- Migração `alert_indexes` — aplicada no projeto `azuomlmqdnyvdgnhypao`; índices de FK da tabela de reconhecimentos adicionados.
+- Migração `purchase_rejection` — aplicada no projeto `azuomlmqdnyvdgnhypao`; solicitações podem ser rejeitadas por comando transacional com motivo, AAL2 e auditoria.
 - Build local após custos e alertas — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - `npm run smoke -- https://prumo-stock-hml.marcosranti.workers.dev` — aprovado; seis rotas profundas retornaram `200 text/html`.
 - `npm run test:static` — aprovado; invariantes de segredos, RLS, finance, CSV, fallback SPA e storage privado.
 - `npm run test:static` após o enforcement AAL2 — aprovado; verifica claim `aal2`, erro `mfa_required` e wrappers não executáveis diretamente por `authenticated`.
+- `npm run build` após a fila de alertas — aprovado; TypeScript sem erros e bundle gerado.
+- `npm run test:static` após a fila de alertas — aprovado; invariantes incluem os comandos auditáveis de acknowledge/resolve.
+- `npm run test` após rejeição de compras — aprovado; build e invariantes de compras passaram.
+- `npm run test:static` após o desafio MFA no login — aprovado; invariantes verificam `getAuthenticatorAssuranceLevel`, `mfa.challenge` e `MfaChallenge` antes da UI autenticada.
 - `npm run build` após o painel de acerto de eventos — aprovado; TypeScript sem erros e bundle gerado.
 - `npm run test` após a reposição durante operação — aprovado; build e invariantes de manifesto, acerto e reposição passaram.
 - `npm run test` após o painel de catálogo — aprovado; build TypeScript/Vite e invariantes de segurança/catalogação passaram.

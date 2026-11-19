@@ -8,7 +8,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-002 | pendente-humano | Decisões D03-D10 registradas como premissas | Validação comercial real |
 | PR-003 | implementado | React responsivo, tokens PRUMO, foco visível | Validação do nome da marca |
 | PR-004 | implementado | Vite/TS lockfile, `.env.example`, `wrangler.jsonc` | URL Cloudflare |
-| PR-005 | parcial | Supabase Auth, signup/login, recuperação por e-mail, sessão persistente, painel TOTP e wrappers de comandos privilegiados exigindo JWT `aal2` | Teste autenticado com conta privilegiada, configuração de proteção contra senhas vazadas e fluxo de desafio no login |
+| PR-005 | parcial | Supabase Auth, signup/login, recuperação por e-mail, sessão persistente, painel TOTP, desafio TOTP no login e wrappers de comandos privilegiados exigindo JWT `aal2` | Teste autenticado com conta privilegiada e configuração de proteção contra senhas vazadas |
 | PR-006 | parcial | `bootstrap_workspace` transacional/idempotente | Troca de contexto |
 | PR-007 | parcial | Convites com token hash, expiração, revogação, aceite autenticado e auditoria | Entrega automática por SMTP e teste multiusuário |
 | PR-008 | parcial | FKs compostas, RLS e isolamento por tenant | Capacidades/escopos finos por local |
@@ -18,8 +18,8 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-012 | parcial | stock_positions com precisão decimal e unidades base g/ml/un/m | Conversões adicionais e snapshots |
 | PR-013 | parcial | ledger + RPC de movimentação, contagem cega e políticas min/reorder/max por item/local | Reconciliação completa de todos os tipos de ajuste |
 | PR-014 | parcial | lotes, validade e condição | FEFO e bloqueio vencido dedicado |
-| PR-015 | parcial | políticas min/max/reorder configuráveis no painel e alertas idempotentes automáticos | Reconhecimento/resolução por causa |
-| PR-016 | parcial | purchase_requests e RPC de solicitação | Aprovação, fornecedor e pedido |
+| PR-015 | parcial | políticas min/max/reorder configuráveis no painel, alertas idempotentes automáticos e fila operacional com reconhecimento/resolução auditados | Ciclos por mudança de causa e teste autenticado |
+| PR-016 | parcial | purchase_requests, solicitação, aprovação e rejeição justificada | Escopo por unidade e teste autenticado |
 | PR-017 | parcial | receipts e linhas modelados | Recebimento parcial conectado |
 | PR-018 | parcial | ativos/custódias, cadastro e painel de expedição/retorno | Permissões finas e conferência por ativo |
 | PR-019 | parcial | events, reserva FEFO com lock, transições, consumo/liberação, reposição durante operação e manifesto versionado no despacho | Teste integrado do retorno |
@@ -33,8 +33,8 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-027 | parcial | activity_feed com security_invoker | Relatórios completos |
 | PR-028 | implementado | Exportação CSV com neutralização de fórmulas | Filtros avançados |
 | PR-029 | parcial | auditoria de bootstrap/movimentos | Correlação e observabilidade externa |
-| PR-030 | parcial | RPC idempotente de alertas para ruptura, validade, evento e compra atrasada | Reconhecimento, retorno pendente e resolução por causa |
-| PR-031 | parcial | status e constraints de compras | Aprovação/pedido/recebimento integrado |
+| PR-030 | parcial | RPC idempotente de alertas para ruptura, validade, evento, compra atrasada e retorno pendente; acknowledge/resolve com auditoria e MFA gerencial | Job agendado, ciclos por causa e teste autenticado |
+| PR-031 | parcial | status/constraints de compras e fluxo de aprovação/rejeição/pedido/recebimento | Conferência por linha, aceitas bloqueadas/rejeitadas e teste integrado |
 | PR-032 | parcial | eventos, reservas FEFO, estados, consumo/liberação, reposição, manifesto e acerto com classificação/aprovação conectados ao painel | Teste operacional completo |
 | PR-033 | parcial | RLS em todas as tabelas expostas | Escopo por capacidade |
 | PR-034 | parcial | seed reproduzível com oito famílias, lotes válidos/vencidos, eventos, ativos e estrutura de manifesto/acerto | Segundo tenant, retorno e fechamento auditado com fixtures |
