@@ -19,3 +19,4 @@
 - A exportação CSV prefixa células iniciadas por `=`, `+`, `-` ou `@` para reduzir risco de fórmula maliciosa.
 - PR-001/PR-002 e o piloto humano de PR-044 permanecem pendentes por serem validações fora do alcance do código.
 - Alertas operacionais ganharam ciclo explícito: reconhecer grava a pessoa e não encerra a causa; resolver exige motivo, papel de owner/manager e sessão `aal2`. O refresh usa `ON CONFLICT DO NOTHING` para não reabrir silenciosamente uma ocorrência já reconhecida ou resolvida.
+- Recebimentos agora preservam a conferência física em três quantidades: utilizável entra na posição `usable`, aceita bloqueada entra em `quarantine` e rejeitada não entra no estoque. `delivered_q` controla a entrega física total e impede sobre-entrega mesmo quando há rejeição; o custo só é projetado sobre a parcela utilizável até a liberação da quarentena.

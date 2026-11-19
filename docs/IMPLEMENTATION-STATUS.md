@@ -20,7 +20,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-014 | parcial | lotes, validade e condição | FEFO e bloqueio vencido dedicado |
 | PR-015 | parcial | políticas min/max/reorder configuráveis no painel, alertas idempotentes automáticos e fila operacional com reconhecimento/resolução auditados | Ciclos por mudança de causa e teste autenticado |
 | PR-016 | parcial | purchase_requests, solicitação, aprovação e rejeição justificada | Escopo por unidade e teste autenticado |
-| PR-017 | parcial | receipts e linhas modelados | Recebimento parcial conectado |
+| PR-017 | parcial | receipts e linhas modelados; conferência separa quantidade utilizável, quarentena e rejeitada em comando transacional idempotente | Teste autenticado de recebimento parcial e saldo a receber |
 | PR-018 | parcial | ativos/custódias, cadastro e painel de expedição/retorno | Permissões finas e conferência por ativo |
 | PR-019 | parcial | events, reserva FEFO com lock, transições, consumo/liberação, reposição durante operação e manifesto versionado no despacho | Teste integrado do retorno |
 | PR-020 | parcial | manifesto por versão com linhas de lote e snapshot automático na expedição | Conferência visual completa de expedição/operação/retorno |
@@ -34,7 +34,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-028 | implementado | Exportação CSV com neutralização de fórmulas | Filtros avançados |
 | PR-029 | parcial | auditoria de bootstrap/movimentos | Correlação e observabilidade externa |
 | PR-030 | parcial | RPC idempotente de alertas para ruptura, validade, evento, compra atrasada e retorno pendente; acknowledge/resolve com auditoria e MFA gerencial | Job agendado, ciclos por causa e teste autenticado |
-| PR-031 | parcial | status/constraints de compras e fluxo de aprovação/rejeição/pedido/recebimento | Conferência por linha, aceitas bloqueadas/rejeitadas e teste integrado |
+| PR-031 | parcial | status/constraints de compras e fluxo de aprovação/rejeição/pedido/recebimento; `delivered_q` bloqueia sobre-entrega e `blocked_q` preserva quarentena | Conferência por linha e teste integrado autenticado |
 | PR-032 | parcial | eventos, reservas FEFO, estados, consumo/liberação, reposição, manifesto e acerto com classificação/aprovação conectados ao painel | Teste operacional completo |
 | PR-033 | parcial | RLS em todas as tabelas expostas | Escopo por capacidade |
 | PR-034 | parcial | seed reproduzível com oito famílias, lotes válidos/vencidos, eventos, ativos e estrutura de manifesto/acerto | Segundo tenant, retorno e fechamento auditado com fixtures |
