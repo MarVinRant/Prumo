@@ -11,6 +11,7 @@ export default function FinancePanel() {
   const [items, setItems] = useState<Option[]>([])
   const [locations, setLocations] = useState<Option[]>([])
   const [form, setForm] = useState({ item_id: '', location_id: '', amount: '', reason: '' })
+  const [adjustmentKey, setAdjustmentKey] = useState(() => crypto.randomUUID())
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
 
@@ -28,7 +29,7 @@ export default function FinancePanel() {
 
   async function submit(event: FormEvent) {
     event.preventDefault(); setBusy(true); setError('')
-    try { await requestValueAdjustment({ item_id: form.item_id, location_id: form.location_id, amount: Number(form.amount), reason: form.reason }); await reload(); setForm(current => ({ ...current, amount: '', reason: '' })) }
+    try { await requestValueAdjustment({ item_id: form.item_id, location_id: form.location_id, amount: Number(form.amount), reason: form.reason, idempotency_key: adjustmentKey }); await reload(); setForm(current => ({ ...current, amount: '', reason: '' })); setAdjustmentKey(crypto.randomUUID()) }
     catch (err) { setError(err instanceof Error ? err.message : 'Não foi possível solicitar o ajuste.') }
     finally { setBusy(false) }
   }

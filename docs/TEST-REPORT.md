@@ -113,6 +113,9 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Migração `supplier_return_idempotency_wrapper` aplicada — devoluções ao fornecedor usam chave/fingerprint privados e lock transacional por tenant; repetição idêntica retorna o documento original e payload divergente retorna conflito.
 - Verificação SQL de homologação — `private.supplier_return_idempotency`, `public.return_supplier_material(...)` e `return_supplier_material_unchecked(...)` presentes no projeto `azuomlmqdnyvdgnhypao`.
 - `npm test` após idempotência de devolução — aprovado; TypeScript/Vite e 32 invariantes estáticas.
+- Migração `finance_adjustment_idempotency_wrapper` aplicada — solicitações de ajuste monetário usam chave/fingerprint privados e lock transacional por tenant; repetição idêntica retorna a solicitação original e payload divergente retorna conflito.
+- Verificação SQL de homologação — `private.finance_adjustment_idempotency`, `public.request_value_adjustment(...)` e `request_value_adjustment_unchecked(...)` presentes no projeto `azuomlmqdnyvdgnhypao`.
+- `npm test` após idempotência financeira — aprovado; TypeScript/Vite e 33 invariantes estáticas.
 - Build local com comando de fechamento/reabertura no painel de eventos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - `npm run build` após o painel de ciclo de evento e ativos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - Build/deploy mais recente — commit `88f130a`, Worker `a215d474-166b-48ee-b8c1-d74cac7e01d8`.
