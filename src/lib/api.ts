@@ -169,9 +169,9 @@ export async function listActivity(): Promise<ActivityRow[]> {
   })) as ActivityRow[]
 }
 
-export async function postMovement(input: { type: MovementType; item_id: string; location_id: string; quantity: number; uom: string; lot_id?: string; reason?: string; to_location_id?: string }) {
+export async function postMovement(input: { type: MovementType; item_id: string; location_id: string; quantity: number; uom: string; lot_id?: string; reason?: string; to_location_id?: string; idempotency_key?: string }) {
   if (!supabase) throw new Error('Configure o Supabase antes de movimentar estoque.')
-  const { data, error } = await supabase.rpc('post_stock_movement', { p_type: input.type, p_item_id: input.item_id, p_location_id: input.location_id, p_to_location_id: input.to_location_id ?? null, p_lot_id: input.lot_id ?? null, p_quantity: input.quantity, p_input_uom: input.uom, p_reason: input.reason ?? null, p_idempotency_key: crypto.randomUUID() })
+  const { data, error } = await supabase.rpc('post_stock_movement', { p_type: input.type, p_item_id: input.item_id, p_location_id: input.location_id, p_to_location_id: input.to_location_id ?? null, p_lot_id: input.lot_id ?? null, p_quantity: input.quantity, p_input_uom: input.uom, p_reason: input.reason ?? null, p_idempotency_key: input.idempotency_key ?? crypto.randomUUID() })
   if (error) throw error
   return data
 }
