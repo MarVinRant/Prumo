@@ -14,13 +14,13 @@ Data da preparação: 19/11/2026.
 | Recurso | Alvo | Estado nesta preparação |
 |---|---|---|
 | Git local | Pasta deste pacote `prumo-stock` | Inicializado em branch main; pacote de documentação |
-| GitHub | Repositório público `MarVinRant/Prumo` indicado pelo usuário | Documentação publicada em main via Git; primeiro commit ad6407a |
+| GitHub | Repositório público `MarVinRant/Prumo` indicado pelo usuário | Código e documentação publicados em main; último commit `af1e36a` |
 | Cloudflare | Homologação `prumo-stock-hml` | Worker publicado e validado por smoke HTTP |
 | Supabase | Projeto próprio do PRUMO | Ativo, saudável, região `sa-east-1`; migrações aplicadas |
 
 O usuário criou e indicou o repositório MarVinRant/Prumo durante esta preparação. O conector confirmou sua existência e visibilidade pública, mas recusou escrita com erro 403. A publicação foi concluída pelo Git usando credencial já disponível no sistema, sem exigir outro login GitHub. A tentativa adicional de login da CLI foi encerrada por ser desnecessária.
 
-Wrangler 4.164.0 foi autorizado pelo fluxo oficial e o Worker exclusivo foi publicado. A configuração usa Static Assets com fallback SPA; não há domínio customizado nem alteração de DNS.
+Wrangler 4.165.0 foi autorizado pelo fluxo oficial e o Worker exclusivo foi publicado. A versão atual é `0e52b37e-09c9-4002-b4fa-da3cc958d01a` (commit `af1e36a`). A configuração usa Static Assets com fallback SPA; não há domínio customizado nem alteração de DNS.
 
 Não colar tokens ou senhas no chat. Usar login OAuth da CLI ou secret store apropriado. Publicação final exige verificar URL, rotas da SPA, autenticação e comunicação com o Supabase.
 

@@ -172,3 +172,11 @@ O frontend já persiste login, workspace, catálogo e estrutura configuráveis, 
 - `npm test`: 37 invariantes estáticas aprovadas (incluindo ativos e relatório), typecheck e build Vite aprovados.
 
 Ainda não foram executados, por dependerem de sessão/contas e carga controlada: os testes autenticados F01–F28/F21b, retries pós-timeout reais, concorrência multiusuário, cross-tenant, MFA/SMTP/storage, E2E no Worker, restore e carga.
+
+## Publicação desta versão
+
+- Repositório: `https://github.com/MarVinRant/Prumo`
+- Commit publicado: `af1e36a`
+- Worker: `https://prumo-stock-hml.marcosranti.workers.dev`
+- Cloudflare Worker version: `0e52b37e-09c9-4002-b4fa-da3cc958d01a`
+- Smoke externo: `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram `200 text/html`.
