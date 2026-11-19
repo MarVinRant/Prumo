@@ -40,7 +40,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-034 | parcial | seed reproduzível com oito famílias, lotes válidos/vencidos, eventos, ativos e estrutura de manifesto/acerto | Segundo tenant, retorno e fechamento auditado com fixtures |
 | PR-035 | parcial | app mobile-first | Teste visual automatizado |
 | PR-036 | parcial | estados de carregamento/erro no shell | Cobertura de conflito/rede |
-| PR-037 | parcial | comandos idempotentes no ledger, criação de evento/compra, recebimento, reserva, reposição, devolução ao fornecedor, ajuste monetário e consumo de reserva; operações com mesma chave e payload diferente retornam conflito | Teste de timeout pós-commit autenticado |
+| PR-037 | parcial | comandos idempotentes no ledger com lock por chave, criação de evento/compra, recebimento, reserva, reposição, devolução ao fornecedor, ajuste monetário e consumo de reserva; operações com mesma chave e payload diferente retornam conflito | Teste de timeout pós-commit autenticado |
 | PR-038 | parcial | constraints de não-negatividade, locks e conflito de contagem | Testes de concorrência autenticados |
 | PR-039 | parcial | grants mínimos, search_path fixo e enforcement server-side `aal2` para comandos de acesso, compras, custos, eventos, ativos e aprovação de contagem | Teste autenticado de rejeição em `aal1`, SMTP de convite e recuperação |
 | PR-040 | parcial | documentação inicial, runbook de recuperação e RPC `reconcile_inventory()` para invariantes | Ensaio de restauração e carga controlada |

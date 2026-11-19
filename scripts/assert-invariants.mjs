@@ -31,6 +31,7 @@ const migrationFiles = await Promise.all([
   'supabase/migrations/20261117216300_supplier_return_idempotency_wrapper.sql',
   'supabase/migrations/20261117216400_finance_adjustment_idempotency_wrapper.sql',
   'supabase/migrations/20261117216500_creation_idempotency_wrappers.sql',
+  'supabase/migrations/20261117216600_movement_lock_wrapper.sql',
 ].map(read))
 const wrangler = await read('wrangler.jsonc')
 
@@ -69,6 +70,7 @@ const checks = [
   ['supplier return idempotency serializes and rejects conflicts', migrationFiles[22].includes('supplier_return_idempotency') && migrationFiles[22].includes('pg_advisory_xact_lock') && migrationFiles[22].includes('return_supplier_material_unchecked') && migrationFiles[22].includes('idempotency_payload_conflict') && api.includes('returnSupplierMaterial') && app.includes('returnKeys')],
   ['finance adjustment idempotency serializes and rejects conflicts', migrationFiles[23].includes('finance_adjustment_idempotency') && migrationFiles[23].includes('pg_advisory_xact_lock') && migrationFiles[23].includes('request_value_adjustment_unchecked') && migrationFiles[23].includes('idempotency_payload_conflict') && api.includes('requestValueAdjustment') && (await read('src/FinancePanel.tsx')).includes('adjustmentKey')],
   ['event and purchase creation idempotency serializes and rejects conflicts', migrationFiles[24].includes('event_creation_idempotency') && migrationFiles[24].includes('purchase_request_idempotency') && migrationFiles[24].includes('create_event_unchecked') && migrationFiles[24].includes('create_purchase_request_unchecked') && migrationFiles[24].includes('idempotency_payload_conflict') && api.includes('pendingEventCreationKeys') && api.includes('pendingPurchaseRequestKeys')],
+  ['movement idempotency serializes retries before ledger', migrationFiles[25].includes('post_stock_movement_unchecked') && migrationFiles[25].includes('pg_advisory_xact_lock') && migrationFiles[25].includes('post_stock_movement')],
 ]
 
 const failures = checks.filter(([, passed]) => !passed)

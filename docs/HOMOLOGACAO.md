@@ -8,7 +8,7 @@
 
 ## Roteiro integrado
 
-1. Em Movimentar, registre recebimento, consumo, perda e transferência; atualize Estoque após cada ação.
+1. Em Movimentar, registre recebimento, consumo, perda e transferência; atualize Estoque após cada ação. Em uma repetição pós-timeout, reuse a mesma chave/payload e confirme que o ledger não duplica; mude o payload mantendo a chave e confirme o conflito.
 2. Exporte CSV e confirme que fórmulas não são executadas ao abrir em planilha.
 3. Em Compras, crie uma solicitação, repita o envio após timeout com o mesmo payload e confirme que não duplica; aprove, emita o pedido e registre um recebimento parcial com lote separando utilizável, quarentena e rejeitada (por exemplo, 60/6/6); confirme após refresh que só a parcela utilizável aparece como disponível, a quarentena fica física porém bloqueada e a rejeitada permanece no saldo a receber.
 4. Em Eventos, crie um evento com período válido, reserve material pela seção Reserva FEFO e libere a reserva; confirme que a quantidade disponível é restaurada sem baixar o físico. Simule uma repetição da mesma reserva após timeout usando a mesma chave/payload e confirme que não há segunda reserva; altere o payload mantendo a chave e confirme o conflito.

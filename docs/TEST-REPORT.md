@@ -124,6 +124,8 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - `npm test` após idempotência financeira — aprovado; TypeScript/Vite e 33 invariantes estáticas.
 - Migração `creation_idempotency_wrappers` aplicada — criação de evento e solicitação de compra usa lock/fingerprint privado por tenant; repetição idêntica retorna o registro original e payload divergente retorna conflito.
 - `npm test` após idempotência de criação — aprovado; TypeScript/Vite e 34 invariantes estáticas.
+- Migração `movement_lock_wrapper` aplicada — retries de movimentação com chave são serializados antes de consultar/alterar o ledger; o corpo interno preserva o conflito de payload.
+- `npm test` após lock de movimentação — aprovado; TypeScript/Vite e 35 invariantes estáticas.
 - Build local com comando de fechamento/reabertura no painel de eventos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - `npm run build` após o painel de ciclo de evento e ativos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - Build/deploy mais recente — commit `88f130a`, Worker `a215d474-166b-48ee-b8c1-d74cac7e01d8`.
