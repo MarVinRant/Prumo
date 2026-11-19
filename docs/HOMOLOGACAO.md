@@ -23,6 +23,8 @@
 13. Tente receber acima do saldo físico ainda não conferido e repita a mesma conferência com a mesma chave idempotente; a primeira deve ser bloqueada e a repetição deve retornar o mesmo recebimento sem duplicar estoque.
 14. Com um recebimento em quarentena, confirme que o saldo disponível permanece zero; com uma sessão gerencial `aal2`, libere a quantidade e confirme que ela aparece como utilizável sem alterar o físico total. Tente liberar uma posição vencida e confirme o bloqueio.
 15. Registre uma entrega somente rejeitada e confirme que o pedido permanece parcial, com saldo a receber para reposição.
+16. Em Ativos, cadastre um equipamento individualizado e repita o cadastro após uma falha recuperável com a mesma chave; confirme que o mesmo patrimônio não é duplicado. Expedir e retornar o ativo devem preservar uma única custódia aberta; mude o payload mantendo a chave e confirme `idempotency_payload_conflict`.
+17. Em Análises, filtre o extrato por tipo (por exemplo, perda) e por período; confirme que consumo, perda, transferência e retorno aparecem como direções distintas, que lote/local/documento são preservados e que nenhum custo é exibido para operador. Exporte o extrato filtrado e valide a neutralização de fórmulas.
 
 Reposição operacional, testes autenticados e fechamento completo com múltiplos lotes ainda estão marcados como parciais em `IMPLEMENTATION-STATUS.md`; não trate a reserva FEFO isolada como entrega desses ciclos.
 

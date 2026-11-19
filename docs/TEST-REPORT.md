@@ -180,3 +180,4 @@ Ainda não foram executados, por dependerem de sessão/contas e carga controlada
 - Worker: `https://prumo-stock-hml.marcosranti.workers.dev`
 - Cloudflare Worker version: `0e52b37e-09c9-4002-b4fa-da3cc958d01a`
 - Smoke externo: `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram `200 text/html`.
+- Advisors Supabase após as migrações: health sem lints; security mantém 43 avisos esperados de RPCs `SECURITY DEFINER` expostos com grants autenticados e proteção de senha vazada ainda pendente; performance mantém avisos de índices compostos/FKs e initplan de políticas existentes. Isso está registrado como limitação, não como aprovação de segurança/performance.
