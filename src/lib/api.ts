@@ -261,6 +261,13 @@ export async function createItem(input: { sku: string; name: string; family: str
   return data
 }
 
+export async function updateItem(input: { id: string; sku: string; name: string; family: string; nature: string; base_uom: string; category_name?: string }) {
+  if (!supabase) throw new Error('Configure o Supabase antes de editar materiais.')
+  const { data, error } = await supabase.rpc('update_item', { p_item_id: input.id, p_sku: input.sku, p_name: input.name, p_family: input.family, p_nature: input.nature, p_base_uom: input.base_uom, p_category_name: input.category_name ?? null })
+  if (error) throw error
+  return data
+}
+
 export async function createItemPackage(input: { item_id: string; name: string; factor: number; barcode?: string }) {
   if (!supabase) throw new Error('Configure o Supabase antes de cadastrar embalagens.')
   const { data, error } = await supabase.rpc('create_item_package', { p_item_id: input.item_id, p_name: input.name, p_factor: input.factor, p_barcode: input.barcode ?? null })

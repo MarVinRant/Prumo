@@ -174,6 +174,12 @@ O frontend já persiste login, workspace, catálogo e estrutura configuráveis, 
 
 Ainda não foram executados, por dependerem de sessão/contas e carga controlada: os testes autenticados F01–F28/F21b, retries pós-timeout reais, concorrência multiusuário, cross-tenant, MFA/SMTP/storage, E2E no Worker, restore e carga.
 
+## Incremento seguinte: edição de catálogo
+
+- Migração aplicada: `20261117217000_catalog_item_update.sql`, com `update_item` transacional, validação de SKU único, auditoria e exigência de `aal2`.
+- A unidade base e a natureza ficam imutáveis quando o item já aparece em posição, documento ou ativo; alterações incompatíveis retornam erro explícito.
+- `npm test`: build, typecheck e 38 invariantes estáticas aprovados.
+
 ## Publicação desta versão
 
 - Repositório: `https://github.com/MarVinRant/Prumo`

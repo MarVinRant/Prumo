@@ -35,6 +35,7 @@ const migrationFiles = await Promise.all([
   'supabase/migrations/20261117216700_stock_count_idempotency_wrapper.sql',
   'supabase/migrations/20261117216800_asset_idempotency_wrapper.sql',
   'supabase/migrations/20261117216900_stock_ledger_report.sql',
+  'supabase/migrations/20261117217000_catalog_item_update.sql',
 ].map(read))
 const wrangler = await read('wrangler.jsonc')
 
@@ -77,6 +78,7 @@ const checks = [
   ['blind count idempotency serializes and rejects conflicts', migrationFiles[26].includes('stock_count_idempotency') && migrationFiles[26].includes('pg_advisory_xact_lock') && migrationFiles[26].includes('record_stock_count_unchecked') && migrationFiles[26].includes('idempotency_payload_conflict') && api.includes('pendingStockCountKeys')],
   ['asset commands serialize retries and reject conflicts', migrationFiles[27].includes('asset_command_idempotency') && migrationFiles[27].includes('pg_advisory_xact_lock') && migrationFiles[27].includes('register_asset_unchecked_idempotent') && migrationFiles[27].includes('dispatch_asset_unchecked_idempotent') && migrationFiles[27].includes('return_asset_unchecked_idempotent') && migrationFiles[27].includes('idempotency_payload_conflict') && api.includes('dispatchAsset') && api.includes('returnAsset')],
   ['ledger report is tenant-scoped and exportable', migrationFiles[28].includes('stock_ledger_report') && migrationFiles[28].includes('security_invoker') && migrationFiles[28].includes('grant select') && api.includes('listLedgerReport') && api.includes('downloadLedgerCsv')],
+  ['catalog item edits preserve used-unit invariants', migrationFiles[29].includes('update_item') && migrationFiles[29].includes('base_uom_locked_after_use') && migrationFiles[29].includes('nature_locked_after_use') && migrationFiles[29].includes('sku_already_exists') && api.includes('updateItem')],
 ]
 
 const failures = checks.filter(([, passed]) => !passed)

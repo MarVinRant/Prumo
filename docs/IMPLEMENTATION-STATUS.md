@@ -13,7 +13,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-007 | parcial | Convites com token hash, expiração, revogação, aceite autenticado e auditoria | Entrega automática por SMTP e teste multiusuário |
 | PR-008 | parcial | FKs compostas, RLS e isolamento por tenant | Capacidades/escopos finos por local |
 | PR-009 | parcial | units/locations, seed de dois locais, painel de cadastro e arquivamento protegido por saldo/custódia | Escopo fino por local e teste multiusuário |
-| PR-010 | parcial | Oito famílias, catálogo persistente, painel de criação por SKU/natureza e inativação protegida por saldo/reserva | Edição completa e teste multiusuário |
+| PR-010 | parcial | Oito famílias, catálogo persistente, painel de criação/edição por SKU, família, natureza e unidade base, além de inativação protegida por saldo/reserva; unidade/natureza são bloqueadas após uso | Teste multiusuário |
 | PR-011 | parcial | item_packages, fator por SKU, painel de embalagem, conversões contextuais kg/L e snapshot de `conversion_factor` no ledger | Snapshot em documentos de compra/evento e teste autenticado |
 | PR-012 | parcial | stock_positions com precisão decimal, unidades base g/ml/un/m e conversão kg/L condicionada à base; fator usado é persistido por linha | Conversões adicionais por embalagem e snapshots de todos os documentos |
 | PR-013 | parcial | ledger + RPC de movimentação, contagem cega e políticas min/reorder/max por item/local | Reconciliação completa de todos os tipos de ajuste |
