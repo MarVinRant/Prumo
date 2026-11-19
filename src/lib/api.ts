@@ -184,6 +184,19 @@ export async function listActivity(): Promise<ActivityRow[]> {
   })) as ActivityRow[]
 }
 
+export type LedgerReportRow = { id: string; type: string; document_no: string; reason: string | null; posted_at: string; quantity: number; direction: 'in' | 'out'; sku: string; item_name: string; base_uom: string; location_name: string; lot_code: string; expires_on: string | null }
+
+export async function listLedgerReport(filters: { type?: string; from?: string; to?: string } = {}): Promise<LedgerReportRow[]> {
+  if (!supabase) return []
+  let query = supabase.from('stock_ledger_report').select('id,type,document_no,reason,posted_at,quantity,direction,sku,item_name,base_uom,location_name,lot_code,expires_on').order('posted_at', { ascending: false }).limit(500)
+  if (filters.type) query = query.eq('type', filters.type)
+  if (filters.from) query = query.gte('posted_at', `${filters.from}T00:00:00.000Z`)
+  if (filters.to) query = query.lt('posted_at', `${filters.to}T23:59:59.999Z`)
+  const { data, error } = await query
+  if (error) throw error
+  return (data ?? []) as LedgerReportRow[]
+}
+
 export async function postMovement(input: { type: MovementType; item_id: string; location_id: string; quantity: number; uom: string; lot_id?: string; reason?: string; to_location_id?: string; idempotency_key?: string }) {
   if (!supabase) throw new Error('Configure o Supabase antes de movimentar estoque.')
   const { data, error } = await supabase.rpc('post_stock_movement', { p_type: input.type, p_item_id: input.item_id, p_location_id: input.location_id, p_to_location_id: input.to_location_id ?? null, p_lot_id: input.lot_id ?? null, p_quantity: input.quantity, p_input_uom: input.uom, p_reason: input.reason ?? null, p_idempotency_key: input.idempotency_key ?? crypto.randomUUID() })
@@ -498,23 +511,23 @@ export async function listAssets() {
   return data ?? []
 }
 
-export async function registerAsset(input: { item_id: string; asset_tag: string; condition?: string }) {
+export async function registerAsset(input: { item_id: string; asset_tag: string; condition?: string; idempotency_key?: string }) {
   if (!supabase) throw new Error('Configure o Supabase antes de cadastrar ativos.')
-  const { data, error } = await supabase.rpc('register_asset', { p_item_id: input.item_id, p_asset_tag: input.asset_tag, p_condition: input.condition ?? 'usable' })
+  const { data, error } = await supabase.rpc('register_asset', { p_item_id: input.item_id, p_asset_tag: input.asset_tag, p_condition: input.condition ?? 'usable', p_idempotency_key: input.idempotency_key ?? null })
   if (error) throw error
   return data
 }
 
-export async function dispatchAsset(input: { asset_id: string; location_id: string; event_id?: string; responsible_user?: string; condition_out?: string }) {
+export async function dispatchAsset(input: { asset_id: string; location_id: string; event_id?: string; responsible_user?: string; condition_out?: string; idempotency_key?: string }) {
   if (!supabase) throw new Error('Configure o Supabase antes de expedir ativos.')
-  const { data, error } = await supabase.rpc('dispatch_asset', { p_asset_id: input.asset_id, p_location_id: input.location_id, p_event_id: input.event_id ?? null, p_responsible_user: input.responsible_user ?? null, p_condition_out: input.condition_out ?? 'usable' })
+  const { data, error } = await supabase.rpc('dispatch_asset', { p_asset_id: input.asset_id, p_location_id: input.location_id, p_event_id: input.event_id ?? null, p_responsible_user: input.responsible_user ?? null, p_condition_out: input.condition_out ?? 'usable', p_idempotency_key: input.idempotency_key ?? null })
   if (error) throw error
   return data
 }
 
-export async function returnAsset(input: { asset_id: string; condition_in: string; location_id?: string }) {
+export async function returnAsset(input: { asset_id: string; condition_in: string; location_id?: string; idempotency_key?: string }) {
   if (!supabase) throw new Error('Configure o Supabase antes de devolver ativos.')
-  const { data, error } = await supabase.rpc('return_asset', { p_asset_id: input.asset_id, p_condition_in: input.condition_in, p_location_id: input.location_id ?? null })
+  const { data, error } = await supabase.rpc('return_asset', { p_asset_id: input.asset_id, p_condition_in: input.condition_in, p_location_id: input.location_id ?? null, p_idempotency_key: input.idempotency_key ?? null })
   if (error) throw error
   return data
 }
@@ -539,4 +552,10 @@ export function downloadStockCsv(rows: { sku: string; name: string; location_nam
   const escape = (value: string | number) => { const text = String(value); return /^[=+\-@]/.test(text) ? `'${text}` : `"${text.replaceAll('"', '""')}"` }
   const csv = ['SKU,Item,Local,Físico,Reservado,Disponível,Unidade,Condição', ...rows.map(row => [row.sku,row.name,row.location_name,row.on_hand_q,row.reserved_q,row.available_q,row.base_uom,row.condition].map(escape).join(','))].join('\r\n')
   const link = document.createElement('a'); link.href = URL.createObjectURL(new Blob([`\ufeff${csv}`], { type: 'text/csv;charset=utf-8' })); link.download = `prumo-estoque-${new Date().toISOString().slice(0,10)}.csv`; link.click(); URL.revokeObjectURL(link.href)
+}
+
+export function downloadLedgerCsv(rows: LedgerReportRow[]) {
+  const escape = (value: string | number | null) => { const text = String(value ?? ''); return /^[=+\-@]/.test(text) ? `'${text}` : `"${text.replaceAll('"', '""')}"` }
+  const csv = ['Documento,Tipo,Data,SKU,Item,Local,Lote,Direção,Quantidade,Unidade,Motivo', ...rows.map(row => [row.document_no,row.type,new Date(row.posted_at).toISOString(),row.sku,row.item_name,row.location_name,row.lot_code,row.direction,row.quantity,row.base_uom,row.reason].map(escape).join(','))].join('\r\n')
+  const link = document.createElement('a'); link.href = URL.createObjectURL(new Blob([`\ufeff${csv}`], { type: 'text/csv;charset=utf-8' })); link.download = `prumo-extrato-${new Date().toISOString().slice(0,10)}.csv`; link.click(); URL.revokeObjectURL(link.href)
 }

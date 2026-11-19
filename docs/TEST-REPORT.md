@@ -162,3 +162,13 @@ Os ciclos F01–F28, concorrência, RLS cross-tenant com dois usuários autentic
 ## Limitações atuais
 
 O frontend já persiste login, workspace, catálogo e estrutura configuráveis, movimentações, eventos, reserva/consumo/liberação, ciclo de estados, reposição, manifesto versionado, acerto com classificação/aprovação, ativos individualizados, solicitações/aprovação/recebimento de compras, convites administrativos, alertas, contagem cega, MFA TOTP e CSV. O enforcement AAL2 agora existe no banco para comandos privilegiados, mas o teste autenticado de rejeição em `aal1` e desafio no login ainda não foram executados. Edição/inativação de catálogo, múltiplos lotes no acerto, testes autenticados de custos/storage e os testes integrados continuam pendentes e impedem declarar `PRONTO PARA TESTE INTEGRADO`.
+
+## Incrementos 2026-11-19 (ativos e relatórios)
+
+- Migração aplicada no projeto Supabase `azuomlmqdnyvdgnhypao`: `20261117216800_asset_idempotency_wrapper.sql`. Os comandos `register_asset`, `dispatch_asset` e `return_asset` agora guardam fingerprint e resultado em `private.asset_command_idempotency`, serializam por chave e retornam conflito explícito para payload divergente.
+- Migração aplicada: `20261117216900_stock_ledger_report.sql`. A view `public.stock_ledger_report` usa `security_invoker`, joins compostos por tenant e não contém colunas monetárias; `authenticated` tem somente `select`.
+- Frontend: painel de ativos preserva a chave durante falha recuperável e o painel de Análises consulta o extrato do ledger com filtro de tipo/período e CSV neutralizado.
+- Verificação read-only: `to_regclass('public.stock_ledger_report') = stock_ledger_report`; privilégio `authenticated` de leitura confirmado.
+- `npm test`: 37 invariantes estáticas aprovadas (incluindo ativos e relatório), typecheck e build Vite aprovados.
+
+Ainda não foram executados, por dependerem de sessão/contas e carga controlada: os testes autenticados F01–F28/F21b, retries pós-timeout reais, concorrência multiusuário, cross-tenant, MFA/SMTP/storage, E2E no Worker, restore e carga.

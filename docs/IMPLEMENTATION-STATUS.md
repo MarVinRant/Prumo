@@ -21,16 +21,16 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-015 | parcial | políticas min/max/reorder configuráveis no painel, alertas idempotentes automáticos e fila operacional com reconhecimento/resolução auditados | Ciclos por mudança de causa e teste autenticado |
 | PR-016 | parcial | purchase_requests, solicitação, aprovação e rejeição justificada | Escopo por unidade e teste autenticado |
 | PR-017 | parcial | receipts e linhas modelados; conferência separa quantidade utilizável, quarentena e rejeitada em comando transacional idempotente | Teste autenticado de recebimento parcial e saldo a receber |
-| PR-018 | parcial | ativos/custódias, cadastro e painel de expedição/retorno | Permissões finas e conferência por ativo |
+| PR-018 | parcial | ativos/custódias, cadastro e painel de expedição/retorno; cadastro, expedição e retorno usam chaves de idempotência com conflito explícito | Permissões finas e conferência por ativo |
 | PR-019 | parcial | events, reserva FEFO com lock, transições, consumo/liberação, reposição durante operação, manifesto versionado e reclassificação auditada de quarentena | Teste integrado do retorno |
 | PR-020 | parcial | manifesto por versão com linhas de lote e snapshot automático na expedição | Conferência visual completa de expedição/operação/retorno |
 | PR-021 | parcial | estrutura de retornáveis | Conferência e proibição de consumo |
-| PR-022 | parcial | custódia individual com comandos transacionais de expedição e retorno | Conferência completa por evento |
+| PR-022 | parcial | custódia individual com comandos transacionais de expedição e retorno, locks por chave e retry idempotente | Conferência completa por evento |
 | PR-023 | parcial | contagem cega com snapshot, conflito e aprovação transacional; diferenças de evento classificáveis e aprováveis | Teste autenticado do acerto com múltiplos lotes |
 | PR-024 | parcial | reabertura exige motivo, gera auditoria e nova versão de manifesto no ciclo seguinte | Teste de reabertura com divergência persistida |
 | PR-025 | parcial | schema finance privado, projeção de custo médio no recebimento e painel financeiro autorizado | Baixas/transferências financeiras completas e teste autenticado |
 | PR-026 | parcial | finance fora do Data API, custo capturado no recebimento, devolução vinculada ao recebimento/lote e ajuste monetário sem quantidade com aprovação independente | Teste autenticado por papel e reconciliação completa |
-| PR-027 | parcial | activity_feed com security_invoker | Relatórios completos |
+| PR-027 | parcial | extrato tenant-scoped do ledger (`stock_ledger_report`) com filtros de tipo/período, entradas/saídas/perdas separadas e exportação CSV sem custos | Relatórios completos de compras, eventos e acertos; teste autenticado |
 | PR-028 | implementado | Exportação CSV com neutralização de fórmulas | Filtros avançados |
 | PR-029 | parcial | auditoria de bootstrap/movimentos e reconciliação operacional exposta na Administração | Correlação e observabilidade externa |
 | PR-030 | parcial | RPC idempotente de alertas para ruptura, validade, evento, compra atrasada e retorno pendente; acknowledge/resolve com auditoria e MFA gerencial | Job agendado, ciclos por causa e teste autenticado |
@@ -40,7 +40,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-034 | parcial | seed reproduzível com oito famílias, lotes válidos/vencidos, eventos, ativos e estrutura de manifesto/acerto | Segundo tenant, retorno e fechamento auditado com fixtures |
 | PR-035 | parcial | app mobile-first | Teste visual automatizado |
 | PR-036 | parcial | estados de carregamento/erro no shell | Cobertura de conflito/rede |
-| PR-037 | parcial | comandos idempotentes no ledger com lock por chave, criação de evento/compra, recebimento, reserva, reposição, devolução ao fornecedor, ajuste monetário, contagem cega e consumo de reserva; operações com mesma chave e payload diferente retornam conflito | Teste de timeout pós-commit autenticado |
+| PR-037 | parcial | comandos idempotentes no ledger com lock por chave, criação de evento/compra, recebimento, reserva, reposição, devolução ao fornecedor, ajuste monetário, contagem cega, consumo de reserva e ciclo de ativos; operações com mesma chave e payload diferente retornam conflito | Teste de timeout pós-commit autenticado |
 | PR-038 | parcial | constraints de não-negatividade, locks e conflito de contagem | Testes de concorrência autenticados |
 | PR-039 | parcial | grants mínimos, search_path fixo e enforcement server-side `aal2` para comandos de acesso, compras, custos, eventos, ativos e aprovação de contagem | Teste autenticado de rejeição em `aal1`, SMTP de convite e recuperação |
 | PR-040 | parcial | documentação inicial, runbook de recuperação e RPC `reconcile_inventory()` para invariantes | Ensaio de restauração e carga controlada |
