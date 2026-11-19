@@ -23,6 +23,7 @@ const migrationFiles = await Promise.all([
   'supabase/migrations/20261117215500_inventory_reconciliation.sql',
   'supabase/migrations/20261117215700_purchase_status_from_acceptance.sql',
   'supabase/migrations/20261117215800_movement_idempotency_conflict.sql',
+  'supabase/migrations/20261117215900_receipt_idempotency_wrapper.sql',
 ].map(read))
 const wrangler = await read('wrangler.jsonc')
 
@@ -54,6 +55,7 @@ const checks = [
   ['inventory reconciliation is scoped and read-only', migrationFiles[15].includes('reconcile_inventory') && migrationFiles[15].includes('require_aal2') && migrationFiles[15].includes('stock_position_invariant') && migrationFiles[15].includes('asset_open_custody_duplicate')],
   ['purchase status follows accepted quantities', migrationFiles[16].includes('sync_purchase_order_status') && migrationFiles[16].includes('new.received_q>=new.ordered_q') && migrationFiles[16].includes('purchase_order_status_from_acceptance')],
   ['movement idempotency rejects payload conflicts', migrationFiles[17].includes('idempotency_fingerprint') && migrationFiles[17].includes('idempotency_payload_conflict') && api.includes('idempotency_key?: string')],
+  ['receipt idempotency serializes and rejects conflicts', migrationFiles[18].includes('receipt_idempotency') && migrationFiles[18].includes('pg_advisory_xact_lock') && migrationFiles[18].includes('receive_purchase_order_split_unchecked') && migrationFiles[18].includes('idempotency_payload_conflict')],
 ]
 
 const failures = checks.filter(([, passed]) => !passed)
