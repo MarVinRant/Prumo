@@ -180,6 +180,12 @@ Ainda não foram executados, por dependerem de sessão/contas e carga controlada
 - A unidade base e a natureza ficam imutáveis quando o item já aparece em posição, documento ou ativo; alterações incompatíveis retornam erro explícito.
 - `npm test`: build, typecheck e 38 invariantes estáticas aprovados.
 
+## Publicação da edição de catálogo
+
+- Commit de código: `0961d2b`
+- Worker version: `26dbc1d0-e09f-4c54-bb4d-920e16ff2237`
+- Smoke externo: `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram `200 text/html`.
+
 ## Publicação desta versão
 
 - Repositório: `https://github.com/MarVinRant/Prumo`

@@ -20,7 +20,7 @@ Data da preparação: 19/11/2026.
 
 O usuário criou e indicou o repositório MarVinRant/Prumo durante esta preparação. O conector confirmou sua existência e visibilidade pública, mas recusou escrita com erro 403. A publicação foi concluída pelo Git usando credencial já disponível no sistema, sem exigir outro login GitHub. A tentativa adicional de login da CLI foi encerrada por ser desnecessária.
 
-Wrangler 4.165.0 foi autorizado pelo fluxo oficial e o Worker exclusivo foi publicado. A versão atual é `0e52b37e-09c9-4002-b4fa-da3cc958d01a` (commit `af1e36a`). A configuração usa Static Assets com fallback SPA; não há domínio customizado nem alteração de DNS.
+Wrangler 4.165.0 foi autorizado pelo fluxo oficial e o Worker exclusivo foi publicado. A versão atual é `26dbc1d0-e09f-4c54-bb4d-920e16ff2237` (commit `0961d2b`). A configuração usa Static Assets com fallback SPA; não há domínio customizado nem alteração de DNS.
 
 Não colar tokens ou senhas no chat. Usar login OAuth da CLI ou secret store apropriado. Publicação final exige verificar URL, rotas da SPA, autenticação e comunicação com o Supabase.
 
