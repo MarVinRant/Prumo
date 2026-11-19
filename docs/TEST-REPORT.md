@@ -40,6 +40,8 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - `npm run test:static` — aprovado; invariantes de segredos, RLS, finance, CSV, fallback SPA e storage privado.
 - `npm run test:static` após o enforcement AAL2 — aprovado; verifica claim `aal2`, erro `mfa_required` e wrappers não executáveis diretamente por `authenticated`.
 - `npm run build` após o painel de acerto de eventos — aprovado; TypeScript sem erros e bundle gerado.
+- Deploy Cloudflare após manifesto/acerto — Worker `prumo-stock-hml`, versão `3a31a44f-fd17-43a1-9f3d-0c2074b494f2`, commit `8b4d765`.
+- `npm run smoke -- https://prumo-stock-hml.marcosranti.workers.dev` após o deploy — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram `200 text/html`.
 - Build local com comando de fechamento/reabertura no painel de eventos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - `npm run build` após o painel de ciclo de evento e ativos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - Build/deploy mais recente — commit `88f130a`, Worker `a215d474-166b-48ee-b8c1-d74cac7e01d8`.
