@@ -86,6 +86,8 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Smoke HTTP após correção de validade — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram `200 text/html`.
 - Deploy Cloudflare após idempotência de movimentações — Worker `prumo-stock-hml`, versão `7ea5302d-3497-4d7c-8695-cf20dd76e9e4`, commit `c547ed8`.
 - Smoke HTTP após idempotência de movimentações — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram `200 text/html`.
+- Deploy Cloudflare após preservação de retries — Worker `prumo-stock-hml`, versão `a94a3b44-bedc-46dd-9afc-2ccf5d26934d`, commit `da1e292`.
+- Smoke HTTP após preservação de retries — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram `200 text/html`.
 - Migração `receipt_conformance` aplicada no Supabase — `purchase_order_lines.delivered_q`, `receipt_lines.blocked_q` e RPC transacional `receive_purchase_order_split`.
 - `npm test` após conferência de recebimento — aprovado; TypeScript/Vite e 28 invariantes estáticas, incluindo separação utilizável/quarentena/rejeitada e bloqueio de sobre-entrega.
 - Verificação SQL de homologação — colunas `purchase_order_lines.delivered_q` e `receipt_lines.blocked_q` e função `receive_purchase_order_split(...)` presentes no projeto `azuomlmqdnyvdgnhypao`.
