@@ -24,6 +24,7 @@ const migrationFiles = await Promise.all([
   'supabase/migrations/20261117215700_purchase_status_from_acceptance.sql',
   'supabase/migrations/20261117215800_movement_idempotency_conflict.sql',
   'supabase/migrations/20261117215900_receipt_idempotency_wrapper.sql',
+  'supabase/migrations/20261117216000_conversion_factor_snapshot.sql',
 ].map(read))
 const wrangler = await read('wrangler.jsonc')
 
@@ -56,6 +57,7 @@ const checks = [
   ['purchase status follows accepted quantities', migrationFiles[16].includes('sync_purchase_order_status') && migrationFiles[16].includes('new.received_q>=new.ordered_q') && migrationFiles[16].includes('purchase_order_status_from_acceptance')],
   ['movement idempotency rejects payload conflicts', migrationFiles[17].includes('idempotency_fingerprint') && migrationFiles[17].includes('idempotency_payload_conflict') && api.includes('idempotency_key?: string')],
   ['receipt idempotency serializes and rejects conflicts', migrationFiles[18].includes('receipt_idempotency') && migrationFiles[18].includes('pg_advisory_xact_lock') && migrationFiles[18].includes('receive_purchase_order_split_unchecked') && migrationFiles[18].includes('idempotency_payload_conflict')],
+  ['movement stores conversion factor snapshot', migrationFiles[19].includes('conversion_factor') && migrationFiles[19].includes('stock_document_lines_conversion_factor_check') && migrationFiles[19].includes('v_factor')],
 ]
 
 const failures = checks.filter(([, passed]) => !passed)
