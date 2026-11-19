@@ -4,6 +4,7 @@ const read = path => readFile(new URL(`../${path}`, import.meta.url), 'utf8')
 const envExample = await read('.env.example')
 const api = await read('src/lib/api.ts')
 const app = await read('src/App.tsx')
+const eventPanel = await read('src/EventReservationPanel.tsx')
 const migrationFiles = await Promise.all([
   'supabase/migrations/20261117200000_prumo_mvp.sql',
   'supabase/migrations/20261117213000_private_storage_policies.sql',
@@ -26,6 +27,7 @@ const migrationFiles = await Promise.all([
   'supabase/migrations/20261117215900_receipt_idempotency_wrapper.sql',
   'supabase/migrations/20261117216000_conversion_factor_snapshot.sql',
   'supabase/migrations/20261117216100_reservation_idempotency_wrapper.sql',
+  'supabase/migrations/20261117216200_replenishment_idempotency_wrapper.sql',
 ].map(read))
 const wrangler = await read('wrangler.jsonc')
 
@@ -60,6 +62,7 @@ const checks = [
   ['receipt idempotency serializes and rejects conflicts', migrationFiles[18].includes('receipt_idempotency') && migrationFiles[18].includes('pg_advisory_xact_lock') && migrationFiles[18].includes('receive_purchase_order_split_unchecked') && migrationFiles[18].includes('idempotency_payload_conflict')],
   ['movement stores conversion factor snapshot', migrationFiles[19].includes('conversion_factor') && migrationFiles[19].includes('stock_document_lines_conversion_factor_check') && migrationFiles[19].includes('v_factor')],
   ['reservation idempotency serializes and rejects conflicts', migrationFiles[20].includes('reservation_idempotency') && migrationFiles[20].includes('pg_advisory_xact_lock') && migrationFiles[20].includes('reserve_event_material_unchecked') && migrationFiles[20].includes('idempotency_payload_conflict') && api.includes('p_idempotency_key')],
+  ['event replenishment idempotency serializes and rejects conflicts', migrationFiles[21].includes('replenishment_idempotency') && migrationFiles[21].includes('pg_advisory_xact_lock') && migrationFiles[21].includes('replenish_event_material_unchecked') && migrationFiles[21].includes('idempotency_payload_conflict') && api.includes('replenish_event_material') && eventPanel.includes('replenishmentKey')],
 ]
 
 const failures = checks.filter(([, passed]) => !passed)

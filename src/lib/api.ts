@@ -426,9 +426,9 @@ export async function reserveEventMaterial(input: { event_id: string; item_id: s
   return data
 }
 
-export async function replenishEventMaterial(input: { event_id: string; item_id: string; location_id: string; quantity: number; lot_id?: string }) {
+export async function replenishEventMaterial(input: { event_id: string; item_id: string; location_id: string; quantity: number; lot_id?: string; idempotency_key?: string }) {
   if (!supabase) throw new Error('Configure o Supabase antes de repor eventos.')
-  const { data, error } = await supabase.rpc('replenish_event_material', { p_event_id: input.event_id, p_item_id: input.item_id, p_location_id: input.location_id, p_quantity: input.quantity, p_lot_id: input.lot_id ?? null })
+  const { data, error } = await supabase.rpc('replenish_event_material', { p_event_id: input.event_id, p_item_id: input.item_id, p_location_id: input.location_id, p_quantity: input.quantity, p_lot_id: input.lot_id ?? null, p_idempotency_key: input.idempotency_key ?? crypto.randomUUID() })
   if (error) throw error
   return data
 }
