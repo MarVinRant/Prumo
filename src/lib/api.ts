@@ -141,6 +141,29 @@ export async function listEventReservations(eventId?: string) {
   return data ?? []
 }
 
+export async function listEventDifferences(eventId?: string) {
+  if (!supabase) return []
+  let query = supabase.from('event_differences').select('id,event_id,manifest_line_id,reservation_id,item_id,location_id,lot_id,expected_q,consumed_q,difference_q,classification,status,reason,created_at,items(name,sku),locations(name),lots(lot_code,expires_on)').order('created_at', { ascending: false }).limit(100)
+  if (eventId) query = query.eq('event_id', eventId)
+  const { data, error } = await query
+  if (error) throw error
+  return data ?? []
+}
+
+export async function classifyEventDifference(input: { difference_id: string; classification: string; consumed_q: number; reason?: string }) {
+  if (!supabase) throw new Error('Configure o Supabase antes de classificar diferenças.')
+  const { data, error } = await supabase.rpc('classify_event_difference', { p_difference_id: input.difference_id, p_classification: input.classification, p_consumed_q: input.consumed_q, p_reason: input.reason ?? null })
+  if (error) throw error
+  return data
+}
+
+export async function approveEventDifference(id: string) {
+  if (!supabase) throw new Error('Configure o Supabase antes de aprovar diferenças.')
+  const { data, error } = await supabase.rpc('approve_event_difference', { p_difference_id: id })
+  if (error) throw error
+  return data
+}
+
 export async function createEvent(input: { name: string; code: string; venue: string; starts_at: string; ends_at: string }) {
   if (!supabase) throw new Error('Configure o Supabase antes de criar eventos.')
   const { data, error } = await supabase.rpc('create_event', { p_name: input.name, p_code: input.code, p_venue: input.venue, p_starts_at: input.starts_at, p_ends_at: input.ends_at })
