@@ -44,6 +44,8 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - `npm run test` após a reposição durante operação — aprovado; build e invariantes de manifesto, acerto e reposição passaram.
 - Deploy Cloudflare após manifesto/acerto — Worker `prumo-stock-hml`, versão `3a31a44f-fd17-43a1-9f3d-0c2074b494f2`, commit `8b4d765`.
 - `npm run smoke -- https://prumo-stock-hml.marcosranti.workers.dev` após o deploy — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram `200 text/html`.
+- Deploy Cloudflare após reposição de evento — Worker `prumo-stock-hml`, versão `e7aca5af-0a1e-4b62-9c0a-e0eeecb89a30`, commit `1b36170`.
+- Smoke HTTP após reposição — `/`, `/stock`, `/events`, `/purchases`, `/reports` e `/admin` retornaram `200 text/html`.
 - Build local com comando de fechamento/reabertura no painel de eventos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - `npm run build` após o painel de ciclo de evento e ativos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - Build/deploy mais recente — commit `88f130a`, Worker `a215d474-166b-48ee-b8c1-d74cac7e01d8`.
