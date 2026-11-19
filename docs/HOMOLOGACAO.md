@@ -21,6 +21,7 @@
 11. Em Análises, confirme que um operador vê apenas “Custos protegidos”. Com uma conta financeira `aal2`, solicite um ajuste de valor, tente aprová-lo com o mesmo usuário (deve falhar) e conclua a aprovação com outro usuário financeiro.
 12. Em Administração, tente arquivar um local com saldo ou um material com reserva; o servidor deve bloquear. Após zerar as pendências com dados sintéticos, arquive e reative o registro sem apagar o histórico.
 13. Tente receber acima do saldo físico ainda não conferido e repita a mesma conferência com a mesma chave idempotente; a primeira deve ser bloqueada e a repetição deve retornar o mesmo recebimento sem duplicar estoque.
+14. Com um recebimento em quarentena, confirme que o saldo disponível permanece zero; com uma sessão gerencial `aal2`, libere a quantidade e confirme que ela aparece como utilizável sem alterar o físico total. Tente liberar uma posição vencida e confirme o bloqueio.
 
 Reposição operacional, testes autenticados e fechamento completo com múltiplos lotes ainda estão marcados como parciais em `IMPLEMENTATION-STATUS.md`; não trate a reserva FEFO isolada como entrega desses ciclos.
 

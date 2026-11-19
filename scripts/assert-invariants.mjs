@@ -19,6 +19,7 @@ const migrationFiles = await Promise.all([
   'supabase/migrations/20261117215100_finance_adjustment_hardening.sql',
   'supabase/migrations/20261117215200_structure_lifecycle.sql',
   'supabase/migrations/20261117215300_receipt_conformance.sql',
+  'supabase/migrations/20261117215400_quarantine_release.sql',
 ].map(read))
 const wrangler = await read('wrangler.jsonc')
 
@@ -46,6 +47,7 @@ const checks = [
   ['financial adjustment table has explicit deny policy', migrationFiles[11].includes('finance_deny_all_value_adjustments') && migrationFiles[11].includes('using(false)')],
   ['catalog lifecycle commands block unsafe archival', migrationFiles[12].includes('set_item_status') && migrationFiles[12].includes('item_has_stock') && migrationFiles[12].includes('location_has_open_custody') && migrationFiles[12].includes('supplier_has_open_orders')],
   ['receipt conference separates usable quarantine and rejected quantities', migrationFiles[13].includes('receive_purchase_order_split') && migrationFiles[13].includes('blocked_q') && migrationFiles[13].includes('delivered_q') && migrationFiles[13].includes("'quarantine'") && migrationFiles[13].includes('delivered_quantity_exceeds_order')],
+  ['quarantine release preserves physical quantity and requires AAL2', migrationFiles[14].includes('release_quarantined_stock') && migrationFiles[14].includes('require_aal2') && migrationFiles[14].includes('position_not_quarantine') && migrationFiles[14].includes("'quarantine'") && migrationFiles[14].includes("'usable'")],
 ]
 
 const failures = checks.filter(([, passed]) => !passed)

@@ -17,12 +17,12 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-011 | parcial | item_packages, fator por SKU, painel de embalagem e conversões contextuais kg/L validadas no comando de estoque | Snapshot em todos os documentos e teste autenticado |
 | PR-012 | parcial | stock_positions com precisão decimal, unidades base g/ml/un/m e conversão kg/L condicionada à base | Conversões adicionais por embalagem e snapshots |
 | PR-013 | parcial | ledger + RPC de movimentação, contagem cega e políticas min/reorder/max por item/local | Reconciliação completa de todos os tipos de ajuste |
-| PR-014 | parcial | lotes, validade e condição | FEFO e bloqueio vencido dedicado |
+| PR-014 | parcial | lotes, validade e condição; posições vencidas/quarentena deixam de ser disponibilidade e liberação de quarentena exige comando gerencial `aal2` | FEFO e teste autenticado de virada de validade |
 | PR-015 | parcial | políticas min/max/reorder configuráveis no painel, alertas idempotentes automáticos e fila operacional com reconhecimento/resolução auditados | Ciclos por mudança de causa e teste autenticado |
 | PR-016 | parcial | purchase_requests, solicitação, aprovação e rejeição justificada | Escopo por unidade e teste autenticado |
 | PR-017 | parcial | receipts e linhas modelados; conferência separa quantidade utilizável, quarentena e rejeitada em comando transacional idempotente | Teste autenticado de recebimento parcial e saldo a receber |
 | PR-018 | parcial | ativos/custódias, cadastro e painel de expedição/retorno | Permissões finas e conferência por ativo |
-| PR-019 | parcial | events, reserva FEFO com lock, transições, consumo/liberação, reposição durante operação e manifesto versionado no despacho | Teste integrado do retorno |
+| PR-019 | parcial | events, reserva FEFO com lock, transições, consumo/liberação, reposição durante operação, manifesto versionado e reclassificação auditada de quarentena | Teste integrado do retorno |
 | PR-020 | parcial | manifesto por versão com linhas de lote e snapshot automático na expedição | Conferência visual completa de expedição/operação/retorno |
 | PR-021 | parcial | estrutura de retornáveis | Conferência e proibição de consumo |
 | PR-022 | parcial | custódia individual com comandos transacionais de expedição e retorno | Conferência completa por evento |

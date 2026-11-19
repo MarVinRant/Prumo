@@ -81,6 +81,8 @@ Data: 2026-11-17/18 (America/Sao_Paulo)
 - Migração `receipt_conformance` aplicada no Supabase — `purchase_order_lines.delivered_q`, `receipt_lines.blocked_q` e RPC transacional `receive_purchase_order_split`.
 - `npm test` após conferência de recebimento — aprovado; TypeScript/Vite e 24 invariantes estáticas, incluindo separação utilizável/quarentena/rejeitada e bloqueio de sobre-entrega.
 - Verificação SQL de homologação — colunas `purchase_order_lines.delivered_q` e `receipt_lines.blocked_q` e função `receive_purchase_order_split(...)` presentes no projeto `azuomlmqdnyvdgnhypao`.
+- Migração `quarantine_release` aplicada — RPC `release_quarantined_stock(...)` exige `aal2`, mantém o físico e audita a reclassificação.
+- `npm test` após projeção de disponibilidade — aprovado; build e invariantes incluem bloqueio de quarentena/vencido e liberação gerencial.
 - Build local com comando de fechamento/reabertura no painel de eventos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - `npm run build` após o painel de ciclo de evento e ativos — aprovado; TypeScript sem erros e Vite gerou `dist/`.
 - Build/deploy mais recente — commit `88f130a`, Worker `a215d474-166b-48ee-b8c1-d74cac7e01d8`.
