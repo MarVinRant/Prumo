@@ -34,7 +34,7 @@ Legenda: `implementado` = evidência técnica no repositório/banco; `parcial` =
 | PR-028 | implementado | Exportação CSV com neutralização de fórmulas | Filtros avançados |
 | PR-029 | parcial | auditoria de bootstrap/movimentos e reconciliação operacional exposta na Administração | Correlação e observabilidade externa |
 | PR-030 | parcial | RPC idempotente de alertas para ruptura, validade, evento, compra atrasada e retorno pendente; acknowledge/resolve com auditoria e MFA gerencial | Job agendado, ciclos por causa e teste autenticado |
-| PR-031 | parcial | status/constraints de compras e fluxo de aprovação/rejeição/pedido/recebimento; `delivered_q` bloqueia sobre-entrega e `blocked_q` preserva quarentena | Conferência por linha e teste integrado autenticado |
+| PR-031 | parcial | status/constraints de compras e fluxo de aprovação/rejeição/pedido/recebimento; `delivered_q` bloqueia sobre-entrega, `blocked_q` preserva quarentena e status recebido segue apenas quantidades aceitas | Conferência por linha e teste integrado autenticado |
 | PR-032 | parcial | eventos, reservas FEFO, estados, consumo/liberação, reposição, manifesto e acerto com classificação/aprovação conectados ao painel | Teste operacional completo |
 | PR-033 | parcial | RLS em todas as tabelas expostas | Escopo por capacidade |
 | PR-034 | parcial | seed reproduzível com oito famílias, lotes válidos/vencidos, eventos, ativos e estrutura de manifesto/acerto | Segundo tenant, retorno e fechamento auditado com fixtures |
