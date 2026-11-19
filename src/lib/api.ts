@@ -3,13 +3,20 @@ import type { ActivityRow, AlertRow, FinanceAdjustment, MovementType, Reconcilia
 
 export async function getStockSummary(): Promise<StockSummary> {
   if (!supabase) return { totalItems: 0, availableValue: 0, criticalItems: 0, openEvents: 0, pendingReceipts: 0, openAlerts: 0 }
-  const [{ data: positions }, { data: policies }, { count: openEvents }, { count: pendingReceipts }, { count: openAlerts }] = await Promise.all([
+  const [positionsResult, policiesResult, eventsResult, receiptsResult, alertsResult] = await Promise.all([
     supabase.from('stock_positions').select('on_hand_q,reserved_q,condition,item_id,location_id,expires_on:lots(expires_on)').limit(1000),
     supabase.from('item_location_policies').select('item_id,location_id,min_q').limit(1000),
     supabase.from('events').select('id', { count: 'exact', head: true }).in('status', ['planned', 'separating', 'dispatched', 'operating', 'settling']),
     supabase.from('receipts').select('id', { count: 'exact', head: true }).in('status', ['draft', 'checking']),
     supabase.from('alerts').select('id', { count: 'exact', head: true }).in('status', ['new', 'acknowledged']),
   ])
+  const firstError = [positionsResult.error, policiesResult.error, eventsResult.error, receiptsResult.error, alertsResult.error].find(Boolean)
+  if (firstError) throw firstError
+  const { data: positions } = positionsResult
+  const { data: policies } = policiesResult
+  const { count: openEvents } = eventsResult
+  const { count: pendingReceipts } = receiptsResult
+  const { count: openAlerts } = alertsResult
   const rows = positions ?? []
   const availableValue = 0
   const minByPosition = new Map((policies ?? []).map(policy => [`${policy.item_id}:${policy.location_id}`, Number(policy.min_q)]))
